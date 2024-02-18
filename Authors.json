@@ -1,0 +1,68 @@
+[
+  {
+    "authorID": 1,
+    "firstName": "Jane",
+    "lastName": "Austen",
+    "image": "jane_austen.jpg",
+    "dob": "1775-12-16",
+    "description": "Renowned English novelist known for her romantic fiction.",
+    "authorBooks": ["Pride and Prejudice", "Sense and Sensibility"]
+  },
+  {
+    "authorID": 2,
+    "firstName": "William",
+    "lastName": "Shakespeare",
+    "image": "shakespeare.jpg",
+    "dob": "1564-04-23",
+    "description": "Legendary English playwright and poet, often called England's national poet.",
+    "authorBooks": ["Hamlet", "Romeo and Juliet"]
+  },
+  {
+    "authorID": 3,
+    "firstName": "Charles",
+    "lastName": "Dickens",
+    "image": "dickens.jpg",
+    "dob": "1812-02-07",
+    "description": "Influential Victorian novelist known for vivid characters and social criticism.",
+    "authorBooks": ["A Tale of Two Cities", "Great Expectations"]
+  },
+  {
+    "authorID": 4,
+    "firstName": "Agatha",
+    "lastName": "Christie",
+    "image": "christie.jpg",
+    "dob": "1890-09-15",
+    "description": "Queen of Crime, renowned for her detective novels and mystery stories.",
+    "authorBooks": ["Murder on the Orient Express", "And Then There Were None"]
+  },
+  {
+    "authorID": 5,
+    "firstName": "George",
+    "lastName": "Orwell",
+    "image": "orwell.jpg",
+    "dob": "1903-06-25",
+    "description": "Author and journalist, best known for dystopian novels and political writings.",
+    "authorBooks": ["1984", "Animal Farm"]
+  },
+  {
+    "authorID": 6,
+    "firstName": "Emily",
+    "lastName": "Brontë",
+    "image": "bronte.jpg",
+    "dob": "1818-07-30",
+    "description": "Novelist and poet, best known for her only novel, Wuthering Heights.",
+    "authorBooks": ["Wuthering Heights"]
+  },
+  {
+    "authorID": 10,
+    "firstName": "Gabriel",
+    "lastName": "García Márquez",
+    "image": "marquez.jpg",
+    "dob": "1927-03-06",
+    "description": "Colombian novelist and Nobel Prize winner, known for magical realism.",
+    "authorBooks": [
+      "One Hundred Years of Solitude",
+      "Love in the Time of Cholera"
+    ]
+  }
+]

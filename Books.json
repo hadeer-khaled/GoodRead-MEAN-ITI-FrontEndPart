@@ -1,0 +1,134 @@
+[
+  {
+    "bookID": 1,
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "category": "Fiction",
+    "description": "A classic novel about the struggles of adolescence.",
+    "rating": 4.5,
+    "bookReviews": 120,
+    "cover": "catcher.jpg",
+    "shelve": "read"
+  },
+  {
+    "bookID": 2,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "category": "Fiction",
+    "description": "A compelling novel addressing racial injustice in the American South.",
+    "rating": 4.8,
+    "bookReviews": 150,
+    "cover": "mockingbird.jpg",
+    "shelve": "want to read"
+  },
+  {
+    "bookID": 3,
+    "title": "1984",
+    "author": "George Orwell",
+    "category": "Dystopian",
+    "description": "A dystopian novel depicting a totalitarian future society.",
+    "rating": 4.7,
+    "bookReviews": 130,
+    "cover": "1984.jpg",
+    "shelve": "reading"
+  },
+  {
+    "bookID": 4,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "category": "Classic",
+    "description": "An exploration of the American Dream in the Roaring Twenties.",
+    "rating": 4.6,
+    "bookReviews": 140,
+    "cover": "gatsby.jpg",
+    "shelve": "read"
+  },
+  {
+    "bookID": 5,
+    "title": "The Lord of the Rings",
+    "author": "J.R.R. Tolkien",
+    "category": "Fantasy",
+    "description": "A classic high fantasy trilogy involving the One Ring.",
+    "rating": 4.9,
+    "bookReviews": 200,
+    "cover": "lotr.jpg",
+    "shelve": "reading"
+  },
+  {
+    "bookID": 6,
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "author": "J.K. Rowling",
+    "category": "Fantasy",
+    "description": "The first book in the magical Harry Potter series.",
+    "rating": 4.7,
+    "bookReviews": 180,
+    "cover": "harry_potter.jpg",
+    "shelve": "read"
+  },
+  {
+    "bookID": 7,
+    "title": "The Da Vinci Code",
+    "author": "Dan Brown",
+    "category": "Mystery",
+    "description": "A gripping mystery involving secret societies and hidden codes.",
+    "rating": 4.5,
+    "bookReviews": 150,
+    "cover": "da_vinci_code.jpg",
+    "shelve": "want to read"
+  },
+  {
+    "bookID": 8,
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "category": "Fantasy",
+    "description": "An epic fantasy novel introducing the world of Middle-earth.",
+    "rating": 4.9,
+    "bookReviews": 180,
+    "cover": "hobbit.jpg",
+    "shelve": "want to read"
+  },
+  {
+    "bookID": 9,
+    "title": "The Shining",
+    "author": "Stephen King",
+    "category": "Horror",
+    "description": "A psychological horror novel set in an isolated hotel.",
+    "rating": 4.6,
+    "bookReviews": 160,
+    "cover": "shining.jpg",
+    "shelve": "read"
+  },
+  {
+    "bookID": 10,
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "category": "Romance",
+    "description": "A classic novel exploring love and class in early 19th-century England.",
+    "rating": 4.8,
+    "bookReviews": 170,
+    "cover": "pride_prejudice.jpg",
+    "shelve": "reading"
+  },
+  {
+    "bookID": 11,
+    "title": "The Hitchhiker's Guide to the Galaxy",
+    "author": "Douglas Adams",
+    "category": "Science Fiction",
+    "description": "A comedic science fiction series following the adventures of Arthur Dent.",
+    "rating": 4.5,
+    "bookReviews": 140,
+    "cover": "hitchhikers_guide.jpg",
+    "shelve": "want to read"
+  },
+  {
+    "bookID": 12,
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "category": "Fantasy",
+    "description": "An epic fantasy novel introducing the world of Middle-earth.",
+    "rating": 4.9,
+    "bookReviews": 180,
+    "cover": "hobbit.jpg",
+    "shelve": "want to read"
+  }
+]
