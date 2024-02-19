@@ -4,7 +4,13 @@ import { BooksAdminTableComponent } from './books-admin-table/books-admin-table.
 import { AuthorsAdminTableComponent } from './authors-admin-table/authors-admin-table.component';
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { DashBoardComponent } from './pages/dash-board/dash-board.component';
+import { AppComponent } from './app.component';
 export const routes: Routes = [
+  {
+      path:"",
+      component: AppComponent ,
+      title:"app"
+  },
   {
     path: 'adminLogin',
     component: AdminLoginComponent,
@@ -30,6 +36,16 @@ export const routes: Routes = [
     component: AuthorsAdminTableComponent,
     title: 'Authors Admin Table',
   },
+  //{
+  //  path: 'userLogin',
+  //  component: UserLoginComponent,
+  //  title: 'Login',
+  //},
+  //{
+  //  path: 'userRegister',
+  //  component: UserRegisterComponent,
+  //  title: 'Creat an account',
+  //},
   //   {
   //     path: '**',
   //     component: NotFoundPage,

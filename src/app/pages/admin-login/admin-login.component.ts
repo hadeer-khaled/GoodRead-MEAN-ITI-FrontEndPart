@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admins } from '../../interfaces/admins';
-import {LoginService} from '../../services/login.service'
+//import {LoginService} from '../../services/login.service'
 
 
 @Component({
@@ -17,7 +17,7 @@ export class AdminLoginComponent {
  
   logObj !: Admins
 
-  constructor(private router: Router , private service: LoginService) { 
+  constructor(private router: Router /*, private service: LoginService */) { 
 
     this.logObj = {
       username: "",
@@ -28,10 +28,11 @@ export class AdminLoginComponent {
   }
 
   handleLogin(form:any){
-    this.service.login(this.logObj).subscribe(res =>{
+    //this.service.login(this.logObj).subscribe(res =>{
       //localStorage.setItem('loggedUser', JSON.stringify(res));
      //this.router.navigate('/dashBoard');
-    })
+   // })
+     // this.router.navigate('dashBoard');
 
   }
 }
