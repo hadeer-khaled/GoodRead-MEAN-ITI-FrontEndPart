@@ -1,2 +1,15 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+:root {
+  --body-bg: #faf3e1;
+  --gray: #373735;
+  --baby-blue: #9bd3d0;
+  --blue: #2d3e56;
+  --royal-blue: #22ac94;
+  --light-pink: #feccb5;
+  --beige: #efebe0;
+  --light-orange: #fec447;
+}
+body {
+  background-color: var(--body-bg);
+}
