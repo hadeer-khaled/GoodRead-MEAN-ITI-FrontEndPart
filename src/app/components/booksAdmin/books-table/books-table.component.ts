@@ -1,26 +1,33 @@
+import { Books } from '../../../../../Books.json';
 import { Categories } from '../../../../../Categories.json';
+import { Authors } from '../../../../../Authors.json';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-
 @Component({
-  selector: 'app-categories-table',
+  selector: 'app-books-table',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './categories-table.component.html',
-  styleUrl: './categories-table.component.css',
+  templateUrl: './books-table.component.html',
+  styleUrl: './books-table.component.css',
 })
-export class CategoriesTableComponent {
+export class BooksTableComponent {
   categories: any = Categories;
-  newCateoryName: string = '';
+  Authors: any = Authors;
+  books: any = Books;
+  newBookName: string = '';
+  newBookCategoryID: string = '';
+  newAuthorID: string = '';
 
   ngOnInit() {
-    // console.log('Categories', this.categories);
+    // console.log('books', this.books);
   }
-  getNewCateogrName() {
-    this.categories.push({
-      id: this.categories[Number(this.categories.length - 1)].id + 1,
-      categoryName: this.newCateoryName,
+  getNewBookName() {
+    this.books.push({
+      bookID: this.books[Number(this.books.length - 1)].bookID + 1,
+      title: this.newBookName,
+      categoryID: this.newBookCategoryID,
+      authorID: this.newAuthorID,
     });
   }
 

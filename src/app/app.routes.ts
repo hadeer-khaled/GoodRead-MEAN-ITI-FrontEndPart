@@ -3,6 +3,7 @@ import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { AppComponent } from './app.component';
 import { CategoriesTableComponent } from './components/categoriesAdmin/categories-table/categories-table.component';
 import { AdminControlPageComponent } from './pages/admin-control-page/admin-control-page.component';
+import { BooksTableComponent } from './components/booksAdmin/books-table/books-table.component';
 export const routes: Routes = [
   {
     path: '',
@@ -22,13 +23,13 @@ export const routes: Routes = [
   {
     path: 'adminControlPage/categoriesTable',
     component: CategoriesTableComponent,
-    title: 'categories Table',
+    title: 'Categories Table',
   },
-  // {
-  //   path: 'booksTable',
-  //   component: BooksTableComponent,
-  //   title: 'Books Table',
-  // },
+  {
+    path: 'adminControlPage/booksTable',
+    component: BooksTableComponent,
+    title: 'Books Table',
+  },
   // {
   //   path: 'authorsTable',
   //   component: AuthorsTableComponent,

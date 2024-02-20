@@ -1,0 +1,122 @@
+<div class="container mt-5">
+  <div class="table-add-container d-flex flex-column w-100">
+    <button
+      class="btn btn-sm add-btn rounded-circle mb-2 align-self-end"
+      (click)="open(content)"
+    >
+      <i class="fa-solid fa-plus fw-bold"></i>
+    </button>
+
+    <table class="table rounded-corners" style="width: 100%">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 5%">ID</th>
+          <th scope="col">Photo</th>
+          <th scope="col">Name</th>
+          <th scope="col">CategryID</th>
+          <th scope="col">AuthorID</th>
+          <th scope="col" style="width: 10%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (book of books ; track book.id){
+        <tr>
+          <th scope="row">{{ book.bookID }}</th>
+          <td><img src="../../../../assets/images/book1.jpg" /></td>
+          <td>{{ book.title }}</td>
+          <td>{{ book.categoryID }}</td>
+          <td>{{ book.authorID }}</td>
+
+          <td>
+            <button class="btn btn-sm btn-trach border-0 mx-2">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button class="btn btn-sm btn-edit border-0 mx-2">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add book</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <!-- Book Name -->
+        <div class="mb-3">
+          <label for="bookName" class="mb-2">Book Name</label>
+          <div class="input-group">
+            <input
+              id="bookName"
+              class="form-control"
+              placeholder="ex: Fantasy"
+              name="newBookName"
+              [(ngModel)]="newBookName"
+            />
+          </div>
+        </div>
+        <!-- Category Name -->
+        <div class="mb-3">
+          <label for="bookCategory" class="mb-2">Category</label>
+          <div class="input-group">
+            <select
+              id="bookCategory"
+              class="form-select form-select-lg mb-3"
+              name="newBookCategoryID"
+              aria-label=".form-select-lg example"
+              [(ngModel)]="newBookCategoryID"
+            >
+              @for( category of categories ; track category.id){
+              <option value="{{ category.id }}">
+                {{ category.categoryName }}
+              </option>
+              }
+            </select>
+          </div>
+        </div>
+        <!-- Author Name -->
+        <div class="mb-3">
+          <label for="bookAuthor" class="mb-2">Author</label>
+          <div class="input-group">
+            <select
+              id="bookAuthor"
+              class="form-select form-select-lg mb-3"
+              name="newAuthorID"
+              aria-label=".form-select-lg example"
+              [(ngModel)]="newAuthorID"
+            >
+              @for( author of Authors ; track author.authorID){
+              <option value="{{ author.authorID }}">
+                {{ author.firstName }}
+              </option>
+              }
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark add-confirm-btn"
+        (click)="[modal.close('Save click'), getNewBookName()]"
+      >
+        Add book
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- <pre>{{ closeResult }}</pre> -->
+</div>
