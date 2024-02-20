@@ -1,0 +1,76 @@
+<div class="container mt-5">
+  <div class="table-add-container d-flex flex-column w-100">
+    <button
+      class="btn btn-sm add-btn rounded-circle mb-2 align-self-end"
+      (click)="open(content)"
+    >
+      <i class="fa-solid fa-plus fw-bold"></i>
+    </button>
+
+    <table class="table rounded-corners" style="width: 100%">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 5%">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col" style="width: 10%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (category of categories ; track category.id){
+        <tr>
+          <th scope="row">{{ category.id }}</th>
+          <td>{{ category.categoryName }}</td>
+          <td>
+            <button class="btn btn-sm btn-trach border-0 mx-2">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button class="btn btn-sm btn-edit border-0 mx-2">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Category</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <div class="mb-3">
+          <label for="categoryName" class="mb-2">Category Name:</label>
+          <div class="input-group">
+            <input
+              id="categoryName"
+              class="form-control"
+              placeholder="ex: Fantasy"
+              name="categoryName"
+              [(ngModel)]="newCateoryName"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark add-confirm-btn"
+        (click)="[modal.close('Save click'), getNewCateogrName()]"
+      >
+        Add Category
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- <pre>{{ closeResult }}</pre> -->
+</div>
