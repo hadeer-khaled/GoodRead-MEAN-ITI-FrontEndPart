@@ -138,7 +138,13 @@
           <button
             type="submit"
             class="btn btn-outline-dark add-confirm-btn"
-            [disabled]="bookForm.controls['newBookName'].invalid"
+            [disabled]="
+              !(
+                bookForm.controls['newBookName'].valid &&
+                bookForm.controls['newAuthorID'].valid &&
+                bookForm.controls['newBookCategoryID'].valid
+              )
+            "
           >
             Add book
           </button>
