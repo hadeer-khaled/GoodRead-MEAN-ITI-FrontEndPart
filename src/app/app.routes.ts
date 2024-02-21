@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
-import { AppComponent } from './app.component';
 import { CategoriesTableComponent } from './components/categoriesAdmin/categories-table/categories-table.component';
 import { AdminControlPageComponent } from './pages/admin-control-page/admin-control-page.component';
 import { BooksTableComponent } from './components/booksAdmin/books-table/books-table.component';
