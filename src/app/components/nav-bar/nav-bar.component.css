@@ -1,7 +1,19 @@
-.nav{
+.navbar{
     height: auto;
     padding: 5px;
+    background-color: var(--body-bg);
 }
 .nav-link :hover {
     color: rgb(236, 234, 234) !important;
 }
+
+
+.dropdown-menu {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+  
+  .drop-link:hover {background-color: #b8b5b5;}
+  
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
