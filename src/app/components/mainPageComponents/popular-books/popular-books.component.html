@@ -1,1 +1,15 @@
-<p>popular-books works!</p>
+<div class="container my-5">
+  <h2 class="my-5 text-center">Most Popular Books</h2>
+  <div class="row g-4 mb-5">
+    @for(book of books ; track book.bookID){
+    <div class="col-lg-4 col-md-6">
+      <app-book-card
+        [bookName]="book.title"
+        [bookAuthor]="book.author"
+        [bookCover]="book.cover"
+      >
+      </app-book-card>
+    </div>
+    }
+  </div>
+</div>

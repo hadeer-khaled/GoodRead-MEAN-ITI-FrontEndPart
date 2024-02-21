@@ -8,3 +8,11 @@
 nav {
   background-color: #f3faff !important;
 }
+.signup-btn {
+  border: 1px solid #e41c77;
+  color: #e41c77;
+}
+.signup-btn:hover {
+  color: white;
+  background-color: #e41c77;
+}

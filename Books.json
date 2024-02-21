@@ -10,7 +10,7 @@
       "description": "A classic novel about the struggles of adolescence.",
       "rating": 4.5,
       "bookReviews": 120,
-      "cover": "catcher.jpg",
+      "cover": "book5.jpg",
       "shelve": "read"
     },
     {
@@ -23,7 +23,7 @@
       "description": "A compelling novel addressing racial injustice in the American South.",
       "rating": 4.8,
       "bookReviews": 150,
-      "cover": "mockingbird.jpg",
+      "cover": "book2.jpg",
       "shelve": "want to read"
     },
     {
@@ -36,47 +36,8 @@
       "description": "A dystopian novel depicting a totalitarian future society.",
       "rating": 4.7,
       "bookReviews": 130,
-      "cover": "1984.jpg",
+      "cover": "book3.jpg",
       "shelve": "reading"
-    },
-    {
-      "bookID": 4,
-      "title": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "authorID": "4",
-      "category": "Classic",
-      "categoryID": "1",
-      "description": "An exploration of the American Dream in the Roaring Twenties.",
-      "rating": 4.6,
-      "bookReviews": 140,
-      "cover": "gatsby.jpg",
-      "shelve": "read"
-    },
-    {
-      "bookID": 5,
-      "title": "The Lord of the Rings",
-      "author": "J.R.R. Tolkien",
-      "authorID": "1",
-      "category": "Fantasy",
-      "categoryID": "4",
-      "description": "A classic high fantasy trilogy involving the One Ring.",
-      "rating": 4.9,
-      "bookReviews": 200,
-      "cover": "lotr.jpg",
-      "shelve": "reading"
-    },
-    {
-      "bookID": 6,
-      "title": "Harry Potter and the Sorcerer's Stone",
-      "author": "J.K. Rowling",
-      "authorID": "2",
-      "category": "Fantasy",
-      "categoryID": "2",
-      "description": "The first book in the magical Harry Potter series.",
-      "rating": 4.7,
-      "bookReviews": 180,
-      "cover": "harry_potter.jpg",
-      "shelve": "read"
     }
   ]
 }

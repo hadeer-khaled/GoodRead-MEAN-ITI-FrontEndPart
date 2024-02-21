@@ -8,9 +8,12 @@
   --light-pink: #feccb5;
   --beige: #efebe0;
   --light-orange: #fec447;
+  --foshia: #e41c77;
+  --blue-blue: #0065a8;
 }
 div {
   background-color: #f3faff;
+  height: 100vh;
 }
 .right {
   display: flex;
