@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="table-add-container d-flex flex-column w-100">
     <button
       class="btn btn-sm add-btn rounded-circle mb-2 align-self-end"
@@ -53,7 +53,10 @@
     </div>
 
     <div class="modal-body">
-      <form>
+      <form
+        [formGroup]="bookForm"
+        (ngSubmit)="[getNewBookName(), modal.close('Save click')]"
+      >
         <!-- Book Name -->
         <div class="mb-3">
           <label for="bookName" class="mb-2">Book Name</label>
@@ -63,9 +66,19 @@
               class="form-control"
               placeholder="ex: Fantasy"
               name="newBookName"
-              [(ngModel)]="newBookName"
+              formControlName="newBookName"
             />
           </div>
+          @if(bookForm.controls['newBookName'].invalid &&
+          bookForm.controls['newBookName'].touched){
+          <div class="form-text text-danger">
+            @if(bookForm.controls['newBookName'].errors?.['required']){
+            <small>Book name is required</small>
+            } @if(bookForm.controls['newBookName'].errors?.['maxlength']){
+            <small>Book name should be less than 25 letters.</small>
+            }
+          </div>
+          }
         </div>
         <!-- Category Name -->
         <div class="mb-3">
@@ -75,8 +88,8 @@
               id="bookCategory"
               class="form-select form-select-lg mb-3"
               name="newBookCategoryID"
+              formControlName="newBookCategoryID"
               aria-label=".form-select-lg example"
-              [(ngModel)]="newBookCategoryID"
             >
               @for( category of categories ; track category.id){
               <option value="{{ category.id }}">
@@ -85,6 +98,14 @@
               }
             </select>
           </div>
+          @if(bookForm.controls['newBookCategoryID'].invalid &&
+          bookForm.controls['newBookCategoryID'].touched){
+          <div class="form-text text-danger">
+            @if(bookForm.controls['newBookCategoryID'].errors?.['required']){
+            <small>Category name is required</small>
+            }
+          </div>
+          }
         </div>
         <!-- Author Name -->
         <div class="mb-3">
@@ -94,8 +115,8 @@
               id="bookAuthor"
               class="form-select form-select-lg mb-3"
               name="newAuthorID"
+              formControlName="newAuthorID"
               aria-label=".form-select-lg example"
-              [(ngModel)]="newAuthorID"
             >
               @for( author of Authors ; track author.authorID){
               <option value="{{ author.authorID }}">
@@ -104,17 +125,31 @@
               }
             </select>
           </div>
+          @if(bookForm.controls['newAuthorID'].invalid &&
+          bookForm.controls['newAuthorID'].touched){
+          <div class="form-text text-danger">
+            @if(bookForm.controls['newAuthorID'].errors?.['required']){
+            <small>Author name is required</small>
+            }
+          </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-outline-dark add-confirm-btn"
+            [disabled]="
+              !(
+                bookForm.controls['newBookName'].valid &&
+                bookForm.controls['newAuthorID'].valid &&
+                bookForm.controls['newBookCategoryID'].valid
+              )
+            "
+          >
+            Add book
+          </button>
         </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-outline-dark add-confirm-btn"
-        (click)="[modal.close('Save click'), getNewBookName()]"
-      >
-        Add book
-      </button>
     </div>
   </ng-template>
 

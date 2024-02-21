@@ -5,11 +5,12 @@ import { CategoriesTableComponent } from './components/categoriesAdmin/categorie
 import { AdminControlPageComponent } from './pages/admin-control-page/admin-control-page.component';
 import { BooksTableComponent } from './components/booksAdmin/books-table/books-table.component';
 import { AuthorsTableComponent } from './components/authorsAdmin/authors-table/authors-table.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 export const routes: Routes = [
   {
     path: '',
-    component: AppComponent,
-    title: 'app',
+    component: MainPageComponent,
+    title: 'Main Page',
   },
   {
     path: 'adminLogin',
@@ -19,7 +20,12 @@ export const routes: Routes = [
   {
     path: 'adminControlPage',
     component: AdminControlPageComponent,
-    title: 'Admin Login',
+    title: 'Admin ControlPage',
+    children: [
+      { path: 'categoriesTable', component: CategoriesTableComponent },
+      { path: 'booksTable', component: BooksTableComponent },
+      { path: 'authorsTable', component: AuthorsTableComponent },
+    ],
   },
   {
     path: 'adminControlPage/categoriesTable',
@@ -36,16 +42,6 @@ export const routes: Routes = [
     component: AuthorsTableComponent,
     title: 'Authors Table',
   },
-  //{
-  //  path: 'userLogin',
-  //  component: UserLoginComponent,
-  //  title: 'Login',
-  //},
-  //{
-  //  path: 'userRegister',
-  //  component: UserRegisterComponent,
-  //  title: 'Creat an account',
-  //},
   //   {
   //     path: '**',
   //     component: NotFoundPage,

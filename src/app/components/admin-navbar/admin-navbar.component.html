@@ -1,26 +1,36 @@
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a
-      class="nav-link"
-      routerLink="adminControlPage"
-      routerLinkActive="active-link"
-      >Admin Panel</a
-    >
-  </li>
-  <li class="nav-item">
-    <a
-      class="nav-link"
-      aria-current="page"
-      routerLink="categoriesTable"
-      routerLinkActive="active-link"
-      >Categories</a
-    >
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Books</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Authors</a>
-  </li>
-</ul>
-<h2>Welcom to the Admin panel</h2>
+<div class="mt-3">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        aria-current="page"
+        routerLink="/adminControlPage"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Admin Panel</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        aria-current="page"
+        routerLink="categoriesTable"
+        routerLinkActive="active-link"
+        >Categories</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="booksTable" routerLinkActive="active-link"
+        >Books</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        routerLink="authorsTable"
+        routerLinkActive="active-link"
+        >Authors</a
+      >
+    </li>
+  </ul>
+</div>

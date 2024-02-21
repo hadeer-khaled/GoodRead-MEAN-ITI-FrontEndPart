@@ -1,25 +1,46 @@
 import { Authors } from '../../../../../Authors.json';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-authors-table',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './authors-table.component.html',
   styleUrl: './authors-table.component.css',
 })
 export class AuthorsTableComponent {
   authors: any = Authors;
-  newFirstName: string = '';
-  newLastName: string = '';
-  newDob!: Date;
+
+  authorForm!: FormGroup;
+  constructor(private router: Router) {
+    this.authorForm = new FormGroup({
+      newFirstName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+      newLastName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+      newDob: new FormControl('', [Validators.required]),
+    });
+  }
   getNewAuthorName() {
     this.authors.push({
       authorID: this.authors[Number(this.authors.length - 1)].authorID + 1,
-      firstName: this.newFirstName,
-      lastName: this.newLastName,
-      dob: this.newDob,
+      firstName: this.authorForm.value.newFirstName,
+      lastName: this.authorForm.value.newLastName,
+      dob: this.authorForm.value.newDob,
     });
   }
   // --------------------------- NgBootstrap Code --------------------------- \\
