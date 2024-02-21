@@ -25,6 +25,7 @@ export class CategoriesTableComponent {
     this.categoryForm = new FormGroup({
       newCategoryName: new FormControl('', [
         Validators.required,
+        Validators.maxLength(20),
         Validators.pattern('[a-zA-Z ]*'),
       ]),
     });
@@ -35,7 +36,6 @@ export class CategoriesTableComponent {
       id: this.categories[Number(this.categories.length - 1)].id + 1,
       categoryName: this.categoryForm.value.newCategoryName,
     });
-    console.log(this.categoryForm.value);
   }
 
   // --------------------------- NgBootstrap Code --------------------------- \\

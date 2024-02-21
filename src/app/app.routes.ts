@@ -24,6 +24,7 @@ export const routes: Routes = [
     children: [
       { path: 'categoriesTable', component: CategoriesTableComponent },
       { path: 'booksTable', component: BooksTableComponent },
+      { path: 'authorsTable', component: AuthorsTableComponent },
     ],
   },
   {

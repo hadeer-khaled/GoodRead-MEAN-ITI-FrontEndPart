@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="table-add-container d-flex flex-column w-100">
     <button
       class="btn btn-sm add-btn rounded-circle mb-2 align-self-end"
@@ -68,6 +68,9 @@
             <small>Category name is required</small>
             } @if(categoryForm.controls['newCategoryName'].errors?.['pattern']){
             <small>Category name consists of letters only</small>
+            }
+            @if(categoryForm.controls['newCategoryName'].errors?.['maxlength']){
+            <small>Category name has max length of 20 letters only</small>
             }
           </div>
           }
