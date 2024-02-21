@@ -1,27 +1,41 @@
 import { Categories } from '../../../../../Categories.json';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categories-table',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './categories-table.component.html',
   styleUrl: './categories-table.component.css',
 })
 export class CategoriesTableComponent {
   categories: any = Categories;
-  newCateoryName: string = '';
 
-  ngOnInit() {
-    // console.log('Categories', this.categories);
+  categoryForm!: FormGroup;
+  constructor(private router: Router) {
+    this.categoryForm = new FormGroup({
+      newCategoryName: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+    });
   }
+
   getNewCateogrName() {
     this.categories.push({
       id: this.categories[Number(this.categories.length - 1)].id + 1,
-      categoryName: this.newCateoryName,
+      categoryName: this.categoryForm.value.newCategoryName,
     });
+    console.log(this.categoryForm.value);
   }
 
   // --------------------------- NgBootstrap Code --------------------------- \\

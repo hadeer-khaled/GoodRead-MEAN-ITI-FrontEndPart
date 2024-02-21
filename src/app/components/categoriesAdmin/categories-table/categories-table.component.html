@@ -46,29 +46,42 @@
     </div>
 
     <div class="modal-body">
-      <form>
+      <form
+        [formGroup]="categoryForm"
+        (ngSubmit)="[getNewCateogrName(), modal.close('Save click')]"
+      >
         <div class="mb-3">
-          <label for="categoryName" class="mb-2">Category Name:</label>
+          <label for="newCategoryName" class="mb-2">Category Name:</label>
           <div class="input-group">
             <input
-              id="categoryName"
+              id="newCategoryName"
               class="form-control"
               placeholder="ex: Fantasy"
-              name="categoryName"
-              [(ngModel)]="newCateoryName"
+              name="newCategoryName"
+              formControlName="newCategoryName"
             />
           </div>
+          @if(categoryForm.controls['newCategoryName'].invalid &&
+          categoryForm.controls['newCategoryName'].touched){
+          <div class="form-text text-danger">
+            @if(categoryForm.controls['newCategoryName'].errors?.['required']){
+            <small>Category name is required</small>
+            } @if(categoryForm.controls['newCategoryName'].errors?.['pattern']){
+            <small>Category name consists of letters only</small>
+            }
+          </div>
+          }
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-outline-dark add-confirm-btn"
+            [disabled]="categoryForm.controls['newCategoryName'].invalid"
+          >
+            Add Category
+          </button>
         </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-outline-dark add-confirm-btn"
-        (click)="[modal.close('Save click'), getNewCateogrName()]"
-      >
-        Add Category
-      </button>
     </div>
   </ng-template>
 
