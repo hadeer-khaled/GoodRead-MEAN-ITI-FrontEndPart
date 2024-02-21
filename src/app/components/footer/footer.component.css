@@ -1,0 +1,17 @@
+footer {
+  background-image: linear-gradient(
+    to right top,
+    #0065a8,
+    #4661b3,
+    #745ab5,
+    #9d4dae,
+    #c13a9c,
+    #dc368b,
+    #ef3b77,
+    #fc4961,
+    #ff6952,
+    #ff8947,
+    #ffa741,
+    #fec447
+  );
+}
