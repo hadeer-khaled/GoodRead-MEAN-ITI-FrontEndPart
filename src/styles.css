@@ -6,10 +6,11 @@
   --baby-blue: #9bd3d0;
   --blue: #2d3e56;
   --royal-blue: #22ac94;
+  --royal-green: #143464;
   --light-pink: #feccb5;
   --beige: #efebe0;
   --light-orange: #fec447;
 }
 body {
-  background-color: var(--body-bg);
+  background-color: white !important;
 }

@@ -9,3 +9,12 @@
   --beige: #efebe0;
   --light-orange: #fec447;
 }
+div {
+  background-color: #f3faff;
+}
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

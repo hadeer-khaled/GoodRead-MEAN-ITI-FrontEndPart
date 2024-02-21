@@ -1,7 +1,10 @@
-.nav{
+/* .nav{
     height: auto;
     padding: 5px;
 }
 .nav-link :hover {
     color: rgb(236, 234, 234) !important;
+} */
+nav {
+  background-color: #f3faff !important;
 }

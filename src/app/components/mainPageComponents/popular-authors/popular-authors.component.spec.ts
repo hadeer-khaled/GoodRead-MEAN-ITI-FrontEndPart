@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavBarComponent } from './nav-bar.component';
+import { PopularAuthorsComponent } from './popular-authors.component';
 
-describe('NavBarComponent', () => {
-  let component: NavBarComponent;
-  let fixture: ComponentFixture<NavBarComponent>;
+describe('PopularAuthorsComponent', () => {
+  let component: PopularAuthorsComponent;
+  let fixture: ComponentFixture<PopularAuthorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavBarComponent]
+      imports: [PopularAuthorsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(NavBarComponent);
+    fixture = TestBed.createComponent(PopularAuthorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

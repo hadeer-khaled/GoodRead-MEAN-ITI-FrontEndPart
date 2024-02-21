@@ -1,0 +1,28 @@
+:root {
+  --body-bg: #faf3e1;
+  --gray: #373735;
+  --baby-blue: #9bd3d0;
+  --blue: #2d3e56;
+  --royal-blue: #22ac94;
+  --royal-green: #143464;
+  --light-pink: #feccb5;
+  --beige: #efebe0;
+  --light-orange: #fec447;
+}
+a {
+  color: black;
+}
+a:hover {
+  color: var(--royal-blue);
+}
+.nav-tabs {
+  border-bottom: 1px solid var(--royal-blue);
+}
+.active-link {
+  border-left: 1px solid var(--royal-blue) !important;
+  border-right: 1px solid var(--royal-blue) !important;
+  border-top: 1px solid var(--royal-blue) !important;
+  border-bottom: 1px solid white !important;
+  color: var(--royal-blue);
+  font-weight: bold;
+}
