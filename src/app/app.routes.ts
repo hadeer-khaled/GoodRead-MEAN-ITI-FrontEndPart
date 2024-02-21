@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { CategoriesTableComponent } from './components/categoriesAdmin/categories-table/categories-table.component';
 import { AdminControlPageComponent } from './pages/admin-control-page/admin-control-page.component';
 import { BooksTableComponent } from './components/booksAdmin/books-table/books-table.component';
+import { AuthorsTableComponent } from './components/authorsAdmin/authors-table/authors-table.component';
 export const routes: Routes = [
   {
     path: '',
@@ -30,11 +31,11 @@ export const routes: Routes = [
     component: BooksTableComponent,
     title: 'Books Table',
   },
-  // {
-  //   path: 'authorsTable',
-  //   component: AuthorsTableComponent,
-  //   title: 'Authors Table',
-  // },
+  {
+    path: 'adminControlPage/authorsTable',
+    component: AuthorsTableComponent,
+    title: 'Authors Table',
+  },
   //{
   //  path: 'userLogin',
   //  component: UserLoginComponent,

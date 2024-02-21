@@ -1,0 +1,113 @@
+<div class="container mt-5">
+  <div class="table-add-container d-flex flex-column w-100">
+    <button
+      class="btn btn-sm add-btn rounded-circle mb-2 align-self-end"
+      (click)="open(content)"
+    >
+      <i class="fa-solid fa-plus fw-bold"></i>
+    </button>
+
+    <table class="table rounded-corners" style="width: 100%">
+      <thead>
+        <tr>
+          <th scope="col" style="width: 5%">ID</th>
+          <th scope="col">Photo</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Birth of Date</th>
+          <th scope="col" style="width: 10%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (author of authors ; track authors.authorID){
+        <tr>
+          <th scope="row">{{ author.authorID }}</th>
+          <td><img src="../../../../assets/images/book1.jpg" /></td>
+          <td>{{ author.firstName }}</td>
+          <td>{{ author.lastName }}</td>
+          <td>{{ author.dob }}</td>
+
+          <td>
+            <button class="btn btn-sm btn-trach border-0 mx-2">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button class="btn btn-sm btn-edit border-0 mx-2">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add author</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <!-- newFirstName -->
+        <div class="mb-3">
+          <label for="newFirstName" class="mb-2">First Name </label>
+          <div class="input-group">
+            <input
+              id="newFirstName"
+              class="form-control"
+              placeholder="ex: Fantasy"
+              name="newFirstName"
+              [(ngModel)]="newFirstName"
+            />
+          </div>
+        </div>
+        <!-- newLastName -->
+        <div class="mb-3">
+          <label for="newLastName" class="mb-2">Last Name</label>
+          <div class="input-group">
+            <input
+              id="newLastName"
+              class="form-control"
+              placeholder="ex: Fantasy"
+              name="newLastName"
+              [(ngModel)]="newLastName"
+            />
+          </div>
+        </div>
+        <!-- new Date of Birth -->
+        <div class="mb-3">
+          <div
+            class="input-group d-flex justify-content-start align-items-baseline"
+          >
+            <label for="birthday" class="mb-2">Birthday:</label>
+            <input
+              class="mx-3"
+              type="date"
+              id="birthday"
+              name="newDob"
+              [(ngModel)]="newDob"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark add-confirm-btn"
+        (click)="[modal.close('Save click'), getNewAuthorName()]"
+      >
+        Add author
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- <pre>{{ closeResult }}</pre> -->
+</div>
