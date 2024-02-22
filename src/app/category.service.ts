@@ -43,7 +43,7 @@ export class CategoryService {
   }
 
   // Method to get all categories (public access)
-  getAllCategories(pageNum: number = 1): Observable<any[]> {
+  getAllCategories(pageNum: number = 1 , token : string): Observable<any[]> {
     return this.http
       .get<any[]>(`${this.apiUrl}?pageNum=${pageNum}`)
       .pipe(catchError(this.handleError));

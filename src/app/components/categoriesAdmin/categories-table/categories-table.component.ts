@@ -24,11 +24,13 @@ import { CategoryService } from '../../../category.service';
   styleUrl: './categories-table.component.css',
 })
 export class CategoriesTableComponent {
-  categories: any = Categories;
+ // categories: any = Categories;
+ categories: any  ;
+ 
   token: string = '';
 
   categoryForm!: FormGroup;
-
+  
   editCategoryForm!: FormGroup;
   editedCategoryId!: number;
   ////
@@ -39,8 +41,7 @@ export class CategoriesTableComponent {
     private modalService: NgbModal,
     private categoryService: CategoryService
   ) {
-    this.token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1OTg2NTZ9.ImHWrsLWSeMohEiGD-pIBWsCGzge9KMB98JeFXH2JWQ';
+    this.token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1OTg2NTZ9.ImHWrsLWSeMohEiGD-pIBWsCGzge9KMB98JeFXH2JWQ';
     this.categoryForm = new FormGroup({
       newCategoryName: new FormControl('', [
         Validators.required,
@@ -61,7 +62,16 @@ export class CategoriesTableComponent {
     });
   }
   ngOnInit(): void {
-    // Example usage of CategoryService methods
+    this.categoryService.getAllCategories(1,this.token).subscribe(categories => {
+      // Do something with the categories array
+      this.categories = categories;
+      const firstCategory = categories[0]; // Get the first category
+      console.log(firstCategory);
+      console.log(categories);
+      console.log(this.categories);
+    });
+    // Subscribe to the Observable to obtain the array of categories
+      // Example usage of CategoryService methods
     // this.addCategory();
     // this.updateCategory();
     // this.deleteCategory();
@@ -130,7 +140,7 @@ export class CategoriesTableComponent {
 
   getAllCategories() {
     const pageNum = 1; // Or any page number you want to fetch
-    this.categoryService.getAllCategories(pageNum).subscribe(
+    this.categoryService.getAllCategories(pageNum , this.token).subscribe(
       (categories) => {
         console.log('Categories:', categories);
         // Handle categories
