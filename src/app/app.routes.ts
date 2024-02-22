@@ -6,11 +6,11 @@ import { BooksTableComponent } from './components/booksAdmin/books-table/books-t
 import { AuthorsTableComponent } from './components/authorsAdmin/authors-table/authors-table.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 export const routes: Routes = [
-  /*{
+  {
     path: '',
     component: MainPageComponent,
     title: 'Main Page',
-  },*/
+  },
   {
     path: 'adminLogin',
     component: AdminLoginComponent,
