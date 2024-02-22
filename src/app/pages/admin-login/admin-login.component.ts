@@ -2,7 +2,7 @@ import { Component, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Admins } from '../../interfaces/admins';
-import {LoginService} from '../../services/login.service'
+import {AdminService} from '../../admin.service'
 
 
 @Component({
@@ -19,13 +19,25 @@ export class AdminLoginComponent {
   logObj !: Admins
   allAdmis : Admins[] = []
    errorMessage = null
+  token : string = '';
+  admindata: any;
 
-  constructor(private router: Router , private http: LoginService ){
+  constructor(private router: Router , private http: AdminService ){
     this.logObj = {
       username: "",
       password: "",
       role:"admin",
-    }
+    };
+    this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1ODk1NDZ9.BoXTEIdem5J_Vg0oU4zqXLeZ3-YUZp5ZtouqVD3LSXU'
+   this.admindata = {
+     username:"samir121",
+     firstName: "samir",
+     lastName: "Tarek",
+     email: "admin2@ample.com",
+     password: "password123",
+     repassword: "password123",
+     role:"admin"
+   }
   }
 
   
@@ -39,25 +51,63 @@ export class AdminLoginComponent {
   })
 }*/
 
+/*
   onSubmit(form:any){
     if (!form.valid){
       alert("Please fill all the fields");
       return;
     }
     else{
-      this.http.login(this.logObj).subscribe(res =>{
-        console.log(res)
-      },
-      error =>{
-        this.errorMessage = error.error
-        console.log(this.errorMessage)
-      })
+      // // lohin logic ///
+  const credentials = {username: this.logObj.username, password: this.logObj.password };
+  this.http.login(credentials).subscribe(response => {
+    console.log('User logged in successfully:', response);
+    localStorage.setItem('token', JSON.stringify(response.data));
+    console.log(localStorage.getItem('token'));
+  }, error => {
+    console.error('Error logging in:', error);
+  });
     }
-   
-  
+  }
+*/
+  onSubmit(form: any) {
+    if (!form.valid) {
+      alert("Please fill all the fields");
+      return;
+    } else {
+      // Move the following part inside the else block to access admindata and token
+      this.http.addAdmin(this.admindata, this.token).subscribe(response => {
+        console.log(response)
+      }, error => {
+        console.error('Error adding admin:', error);
+      });
+    }
   }
   
+  
 }
+
+
+
+/*
+addAdmin() {
+  const adminData = { username: 'admin', password: 'admin123' };
+  this.adminService.addAdmin(adminData).subscribe(response => {
+    console.log('Admin added successfully:', response);
+  }, error => {
+    console.error('Error adding admin:', error);
+  });
+}
+
+login() {
+  const credentials = { username: 'user', password: 'password' };
+  this.adminService.login(credentials).subscribe(response => {
+    console.log('User logged in successfully:', response);
+  }, error => {
+    console.error('Error logging in:', error);
+  });
+}
+*/
    
     
 

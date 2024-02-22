@@ -31,7 +31,9 @@
             <button class="btn btn-sm btn-trach border-0 mx-2">
               <i class="fa-solid fa-trash-can"></i>
             </button>
-            <button class="btn btn-sm btn-edit border-0 mx-2">
+            <button class="btn btn-sm btn-edit border-0 mx-2"
+            >
+            <!--(click)="editAuthor(author,editAuthormodal)"-->
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </td>
@@ -148,6 +150,48 @@
       </form>
     </div>
   </ng-template>
+
+  
+  <!------------edit---------------->
+  
+  <ng-template #editAuthormodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <!--
+    <div class="modal-body">
+      <form [formGroup]="editAuthorForm" (ngSubmit)="updateAuthor()">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName">
+          </div>
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
+          </div>
+          <div class="mb-3">
+            <label for="BOD" class="form-label">Birth of Date</label>
+            <input type="text" class="form-control" id="BOD" name="BOD" formControlName="BOD">
+          </div>      
+        <div class="modal-footer">
+          <button
+          type="submit"
+          class="btn btn-outline-dark add-confirm-btn"
+          [disabled]="editAuthorForm.invalid"
+          >
+          Save Changes
+        </button>
+        </div>
+      </form>
+      </div>
+    -->
+    </ng-template>
 
   <!-- <pre>{{ closeResult }}</pre> -->
 </div>

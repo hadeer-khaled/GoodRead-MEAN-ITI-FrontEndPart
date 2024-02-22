@@ -1,0 +1,71 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminService {
+  private apiUrl = 'http://127.0.0.1:3000/admin';
+
+  constructor(private http: HttpClient) { }
+
+  addAdmin(adminData: any , token:string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
+    return this.http.post<any>(`${this.apiUrl}/`, adminData, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  login(credentials: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(() => error); // Using throwError function
+  }
+}
+
+/*
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminService {
+  private apiUrl = 'http://127.0.0.1:3000/admin';
+
+  constructor(private http: HttpClient) { }
+
+  addAdmin(adminData: any): Observable<any> {
+    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN'); // Define headers here
+    return this.http.post<any>(`${this.apiUrl}/addAdmin`, adminData, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  login(credentials: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    throw error;
+  }
+}
+
+
+*/
