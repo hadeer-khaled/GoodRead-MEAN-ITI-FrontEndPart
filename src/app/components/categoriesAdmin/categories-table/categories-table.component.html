@@ -21,11 +21,23 @@
           <th scope="row">{{ category.id }}</th>
           <td>{{ category.categoryName }}</td>
           <td>
-            <button class="btn btn-sm btn-trach border-0 mx-2">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <button class="btn btn-sm btn-edit border-0 mx-2">
-              <i class="fa-solid fa-pen-to-square"></i>
+            <!--
+<button >Delete Category</button>
+
+            -->
+            <button class="btn btn-sm btn-trach border-0 mx-2"
+            (click)="delete(category.id)"
+            >
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+          <!--
+            (click)="openDialog()"
+              (click)="openDeleteModal(category.id)"
+              <app-delete-confirm (confirmDelete)="confirmDeleteCategory(category.id)"></app-delete-confirm>
+            -->
+            <button class="btn btn-sm btn-edit border-0 mx-2 "
+            (click)="editCategory(category, editModal)">
+          <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </td>
         </tr>
@@ -82,6 +94,46 @@
             [disabled]="categoryForm.controls['newCategoryName'].invalid"
           >
             Add Category
+          </button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <!-- ------------edit---------------->
+
+  <ng-template #editModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Category</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+  
+    <div class="modal-body">
+      <form [formGroup]="editCategoryForm" (ngSubmit)="updateCategory()">
+        <div class="mb-3">
+          <label for="editCategoryName" class="mb-2">Category Name:</label>
+          <div class="input-group">
+            <input
+              id="editCategoryName"
+              class="form-control"
+              placeholder="ex: Fantasy"
+              name="editCategoryName"
+              formControlName="editCategoryName"
+            />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-outline-dark add-confirm-btn"
+            [disabled]="editCategoryForm.controls['editCategoryName'].invalid"
+          >
+            Save Changes
           </button>
         </div>
       </form>

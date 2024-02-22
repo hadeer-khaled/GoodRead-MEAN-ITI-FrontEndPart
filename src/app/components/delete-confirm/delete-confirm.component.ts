@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-delete-confirm',
@@ -8,11 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './delete-confirm.component.css'
 })
 export class DeleteConfirmComponent {
-  deleteBook(){
+  @Output() confirmDelete: EventEmitter<void> = new EventEmitter<void>();
 
+  constructor() { }
+
+  onDeleteConfirmed() {
+    this.confirmDelete.emit();
   }
-  cancel(){
-    
-  }
+
 
 }
+
