@@ -1,23 +1,52 @@
-<nav class="navbar navbar-expand fixed-top bg-secondary">
-    <div class="container">
-        <a class="navbar-brand nav-link text-black " routerLink="/"> 
-        <img src="../../assets/images/logo.svg" 
-        style="width: 50px;height: 50px; border-radius: 50%; margin-right:6px;"> 
-        <strong>Good Read</strong>
-        </a>
-        <ul class="navbar-nav ms-5 ">
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase text-black" 
-            routerLink="/userLogin">
-            <strong> Login </strong> 
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase text-black" 
-            routerLink="/userRegister">
-             <strong> Register </strong>
-            </a>
-          </li>
-        </ul>
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
+  <div class="container">
+    <div class="div">
+      <a class="navbar-brand"
+        ><img
+          src="../../../assets/images/logo2.png"
+          alt="logo"
+          style="width: 10%"
+      /></a>
+    </div>
+    <div class="d-flex">
+      <!-- <button class="btn btn-outline-primary login-btn mx-2" type="submit">
+        Login
+      </button> -->
+      <div class="row">
+        <div class="col">
+          <div ngbDropdown class="d-inline-block login-btn mx-2">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              Login
+            </button>
+
+            <div
+              ngbDropdownMenu
+              aria-labelledby="dropdownBasic1"
+              class="ngbDropdownMenu p-2"
+            >
+              <a
+                class="nav-link pb-2"
+                aria-current="page"
+                routerLink="adminLogin"
+                >Admin</a
+              >
+              <a
+                class="nav-link"
+                aria-current="page"
+                routerLink="AdminLoginComponent"
+                >User</a
+              >
+            </div>
+          </div>
+        </div>
       </div>
-  </nav>
+
+      <button class="btn signup-btn" type="submit">Signup</button>
+    </div>
+  </div>
+</nav>

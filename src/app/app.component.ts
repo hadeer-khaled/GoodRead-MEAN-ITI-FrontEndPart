@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UserLoginComponent } from './user-login/user-login.component';
-import { CategoriesTableComponent } from './components/categoriesAdmin/categories-table/categories-table.component';
+import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { DeleteConfirmComponent } from './components/delete-confirm/delete-confirm.component';
+import { NavBarComponent } from './components/mainPageComponents/nav-bar/nav-bar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    DeleteConfirmComponent,
-    CategoriesTableComponent,
-    UserLoginComponent
+    DeleteConfirmComponent, AdminLoginComponent,
+    NavBarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
