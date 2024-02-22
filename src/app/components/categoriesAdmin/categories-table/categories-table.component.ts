@@ -24,9 +24,6 @@ import { DataService } from '../../../services/data.service';
   styleUrl: './categories-table.component.css',
 })
 export class CategoriesTableComponent {
-
- 
-
   categories: any = Categories;
 
   categoryForm!: FormGroup;
@@ -106,7 +103,7 @@ editCategory(category: any, content: any) {
   // ---------------- delete ---------------- //
   
     delete(id: number){
-      this.categories = this.categories.filter((task : any) => task.id !== id)
+      this.categories = this.categories.filter((category : any) => category.id !== id)
     }
   
   

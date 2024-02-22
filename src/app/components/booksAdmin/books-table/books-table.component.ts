@@ -8,9 +8,12 @@ import {
   FormControl,
   FormGroup,
   FormsModule,
+  FormBuilder,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from '../../../services/data.service';
+
 @Component({
   selector: 'app-books-table',
   standalone: true,
@@ -22,9 +25,16 @@ export class BooksTableComponent {
   categories: any = Categories;
   Authors: any = Authors;
   books: any = Books;
-
+  editBookForm!: FormGroup;
+  editedBookId!: number;
+  selectedBook!: any
   bookForm!: FormGroup;
-  constructor(private router: Router) {
+
+  constructor(private router: Router,
+      private dataService: DataService,
+      private formBuilder: FormBuilder,
+      private modalService: NgbModal 
+      ) {
     this.bookForm = new FormGroup({
       newBookName: new FormControl('', [
         Validators.required,
@@ -32,6 +42,19 @@ export class BooksTableComponent {
       ]),
       newBookCategoryID: new FormControl('', [Validators.required]),
       newAuthorID: new FormControl('', [Validators.required]),
+    });
+
+    this.editBookForm = this.formBuilder.group({
+      title: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(25),
+      ]),
+      categoryID: new FormControl('', 
+        [Validators.required,
+      Validators.pattern('^[0-9]*$')]),
+      authorID: new FormControl('', 
+        [Validators.required,
+      Validators.pattern('^[0-9]*$')]),
     });
   }
   getNewBookName() {
@@ -45,7 +68,6 @@ export class BooksTableComponent {
   }
 
   // --------------------------- NgBootstrap Code --------------------------- \\
-  private modalService = inject(NgbModal);
   closeResult = '';
   open(content: TemplateRef<any>) {
     this.modalService
@@ -69,4 +91,45 @@ export class BooksTableComponent {
         return `with: ${reason}`;
     }
   }
+    // ------------ edit ngModal --------------//
+    editBook(book: any, editModal: any) {
+      console.log('Editing book:', book);
+      this.editedBookId = book.bookID;
+      this.selectedBook = { 
+        title: book.title,
+        categoryID: book.categoryID,
+        authorID: book.authorID
+      };
+      console.log('Selected book:', this.selectedBook);
+      this.populateForm();
+      this.modalService.open(editModal, { centered: true });
+    }
+    
+    populateForm() {
+      console.log('Selected book for form population:', this.selectedBook);
+      this.editBookForm.patchValue({
+        title: this.selectedBook.title,
+        categoryID: this.selectedBook.categoryID,
+        authorID: this.selectedBook.authorID,
+      });
+    }
+    updateBook() {
+      const isvalid = this.editBookForm.valid
+      if (isvalid) {
+        const isUpdated = this.dataService.updateBook(this.editedBookId, this.selectedBook);
+        if (isUpdated) {
+          this.modalService.dismissAll();
+          this.router.navigate(['/admin/books']);
+        }
+      }
+      else {
+        console.log('Form is not valid');
+      }
+      console.log(this.editBookForm.value);
+    }
+   
+    // ---------- delete ------------//
+    delete(id: number){
+      this.books = this.books.filter((book : any) => book.bookID !== id)
+    }
 }

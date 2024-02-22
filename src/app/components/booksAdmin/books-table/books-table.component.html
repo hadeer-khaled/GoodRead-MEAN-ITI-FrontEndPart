@@ -28,10 +28,12 @@
           <td>{{ book.authorID }}</td>
 
           <td>
-            <button class="btn btn-sm btn-trach border-0 mx-2">
+            <button class="btn btn-sm btn-trach border-0 mx-2"
+            (click)="delete(book.bookID)">
               <i class="fa-solid fa-trash-can"></i>
             </button>
-            <button class="btn btn-sm btn-edit border-0 mx-2">
+            <button class="btn btn-sm btn-edit border-0 mx-2"
+            (click)="editBook (book,editBookmodal)">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </td>
@@ -153,5 +155,44 @@
     </div>
   </ng-template>
 
+  <!------------edit---------------->
+  
+  <ng-template #editBookmodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="editBookForm" (ngSubmit)="updateBook()">
+          <div class="mb-3">
+            <label for="title" class="form-label">Name</label>
+            <input type="text" class="form-control" id="title" name="title" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label for="categoryID" class="form-label">Category ID</label>
+            <input type="text" class="form-control" id="categoryID" name="categoryID" formControlName="categoryID">
+          </div>
+          <div class="mb-3">
+            <label for="authorID" class="form-label">Author ID</label>
+            <input type="text" class="form-control" id="authorID" name="authorID" formControlName="authorID">
+          </div>      
+        <div class="modal-footer">
+          <button
+          type="submit"
+          class="btn btn-outline-dark add-confirm-btn"
+          [disabled]="editBookForm.invalid"
+          >
+          Save Changes
+        </button>
+        </div>
+      </form>
+      </div>
+    </ng-template>
   <!-- <pre>{{ closeResult }}</pre> -->
 </div>
+
