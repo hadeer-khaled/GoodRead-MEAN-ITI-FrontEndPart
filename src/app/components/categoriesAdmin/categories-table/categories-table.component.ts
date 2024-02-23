@@ -1,6 +1,7 @@
 import { Categories } from '../../../../../Categories.json';
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {map} from 'rxjs/operators'
 ////////
 //import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
 // import { ModalService } from '../../../services/modal-service.service'
@@ -24,8 +25,7 @@ import { CategoryService } from '../../../category.service';
   styleUrl: './categories-table.component.css',
 })
 export class CategoriesTableComponent {
- // categories: any = Categories;
- categories: any  ;
+  categoriesArray: any = [];
  
   token: string = '';
 
@@ -35,12 +35,14 @@ export class CategoriesTableComponent {
   editedCategoryId!: number;
   ////
   constructor(
+  
     private router: Router,
     private dataService: DataService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private categoryService: CategoryService
   ) {
+    this.categoriesArray =[{id : 1 , name : "menna"} , {id : 2 , name : "Hadeer"} ]  ;
     this.token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1OTg2NTZ9.ImHWrsLWSeMohEiGD-pIBWsCGzge9KMB98JeFXH2JWQ';
     this.categoryForm = new FormGroup({
       newCategoryName: new FormControl('', [
@@ -61,87 +63,29 @@ export class CategoriesTableComponent {
       ],
     });
   }
+  
   ngOnInit(): void {
-    this.categoryService.getAllCategories(1,this.token).subscribe(categories => {
-      // Do something with the categories array
-      this.categories = categories;
-      const firstCategory = categories[0]; // Get the first category
-      console.log(firstCategory);
-      console.log(categories);
-      console.log(this.categories);
-    });
-    // Subscribe to the Observable to obtain the array of categories
-      // Example usage of CategoryService methods
-    // this.addCategory();
-    // this.updateCategory();
-    // this.deleteCategory();
-    // this.getPopularCategories();
-    // this.getAllCategories();
-  }
-  // addCategory() {
-  //   const categoryData = {
-  //     /* Category data */
-  //   };
-  //   this.categoryService.addCategory(categoryData).subscribe(
-  //     (response) => {
-  //       console.log('Category added successfully:', response);
-  //       // Handle success
-  //     },
-  //     (error) => {
-  //       console.error('Error adding category:', error);
-  //       // Handle error
-  //     }
-  //   );
-  // }
-
-  updateCategory() {
-    const categoryId = 'category_id';
-    const categoryData = {
-      /* Updated category data */
-    };
-    this.categoryService.updateCategory(categoryId, categoryData).subscribe(
-      (response) => {
-        console.log('Category updated successfully:', response);
-        // Handle success
-      },
-      (error) => {
-        console.error('Error updating category:', error);
-        // Handle error
-      }
-    );
+    console.log("Static Data",this.categoriesArray)
+    this.getAllCategories()
   }
 
-  deleteCategory() {
-    const categoryId = 'category_id';
-    this.categoryService.deleteCategory(categoryId).subscribe(
-      (response) => {
-        console.log('Category deleted successfully:', response);
-        // Handle success
-      },
-      (error) => {
-        console.error('Error deleting category:', error);
-        // Handle error
-      }
-    );
-  }
 
-  getPopularCategories() {
-    this.categoryService.getPopularCategories().subscribe(
-      (categories) => {
-        console.log('Popular categories:', categories);
-        // Handle categories
-      },
-      (error) => {
-        console.error('Error getting popular categories:', error);
-        // Handle error
-      }
-    );
-  }
-
+  // =============== Get All Cateogries ================== \\
   getAllCategories() {
-    const pageNum = 1; // Or any page number you want to fetch
-    this.categoryService.getAllCategories(pageNum , this.token).subscribe(
+    const pageNum = 2; // Or any page number you want to fetch
+    this.categoryService.getAllCategories(pageNum , this.token).pipe( map((data: any) => {
+      const categoriesArray = [];
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          categoriesArray.push(data[key]);
+        }
+      }
+      return categoriesArray;
+    }))
+    .subscribe(
       (categories) => {
+        this.categoriesArray = categories;
+        console.log("Our cateogries:" , this.categoriesArray)
         console.log('Categories:', categories);
         // Handle categories
       },
@@ -151,18 +95,18 @@ export class CategoriesTableComponent {
       }
     );
   }
+ 
 
   getNewCateogrName() {
-    // this.categories.push({
-    //   id: this.categories[Number(this.categories.length - 1)].id + 1,
-    //   categoryName: this.categoryForm.value.newCategoryName,
-    // });
+
     const categoryData = {
       name: this.categoryForm.value.newCategoryName,
     };
     this.categoryService.addCategory(categoryData, this.token).subscribe(
       (response) => {
         console.log('Category added successfully:', response);
+        this.getAllCategories()
+        // window.location.reload();
       },
       (error) => {
         console.error('Error adding category:', error);
@@ -170,8 +114,56 @@ export class CategoriesTableComponent {
     );
   }
 
-  // --------------------------- NgBootstrap Code --------------------------- \\
-  //private modalService = inject(NgbModal);
+
+
+//   updateCategory() {
+//     const categoryId = 'category_id';
+//     const categoryData = {
+//       /* Updated category data */
+//     };
+//     this.categoryService.updateCategory(categoryId, categoryData).subscribe(
+//       (response) => {
+//         console.log('Category updated successfully:', response);
+//         // Handle success
+//       },
+//       (error) => {
+//         console.error('Error updating category:', error);
+//         // Handle error
+//       }
+//     );
+//   }
+
+//   deleteCategory() {
+//     const categoryId = 'category_id';
+//     this.categoryService.deleteCategory(categoryId).subscribe(
+//       (response) => {
+//         console.log('Category deleted successfully:', response);
+//         // Handle success
+//       },
+//       (error) => {
+//         console.error('Error deleting category:', error);
+//         // Handle error
+//       }
+//     );
+//   }
+
+//   getPopularCategories() {
+//     this.categoryService.getPopularCategories().subscribe(
+//       (categories) => {
+//         console.log('Popular categories:', categories);
+//         // Handle categories
+//       },
+//       (error) => {
+//         console.error('Error getting popular categories:', error);
+//         // Handle error
+//       }
+//     );
+//   }
+
+
+
+//   // --------------------------- NgBootstrap Code --------------------------- \\
+//   //private modalService = inject(NgbModal);
   closeResult = '';
   open(content: TemplateRef<any>) {
     this.modalService
@@ -195,7 +187,7 @@ export class CategoriesTableComponent {
         return `with: ${reason}`;
     }
   }
-  // ------------ edit ngModal --------------//
+//   // ------------ edit ngModal --------------//
   editCategory(category: any, content: any) {
     this.editedCategoryId = category.id;
     this.editCategoryForm.patchValue({
@@ -204,17 +196,17 @@ export class CategoriesTableComponent {
     this.modalService.open(content, { centered: true });
   }
 
-  // updateCategory() {
-  //   const newName = this.editCategoryForm.get('editCategoryName')?.value;
-  //   if (newName !== undefined && newName !== null) {
-  //     this.dataService.updateCategory(this.editedCategoryId, newName);
-  //   }
-  //   this.modalService.dismissAll();
-  // }
+  updateCategory() {
+    const newName = this.editCategoryForm.get('editCategoryName')?.value;
+    if (newName !== undefined && newName !== null) {
+      this.dataService.updateCategory(this.editedCategoryId, newName);
+    }
+    this.modalService.dismissAll();
+  }
   // ---------------- delete ---------------- //
 
   delete(id: number) {
-    this.categories = this.categories.filter(
+    this.categoriesArray = this.categoriesArray.filter(
       (category: any) => category.id !== id
     );
   }
@@ -247,4 +239,5 @@ export class CategoriesTableComponent {
 
 
 */
+
 }

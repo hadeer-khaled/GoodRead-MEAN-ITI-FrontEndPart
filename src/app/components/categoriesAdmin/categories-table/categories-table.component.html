@@ -16,15 +16,13 @@
         </tr>
       </thead>
       <tbody>
-        @for (category of categories ; track category.id){
+        @for (category of categoriesArray ; track $index){
         <tr>
-          <th scope="row">{{ category.id }}</th>
-          <td>{{ category.categoryName }}</td>
+          <th scope="row">{{category.id}} </th>
+          <!-- <th scope="row">{{ category.id }}</th> -->
+          <td>{{ category.name }}</td>
           <td>
-            <!--
-<button >Delete Category</button>
-
-            -->
+            <!-- <button >Delete Category</button> -->
             <button class="btn btn-sm btn-trach border-0 mx-2"
             (click)="delete(category.id)"
             >
