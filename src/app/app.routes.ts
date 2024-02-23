@@ -5,6 +5,7 @@ import { AdminControlPageComponent } from './pages/admin-control-page/admin-cont
 import { BooksTableComponent } from './components/booksAdmin/books-table/books-table.component';
 import { AuthorsTableComponent } from './components/authorsAdmin/authors-table/authors-table.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { UserLoginComponent } from './pages/user-login/user-login.component';
 export const routes: Routes = [
   {
     path: '',
@@ -12,9 +13,14 @@ export const routes: Routes = [
     title: 'Main Page',
   },
   {
-    path: 'adminLogin',
+    path: 'admin',
     component: AdminLoginComponent,
-    title: 'Admin Login',
+    title: 'Login',
+  },
+  {
+    path: 'user',
+    component: UserLoginComponent,
+    title: 'Login',
   },
   {
     path: 'adminControlPage',

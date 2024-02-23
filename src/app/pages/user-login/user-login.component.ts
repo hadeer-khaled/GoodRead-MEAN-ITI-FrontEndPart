@@ -1,47 +1,42 @@
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import {LoginService} from '../../services/login.service'
+import { Users } from '../../interfaces/users';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-user-login',
   standalone: true,
   imports: [FormsModule],
   templateUrl: './user-login.component.html',
-  styleUrl: './user-login.component.css'
+  styleUrl: './user-login.component.css',
 })
 export class UserLoginComponent {
+  logObj!: Users;
+  errorMessage = null;
+  token: string = '';
 
-  logObj !: any
-   errorMessage = null
-   constructor(private router: Router , private http: LoginService ){
-     this.logObj = {
-       username: "",
-       password: "",
-       role:"user",
-     }
-   }
-
-   onSubmit(form:any){
-    if (!form.valid){
-      alert("Please fill all the fields");
-      return;
-    }
-    else{
-      this.http.login(this.logObj).subscribe((res: any) =>{
-        console.log(res)
-      },
-        (error: { error: null; }) =>{
-        this.errorMessage = error.error
-        console.log(this.errorMessage)
-      })
-    }
-   
-  
+  constructor(private router: Router, private http: UserService) {
+    this.logObj = {
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      role : ''
+    };
   }
   
+  onSubmit(form:any){
+    const credentials = {username: this.logObj.username, password: this.logObj.password };
+    this.http.login(credentials).subscribe(response => {
+    console.log('User logged in successfully:', response);
+    localStorage.setItem('token', JSON.stringify(response.data));
+    localStorage.setItem('loggedUser', JSON.stringify(credentials.username));
+    console.log(localStorage.getItem('loggedUser'))
+    this.router.navigate(['/adminControlPage']);
+  }, error => {
+    console.error('Error logging in:', error.errorMessage);
+  });
+  }
 }
-
-
-
-  
