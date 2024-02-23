@@ -132,11 +132,11 @@ export class CategoriesTableComponent {
     };
     console.log(categoryData)
     if (categoryData) {
-    this.categoryService.updateCategory(10, this.token).subscribe(
+    this.categoryService.updateCategory(10,categoryData, this.token).subscribe(
       (response) => {
-
+       
         console.log('Category updated successfully:', response);
-
+        window.location.reload();
       },
       (error) => {
         console.error('Error updating category:', error);
@@ -155,9 +155,10 @@ export class CategoriesTableComponent {
   // ======================= delete ================== \\
   deleteCategory() {
     const categoryId = this.id;
-    this.categoryService.deleteCategory(categoryId,this.token).subscribe(
+    this.categoryService.deleteCategory(10,this.token).subscribe(
       (response) => {
         console.log('Category deleted successfully:', response);
+        window.location.reload();
       },
       (error) => {
         console.error('Error deleting category:', error);

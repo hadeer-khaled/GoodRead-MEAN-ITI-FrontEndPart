@@ -20,12 +20,12 @@ export class CategoryService {
   }
 
   // method to update a category by ID (admin only)
-  updateCategory(id: any , token: string): Observable<any> {
+  updateCategory(id: any ,Data:any, token: string): Observable<any> {
     // let id : string = categoryData.id.toString();
     // console.log(id)
     const headers = new HttpHeaders().set('token', token);
     return this.http
-      .patch<any>(`${this.apiUrl}/${id}`, categoryData, { headers })
+      .patch<any>(`${this.apiUrl}/${id}`, Data)
       .pipe(catchError(this.handleError));
   }
 
