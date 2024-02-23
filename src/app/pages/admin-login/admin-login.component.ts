@@ -32,7 +32,8 @@ export class AdminLoginComponent {
     this.http.login(credentials).subscribe(response => {
     console.log('User logged in successfully:', response);
     localStorage.setItem('token', JSON.stringify(response.data));
-    localStorage.setItem('loggedUser', JSON.stringify(credentials.username));
+    console.log(localStorage.getItem('token'));
+    localStorage.setItem('loggedUser',credentials.username);
     console.log(localStorage.getItem('loggedUser'))
     this.router.navigate(['/adminControlPage']);
   }, error => {

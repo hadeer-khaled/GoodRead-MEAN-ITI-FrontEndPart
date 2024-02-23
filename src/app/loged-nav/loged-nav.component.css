@@ -1,0 +1,22 @@
+.nav-link :hover {
+    color: rgb(236, 234, 234) !important;
+  }
+  nav {
+    background-color: #f3faff !important;
+  }
+  a:hover {
+    color: #0302c8;
+    font-weight: bold;
+  }
+  .signup-btn {
+    border: 1px solid #e41c77;
+    color: #e41c77;
+  }
+  .signup-btn:hover {
+    color: white;
+    background-color: #e41c77;
+  }
+  .ngbDropdownMenu {
+    background-color: transparent;
+  }
+  

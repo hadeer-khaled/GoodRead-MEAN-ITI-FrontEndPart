@@ -8,4 +8,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './admin-navbar.component.html',
   styleUrl: './admin-navbar.component.css',
 })
-export class AdminNavbarComponent {}
+export class AdminNavbarComponent {
+}
