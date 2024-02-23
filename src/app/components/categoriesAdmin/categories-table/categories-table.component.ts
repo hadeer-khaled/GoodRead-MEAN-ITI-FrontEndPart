@@ -1,26 +1,26 @@
 import { Categories } from '../../../../../Categories.json';
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {map} from 'rxjs/operators'
-////////
+import {map} from 'rxjs/operators';
+
 //import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
 // import { ModalService } from '../../../services/modal-service.service'
 import {
   ReactiveFormsModule,
   FormControl,
   FormGroup,
-  FormBuilder,
-  FormsModule,
+  // FormBuilder,
+  // FormsModule,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../../../services/data.service';
+// import { DataService } from '../../../services/data.service';
 import { CategoryService } from '../../../category.service';
 
 @Component({
   selector: 'app-categories-table',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule /*, DeleteConfirmComponent*/],
+  imports: [ReactiveFormsModule, /*FormsModule , DeleteConfirmComponent*/],
   templateUrl: './categories-table.component.html',
   styleUrl: './categories-table.component.css',
 })
@@ -33,16 +33,15 @@ export class CategoriesTableComponent {
   
   editCategoryForm!: FormGroup;
   editedCategoryId!: number;
-  ////
-  constructor(
   
+  constructor(
     private router: Router,
-    private dataService: DataService,
-    private formBuilder: FormBuilder,
+   // private dataService: DataService,
+    //private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private categoryService: CategoryService
   ) {
-    this.categoriesArray =[{id : 1 , name : "menna"} , {id : 2 , name : "Hadeer"} ]  ;
+    // this.token = localstorage.get(token)
     this.token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1OTg2NTZ9.ImHWrsLWSeMohEiGD-pIBWsCGzge9KMB98JeFXH2JWQ';
     this.categoryForm = new FormGroup({
       newCategoryName: new FormControl('', [
@@ -52,32 +51,32 @@ export class CategoriesTableComponent {
       ]),
     });
 
-    this.editCategoryForm = this.formBuilder.group({
-      editCategoryName: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('[a-zA-Z ]*'),
-          Validators.maxLength(20),
-        ],
-      ],
-    });
+    // this.editCategoryForm = this.formBuilder.group({
+    //   editCategoryName: [
+    //     '',
+    //     [
+    //       Validators.required,
+    //       Validators.pattern('[a-zA-Z ]*'),
+    //       Validators.maxLength(20),
+    //     ],
+    //   ],
+    // });
   }
   
   ngOnInit(): void {
-    console.log("Static Data",this.categoriesArray)
     this.getAllCategories()
   }
-
 
   // =============== Get All Cateogries ================== \\
   getAllCategories() {
     const pageNum = 2; // Or any page number you want to fetch
     this.categoryService.getAllCategories(pageNum , this.token).pipe( map((data: any) => {
-      const categoriesArray = [];
+      console.log("data" , data)
+      let categoriesArray = [];
       for (const key in data) {
         if (data.hasOwnProperty(key)) {
-          categoriesArray.push(data[key]);
+          console.log("data[key]" , data[key])
+          categoriesArray = data[key];
         }
       }
       return categoriesArray;
@@ -85,18 +84,15 @@ export class CategoriesTableComponent {
     .subscribe(
       (categories) => {
         this.categoriesArray = categories;
-        console.log("Our cateogries:" , this.categoriesArray)
-        console.log('Categories:', categories);
-        // Handle categories
+
       },
       (error) => {
         console.error('Error getting categories:', error);
-        // Handle error
       }
     );
   }
  
-
+ // =============== Add New Cateogrie ================== \\
   getNewCateogrName() {
 
     const categoryData = {
@@ -106,7 +102,7 @@ export class CategoriesTableComponent {
       (response) => {
         console.log('Category added successfully:', response);
         this.getAllCategories()
-        // window.location.reload();
+        window.location.reload();
       },
       (error) => {
         console.error('Error adding category:', error);
@@ -199,7 +195,7 @@ export class CategoriesTableComponent {
   updateCategory() {
     const newName = this.editCategoryForm.get('editCategoryName')?.value;
     if (newName !== undefined && newName !== null) {
-      this.dataService.updateCategory(this.editedCategoryId, newName);
+     // this.dataService.updateCategory(this.editedCategoryId, newName);
     }
     this.modalService.dismissAll();
   }
