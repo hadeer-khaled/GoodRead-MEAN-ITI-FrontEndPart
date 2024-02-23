@@ -71,7 +71,7 @@ export class CategoriesTableComponent {
     
   }
 
-  // =============== Get All Cateogries ================== \\
+  // =============== Get All Cateogries ================== \\////
   getAllCategories() {
     const pageNum = 1; // Or any page number you want to fetch
     this.categoryService.getAllCategories(pageNum , this.token).pipe( map((data: any) => {
