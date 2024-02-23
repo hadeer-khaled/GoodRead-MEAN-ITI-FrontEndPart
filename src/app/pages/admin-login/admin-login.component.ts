@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from '../../interfaces/users';
-import { AdminService } from '../../admin.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-login',

@@ -34,11 +34,6 @@
       <small> please fill all fields</small>
     </div>
   }
-  @if (password.errors?.['minlength']){
-    <div id="passwordHelp" class="form-text text-danger">
-      <small>Min length is 8 characters</small>
-    </div>
-  }
     <div id="passwordHelp" class="form-text text-danger">
       <small>{{errorMessage}}</small>
     </div>
