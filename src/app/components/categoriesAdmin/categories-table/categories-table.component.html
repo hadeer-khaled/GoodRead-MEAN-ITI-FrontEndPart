@@ -18,24 +18,22 @@
       <tbody>
         @for (category of categoriesArray ; track $index){
         <tr>
-          <th scope="row">{{category.id}} </th>
-          <!-- <th scope="row">{{ category.id }}</th> -->
+          <th scope="row">{{ category.id }}</th>
           <td>{{ category.name }}</td>
           <td>
-            <!-- <button >Delete Category</button> -->
-            <button class="btn btn-sm btn-trach border-0 mx-2"
-            (click)="deleteCategoryModal(category,deleteModal)"
+            <!-- Delete Button -->
+            <button
+              class="btn btn-sm btn-trach border-0 mx-2"
+              (click)="deleteCategoryModal(category, deleteModal)"
             >
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
-          <!--
-            (click)="openDialog()"
-              (click)="openDeleteModal(category.id)"
-              <app-delete-confirm (confirmDelete)="confirmDeleteCategory(category.id)"></app-delete-confirm>
-            -->
-            <button class="btn btn-sm btn-edit border-0 mx-2 "
-            (click)="editCategoryModal(category, editModal)">
-          <i class="fa-solid fa-pen-to-square"></i>
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <!-- Edit Button -->
+            <button
+              class="btn btn-sm btn-edit border-0 mx-2"
+              (click)="editCategoryModal(category, editModal)"
+            >
+              <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </td>
         </tr>
@@ -110,7 +108,7 @@
         (click)="modal.dismiss('Cross click')"
       ></button>
     </div>
-  
+
     <div class="modal-body">
       <form [formGroup]="editCategoryForm" (ngSubmit)="updateCategory()">
         <div class="mb-3">
@@ -119,6 +117,7 @@
             <input
               id="editCategoryName"
               class="form-control"
+              placeholder="ex: Fantasy"
               name="editCategoryName"
               formControlName="editCategoryName"
             />
@@ -136,8 +135,7 @@
       </form>
     </div>
   </ng-template>
-
-<!-- delete modal -->
+  <!-- delete modal -->
   <ng-template #deleteModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
@@ -164,9 +162,8 @@
         class="btn btn-outline-dark add-confirm-btn"
         (click)="modal.dismiss('Cross click')"
       >
-      cancel
+        cancel
       </button>
     </div>
   </ng-template>
-  <!-- <pre>{{ closeResult }}</pre> -->
-</div> 
+</div>

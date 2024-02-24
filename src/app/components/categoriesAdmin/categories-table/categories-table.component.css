@@ -4,14 +4,17 @@
   --baby-blue: #9bd3d0;
   --blue: #2d3e56;
   --royal-blue: #22ac94;
+  --royal-green: #143464;
   --light-pink: #feccb5;
   --beige: #efebe0;
   --light-orange: #fec447;
+  --foshia: #e41c77;
+  --blue-blue: #0065a8;
 }
 
 .add-btn {
-  border: 1px solid var(--royal-blue);
-  background-color: var(--royal-blue);
+  border: 1px solid var(--royal-green);
+  background-color: var(--royal-green);
   color: white;
   transition: all 100ms linear;
   position: relative;
@@ -54,8 +57,8 @@
 }
 .add-confirm-btn,
 .add-confirm-btn:active {
-  border: 1px solid var(--royal-blue);
-  background-color: var(--royal-blue);
+  border: 1px solid var(--royal-green);
+  background-color: var(--royal-green);
   color: white;
 }
 .add-confirm-btn:hover {
@@ -73,7 +76,7 @@ td {
 }
 
 table thead tr th {
-  background-color: var(--royal-blue);
+  background-color: var(--royal-green);
   color: white;
 }
 table.rounded-corners {
