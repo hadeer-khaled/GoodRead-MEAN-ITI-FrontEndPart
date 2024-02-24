@@ -1,5 +1,4 @@
 import { Author } from '../../../interfaces/author';
-
 import { Component, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -11,12 +10,15 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthorService } from '../../../services/author.service';
+// import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-authors-table',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './authors-table.component.html',
   styleUrl: './authors-table.component.css',
+  // providers: [DatePipe],
 })
 export class AuthorsTableComponent {
   authors!: Array<Author>;

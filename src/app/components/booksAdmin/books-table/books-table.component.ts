@@ -17,7 +17,7 @@ import { Author } from '../../../interfaces/author';
 import { Category } from '../../../interfaces/category';
 import { BookService } from '../../../book.service';
 import { AuthorService } from '../../../services/author.service';
-import { CategoryService } from '../../../category.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-books-table',

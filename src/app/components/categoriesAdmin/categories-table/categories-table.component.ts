@@ -1,22 +1,18 @@
-import { Categories } from '../../../../../Categories.json';
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
-
-//import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
-// import { ModalService } from '../../../services/modal-service.service'
+import { Router } from '@angular/router';
+import { CategoryService } from '../../../services/category.service';
 import {
   ReactiveFormsModule,
   FormControl,
   FormGroup,
-  // FormBuilder,
   // FormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-// import { DataService } from '../../../services/data.service';
-import { CategoryService } from '../../../category.service';
 
+//import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
+// import { DataService } from '../../../services/data.service';
 @Component({
   selector: 'app-categories-table',
   standalone: true,
@@ -24,20 +20,18 @@ import { CategoryService } from '../../../category.service';
   templateUrl: './categories-table.component.html',
   styleUrl: './categories-table.component.css',
 })
+
+//private dataService: DataService,
+//private formBuilder: FormBuilder,
 export class CategoriesTableComponent {
   categoriesArray: any = [];
-
   token: string = '';
-
   categoryForm!: FormGroup;
-
   editCategoryForm!: FormGroup;
-  editedCategoryId!: number;
+  id!: number;
 
   constructor(
     private router: Router,
-    // private dataService: DataService,
-    //private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private categoryService: CategoryService
   ) {
@@ -52,18 +46,17 @@ export class CategoriesTableComponent {
       ]),
     });
 
-    // this.editCategoryForm = this.formBuilder.group({
-    //   editCategoryName: [
-    //     '',
-    //     [
-    //       Validators.required,
-    //       Validators.pattern('[a-zA-Z ]*'),
-    //       Validators.maxLength(20),
-    //     ],
-    //   ],
-    // });
+    this.editCategoryForm = new FormGroup({
+      editCategoryName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+    });
   }
   ngOnInit(): void {
+    // if (this.token === localStorage.getItem('token')){
+    //   console.log("authorized")
     this.getAllCategories();
   }
 
@@ -112,52 +105,7 @@ export class CategoriesTableComponent {
     );
   }
 
-  //   updateCategory() {
-  //     const categoryId = 'category_id';
-  //     const categoryData = {
-  //       /* Updated category data */
-  //     };
-  //     this.categoryService.updateCategory(categoryId, categoryData).subscribe(
-  //       (response) => {
-  //         console.log('Category updated successfully:', response);
-  //         // Handle success
-  //       },
-  //       (error) => {
-  //         console.error('Error updating category:', error);
-  //         // Handle error
-  //       }
-  //     );
-  //   }
-
-  //   deleteCategory() {
-  //     const categoryId = 'category_id';
-  //     this.categoryService.deleteCategory(categoryId).subscribe(
-  //       (response) => {
-  //         console.log('Category deleted successfully:', response);
-  //         // Handle success
-  //       },
-  //       (error) => {
-  //         console.error('Error deleting category:', error);
-  //         // Handle error
-  //       }
-  //     );
-  //   }
-
-  //   getPopularCategories() {
-  //     this.categoryService.getPopularCategories().subscribe(
-  //       (categories) => {
-  //         console.log('Popular categories:', categories);
-  //         // Handle categories
-  //       },
-  //       (error) => {
-  //         console.error('Error getting popular categories:', error);
-  //         // Handle error
-  //       }
-  //     );
-  //   }
-
-  //   // --------------------------- NgBootstrap Code --------------------------- \\
-  //   //private modalService = inject(NgbModal);
+  // =============== add ngModal ================== \\
   closeResult = '';
   open(content: TemplateRef<any>) {
     this.modalService
@@ -181,56 +129,83 @@ export class CategoriesTableComponent {
         return `with: ${reason}`;
     }
   }
-  //   // ------------ edit ngModal --------------//
-  editCategory(category: any, content: any) {
-    this.editedCategoryId = category.id;
+  // =============== Get Category by id ================== \\
+  getCategoryId = (): number => {
+    const category = this.categoriesArray.find(
+      (category: { name: any; id: number }) => {
+        return category.name === this.editCategoryForm.value.editCategoryName;
+      }
+    );
+
+    return category ? category.id : -1;
+  };
+
+  // =============== edit ngModal =============== \\
+  editCategoryModal(category: any, content: any) {
+    this.id = category.id;
     this.editCategoryForm.patchValue({
-      editCategoryName: category.categoryName,
+      editCategoryName: category.name,
     });
     this.modalService.open(content, { centered: true });
   }
 
+  // =============== edit =============== \\
   updateCategory() {
-    const newName = this.editCategoryForm.get('editCategoryName')?.value;
-    if (newName !== undefined && newName !== null) {
-      // this.dataService.updateCategory(this.editedCategoryId, newName);
+    this.getCategoryId();
+    const categoryData = {
+      name: this.editCategoryForm.value.editCategoryName,
+    };
+    console.log(categoryData);
+    console.log(this.id);
+    if (categoryData && this.id) {
+      this.categoryService
+        .updateCategory(
+          this.id,
+          categoryData,
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo'
+        )
+        .subscribe(
+          (response) => {
+            console.log('Category updated successfully:', response);
+            window.location.reload();
+          },
+          (error) => {
+            console.error('Error updating category:', error);
+          }
+        );
     }
     this.modalService.dismissAll();
   }
-  // ---------------- delete ---------------- //
 
-  delete(id: number) {
-    this.categoriesArray = this.categoriesArray.filter(
-      (category: any) => category.id !== id
-    );
+  // =========== delete ngModal =========== \\
+  deleteCategoryModal(category: any, content: any) {
+    this.id = category.id;
+    this.modalService.open(content, { centered: true });
   }
 
-  /*
-    ngOnInit(): void {
-     // Subscribe to the showModal$ observable here
-     this.modalService2.showModal$.subscribe((categoryId: number) => {
-       // Handle the emitted category ID here
-       this.openDeleteModal(categoryId);
-     });
-   }
-   openDeleteModal(id : number) {
-     this.modalService2.openModal(id);
-   }
-   
-   confirmDeleteCategory(id : number) {
-     this.categories = this.categories.filter((category : any) => category.id !== id)
-     console.log('Category deleted');
-   }
-
-
-  openDialog(){
-    this.modalService.open(DeleteConfirmComponent).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+  // ============== delete ================== \\
+  deleteCategory() {
+    this.getCategoryId();
+    const categoryId = this.id;
+    this.categoryService
+      .deleteCategory(
+        categoryId,
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo'
+      )
+      .subscribe(
+        (response) => {
+          console.log('Category deleted successfully:', response);
+          this.getAllCategories();
+        },
+        (error) => {
+          console.error('Error deleting category:', error);
+        }
+      );
+    this.modalService.dismissAll();
   }
 
-
-*/
+  // deleteModal(category:any){
+  //   this.modalService.open(DeleteConfirmComponent, { centered: true });
+  //   this.deleteCategory(category);
+  // }
 }
