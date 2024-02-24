@@ -2,7 +2,7 @@ import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {map} from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { CategoryService } from '../../../category.service';
+import { CategoryService } from '../../../services/category.service';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -38,10 +38,10 @@ export class CategoriesTableComponent {
     private categoryService: CategoryService
     ) {
       
-    this.token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg2OTM1NDR9.sLQelU4uZlAQahwmWCfupCa4YzVH8eFT-waAxNZOlzI';
-    // const storedToken = localStorage.getItem('token');
-    // this.token = storedToken ? storedToken : '';
-    // console.log(this.token)
+   // this.token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDY5Mzh9.TTUeyim_an7vooDly6t_LmiwebX76OXnYrAaWj9rhqU';
+    const storedToken = localStorage.getItem('token');
+    this.token = storedToken ? storedToken : '';
+    console.log(this.token)
 
     this.categoryForm = new FormGroup({
       newCategoryName: new FormControl('', [
@@ -124,19 +124,29 @@ export class CategoriesTableComponent {
     this.modalService.open(content, { centered: true });
   }
 
+  // ================= get id ================ \\
+  getCategoryId = (): number => {
+    const category = this.categoriesArray
+    .find((category: { name: any; id: number; }) => {
+      return category.name === this.editCategoryForm.value.editCategoryName;
+    });
+  
+    return category ? category.id : -1;
+  }
+  
+  
   // ================= update ============ \\
   updateCategory() {
-    console.log (this.token)
+    this.getCategoryId()
     const categoryData = {
       name: this.editCategoryForm.value.editCategoryName,
     };
     console.log(categoryData)
-    if (categoryData) {
-    this.categoryService.updateCategory(10,categoryData, this.token).subscribe(
+    console.log (this.id)
+    if (categoryData && this.id) {
+    this.categoryService.updateCategory(this.id,categoryData,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo').subscribe(
       (response) => {
-       
         console.log('Category updated successfully:', response);
-        window.location.reload();
       },
       (error) => {
         console.error('Error updating category:', error);
@@ -146,7 +156,7 @@ export class CategoriesTableComponent {
     this.modalService.dismissAll();
   }
     
-  // ===================== delete ===================== \\
+  // ===================== open deleteModal ===================== \\
   deleteCategoryModal(category: any, content: any) {
     this.id = category.id;
     this.modalService.open(content, { centered: true });
@@ -154,16 +164,18 @@ export class CategoriesTableComponent {
 
   // ======================= delete ================== \\
   deleteCategory() {
+    this.getCategoryId()
     const categoryId = this.id;
-    this.categoryService.deleteCategory(10,this.token).subscribe(
+    this.categoryService.deleteCategory(categoryId,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo').subscribe(
       (response) => {
         console.log('Category deleted successfully:', response);
-        window.location.reload();
+        this.getAllCategories()
       },
       (error) => {
         console.error('Error deleting category:', error);
       }
     );
+    this.modalService.dismissAll();
   }
 
 
