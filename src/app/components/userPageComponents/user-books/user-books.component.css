@@ -1,0 +1,54 @@
+:root {
+  --body-bg: #faf3e1;
+  --gray: #373735;
+  --baby-blue: #9bd3d0;
+  --blue: #2d3e56;
+  --royal-blue: #22ac94;
+  --royal-green: #143464;
+  --light-pink: #feccb5;
+  --beige: #efebe0;
+  --light-orange: #fec447;
+  --heavy-orange: #ff9800;
+  --foshia: #e41c77;
+  --blue-blue: #0065a8;
+}
+table {
+  border-collapse: collapse;
+  box-shadow: 0px 1px 8px 3px #bdbdbd9e;
+}
+ngb-rating {
+  color: #ff9800 !important;
+}
+table,
+th,
+td {
+  background-color: transparent;
+}
+
+table thead tr th {
+  background-color: var(--royal-green);
+  letter-spacing: 1px;
+  --border: 1px solid white;
+  color: white;
+}
+table.rounded-corners {
+  /* Change these properties */
+  --border: 1px solid var(--blue);
+  border-radius: 10px;
+
+  /* Don't change these properties */
+  border-spacing: 0;
+  border-collapse: separate;
+  border: var(--border);
+  overflow: hidden;
+}
+
+/* Apply a border to the right of all but the last column */
+table.rounded-corners th:not(:last-child),
+table.rounded-corners td:not(:last-child) {
+  border-right: var(--border);
+}
+
+.btn-trach:hover {
+  color: brown;
+}

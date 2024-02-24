@@ -19,21 +19,26 @@
         </tr>
       </thead>
       <tbody>
-        @for (book of books ; track book.id){
+        @for (book of books ; track $index){
         <tr>
-          <th scope="row">{{ book.bookID }}</th>
+          <th scope="row">{{ book.id }}</th>
           <td><img src="../../../../assets/images/book1.jpg" /></td>
           <td>{{ book.title }}</td>
-          <td>{{ book.categoryID }}</td>
-          <td>{{ book.authorID }}</td>
+          <!-- <td>{{ book.category.id }}</td> -->
+          <td>6</td>
+          <td>{{ book.author.id }}</td>
 
           <td>
-            <button class="btn btn-sm btn-trach border-0 mx-2"
-            (click)="delete(book.bookID)">
+            <!-- <button
+              class="btn btn-sm btn-trach border-0 mx-2"
+              (click)="delete(book.bookID)"
+            >
               <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <button class="btn btn-sm btn-edit border-0 mx-2"
-            (click)="editBook (book,editBookmodal)">
+            </button> -->
+            <button
+              class="btn btn-sm btn-edit border-0 mx-2"
+              (click)="editBook(book, editBookmodal)"
+            >
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </td>
@@ -95,7 +100,8 @@
             >
               @for( category of categories ; track category.id){
               <option value="{{ category.id }}">
-                {{ category.categoryName }}
+                {{ category.name }}
+                <!-- hader -->
               </option>
               }
             </select>
@@ -120,8 +126,8 @@
               formControlName="newAuthorID"
               aria-label=".form-select-lg example"
             >
-              @for( author of Authors ; track author.authorID){
-              <option value="{{ author.authorID }}">
+              @for( author of authors ; track author.id){
+              <option value="{{ author.id }}">
                 {{ author.firstName }}
               </option>
               }
@@ -143,8 +149,7 @@
             [disabled]="
               !(
                 bookForm.controls['newBookName'].valid &&
-                bookForm.controls['newAuthorID'].valid &&
-                bookForm.controls['newBookCategoryID'].valid
+                bookForm.controls['newAuthorID'].valid
               )
             "
           >
@@ -156,7 +161,7 @@
   </ng-template>
 
   <!------------edit---------------->
-  
+
   <ng-template #editBookmodal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
@@ -169,30 +174,48 @@
     </div>
     <div class="modal-body">
       <form [formGroup]="editBookForm" (ngSubmit)="updateBook()">
-          <div class="mb-3">
-            <label for="title" class="form-label">Name</label>
-            <input type="text" class="form-control" id="title" name="title" formControlName="title">
-          </div>
-          <div class="mb-3">
-            <label for="categoryID" class="form-label">Category ID</label>
-            <input type="text" class="form-control" id="categoryID" name="categoryID" formControlName="categoryID">
-          </div>
-          <div class="mb-3">
-            <label for="authorID" class="form-label">Author ID</label>
-            <input type="text" class="form-control" id="authorID" name="authorID" formControlName="authorID">
-          </div>      
+        <div class="mb-3">
+          <label for="title" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            formControlName="title"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="categoryID" class="form-label">Category ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="categoryID"
+            name="categoryID"
+            formControlName="categoryID"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="authorID" class="form-label">Author ID</label>
+          <input
+            type="text"
+            class="form-control"
+            id="authorID"
+            name="authorID"
+            formControlName="authorID"
+          />
+        </div>
         <div class="modal-footer">
           <button
-          type="submit"
-          class="btn btn-outline-dark add-confirm-btn"
-          [disabled]="editBookForm.invalid"
+            type="submit"
+            class="btn btn-outline-dark add-confirm-btn"
+            [disabled]="editBookForm.invalid"
           >
-          Save Changes
-        </button>
+            Save Changes
+          </button>
         </div>
       </form>
-      </div>
-    </ng-template>
+    </div>
+  </ng-template>
+
   <!-- <pre>{{ closeResult }}</pre> -->
 </div>
-

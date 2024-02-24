@@ -1,0 +1,44 @@
+<div class="table-add-container d-flex flex-column w-100 align-items-center">
+  <table class="table rounded-corners" style="width: 100%">
+    <thead>
+      <tr>
+        <th scope="col">Cover</th>
+        <th scope="col">Name</th>
+        <th scope="col">Author</th>
+        <th scope="col">Avg Rate</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Shelve</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (book of books ; track $index ) {
+      <tr>
+        <td>image</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author.firstName }}</td>
+        <td>
+          <ngb-rating
+            [(rate)]="book.valueOfRating"
+            [readonly]="readonly"
+            [max]="6"
+          />
+        </td>
+        <td>
+          <ngb-rating
+            [(rate)]="book.countOfRating"
+            [readonly]="readonly"
+            [max]="6"
+          />
+        </td>
+        <td>{{ shelve }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <ngb-pagination
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="books.length"
+    aria-label="Default pagination"
+  />
+</div>

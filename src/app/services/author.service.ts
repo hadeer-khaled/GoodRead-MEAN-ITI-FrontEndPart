@@ -4,59 +4,51 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorService {
-  private apiUrl = 'http://127.0.0.1:3000/authors'; 
+  private apiUrl = 'http://127.0.0.1:3000/authors';
 
-  constructor(private http: HttpClient) { }
-  
-  getAuthors(queryParams: any): Observable<any[]> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
-    return this.http.get<any[]>(this.apiUrl, { headers, params: queryParams })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  constructor(private http: HttpClient) {}
 
-  getPopularAuthors(): Observable<any[]> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
-    return this.http.get<any[]>(`${this.apiUrl}/popular`, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
-  getAuthorById(authorId: string): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
-    return this.http.get<any>(`${this.apiUrl}/${authorId}`, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+  getAuthors(): Observable<any[]> {
+    // const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
 
   createAuthor(authorData: any): Observable<any> {
     const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
-    return this.http.post<any>(this.apiUrl, authorData, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .post<any>(this.apiUrl, authorData, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  getPopularAuthors(): Observable<any[]> {
+    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    return this.http
+      .get<any[]>(`${this.apiUrl}/popular`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  getAuthorById(authorId: string): Observable<any> {
+    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    return this.http
+      .get<any>(`${this.apiUrl}/${authorId}`, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   updateAuthor(authorId: string, authorData: any): Observable<any> {
     const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
-    return this.http.patch<any>(`${this.apiUrl}/${authorId}`, authorData, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .patch<any>(`${this.apiUrl}/${authorId}`, authorData, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   deleteAuthor(authorId: string): Observable<any> {
     const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
-    return this.http.delete<any>(`${this.apiUrl}/${authorId}`, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .delete<any>(`${this.apiUrl}/${authorId}`, { headers })
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Observable<never> {
