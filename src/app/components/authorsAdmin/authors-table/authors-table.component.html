@@ -19,9 +19,9 @@
         </tr>
       </thead>
       <tbody>
-        @for (author of authors ; track authors.authorID){
+        @for (author of authors ; track author.id){
         <tr>
-          <th scope="row">{{ author.authorID }}</th>
+          <th scope="row">{{ author.id }}</th>
           <td><img src="../../../../assets/images/book1.jpg" /></td>
           <td>{{ author.firstName }}</td>
           <td>{{ author.lastName }}</td>
@@ -31,9 +31,8 @@
             <button class="btn btn-sm btn-trach border-0 mx-2">
               <i class="fa-solid fa-trash-can"></i>
             </button>
-            <button class="btn btn-sm btn-edit border-0 mx-2"
-            >
-            <!--(click)="editAuthor(author,editAuthormodal)"-->
+            <button class="btn btn-sm btn-edit border-0 mx-2">
+              <!--(click)="editAuthor(author,editAuthormodal)"-->
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </td>
@@ -151,9 +150,8 @@
     </div>
   </ng-template>
 
-  
   <!------------edit---------------->
-  
+
   <ng-template #editAuthormodal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Edit Book</h4>
@@ -191,7 +189,7 @@
       </form>
       </div>
     -->
-    </ng-template>
+  </ng-template>
 
   <!-- <pre>{{ closeResult }}</pre> -->
 </div>

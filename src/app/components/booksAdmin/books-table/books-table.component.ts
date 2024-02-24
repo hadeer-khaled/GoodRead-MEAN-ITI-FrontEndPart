@@ -1,6 +1,3 @@
-import { Books } from '../../../../../Books.json';
-import { Categories } from '../../../../../Categories.json';
-import { Authors } from '../../../../../Authors.json';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -14,6 +11,14 @@ import {
 import { Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
 
+import { map } from 'rxjs/operators';
+import { Book } from '../../../interfaces/book';
+import { Author } from '../../../interfaces/author';
+import { Category } from '../../../interfaces/category';
+import { BookService } from '../../../book.service';
+import { AuthorService } from '../../../services/author.service';
+import { CategoryService } from '../../../category.service';
+
 @Component({
   selector: 'app-books-table',
   standalone: true,
@@ -22,19 +27,24 @@ import { DataService } from '../../../services/data.service';
   styleUrl: './books-table.component.css',
 })
 export class BooksTableComponent {
-  categories: any = Categories;
-  Authors: any = Authors;
-  books: any = Books;
+  categories!: Array<Category>;
+  authors!: Array<Author>;
+  books!: Array<Book>;
   editBookForm!: FormGroup;
   editedBookId!: number;
-  selectedBook!: any
+  selectedBook!: any;
   bookForm!: FormGroup;
+  newBook: any;
 
-  constructor(private router: Router,
-      private dataService: DataService,
-      private formBuilder: FormBuilder,
-      private modalService: NgbModal 
-      ) {
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,
+    private bookService: BookService,
+    private authorService: AuthorService,
+    private categoryService: CategoryService
+  ) {
     this.bookForm = new FormGroup({
       newBookName: new FormControl('', [
         Validators.required,
@@ -49,22 +59,97 @@ export class BooksTableComponent {
         Validators.required,
         Validators.maxLength(25),
       ]),
-      categoryID: new FormControl('', 
-        [Validators.required,
-      Validators.pattern('^[0-9]*$')]),
-      authorID: new FormControl('', 
-        [Validators.required,
-      Validators.pattern('^[0-9]*$')]),
+      categoryID: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+      ]),
+      authorID: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[0-9]*$'),
+      ]),
     });
   }
+  ngOnInit(): void {
+    this.getAllBooks();
+    this.getAllAuthors();
+    this.getAllCategories();
+  }
+  // ================================ Get All Books =============== \\
+  getAllBooks() {
+    this.bookService.getBooks().subscribe(
+      (response: any) => {
+        console.log('Subscribe response', response);
+        this.books = response;
+        console.log('this.books', this.books);
+        console.log('this.categories', this.categories);
+      },
+      (error: any) => {
+        console.error('Error getting books:', error);
+      }
+    );
+  }
+  // ================================ Add book =============== \\
   getNewBookName() {
-    this.books.push({
-      bookID: this.books[Number(this.books.length - 1)].bookID + 1,
+    this.newBook = {
       title: this.bookForm.value.newBookName,
-      categoryID: this.bookForm.value.newBookCategoryID,
-      authorID: this.bookForm.value.newAuthorID,
-    });
-    console.log(this.bookForm.value);
+      // category: this.categoryService.getCategoryById(
+      //   this.bookForm.value.newBookCategoryID
+      // ),
+      category: this.bookForm.value.newBookCategoryID,
+      author: this.bookForm.value.newAuthorID,
+    };
+
+    this.bookService.createBook(this.newBook).subscribe(
+      (response) => {
+        console.log('Book added successfully:', response);
+        this.getAllBooks();
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error adding Book:', error);
+      }
+    );
+  }
+  // ================================ Get All Authors =================== \\
+
+  getAllAuthors() {
+    this.authorService.getAuthors().subscribe(
+      (response: any) => {
+        console.log('Subscribe response', response);
+        this.authors = response;
+        console.log('this.authors', this.authors);
+      },
+      (error: any) => {
+        console.error('Error getting books:', error);
+      }
+    );
+  }
+  // ================================ Get All Categries =================== \\
+  getAllCategories() {
+    const pageNum = 1; // Or any page number you want to fetch
+    this.categoryService
+      .getcategoriesNames()
+      .pipe(
+        map((data: any) => {
+          console.log('data', data);
+          let categoriesArray = [];
+          for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+              console.log('data[key]', data[key]);
+              categoriesArray = data[key];
+            }
+          }
+          return categoriesArray;
+        })
+      )
+      .subscribe(
+        (categories) => {
+          this.categories = categories;
+        },
+        (error) => {
+          console.error('Error getting categories:', error);
+        }
+      );
   }
 
   // --------------------------- NgBootstrap Code --------------------------- \\
@@ -91,45 +176,47 @@ export class BooksTableComponent {
         return `with: ${reason}`;
     }
   }
-    // ------------ edit ngModal --------------//
-    editBook(book: any, editModal: any) {
-      console.log('Editing book:', book);
-      this.editedBookId = book.bookID;
-      this.selectedBook = { 
-        title: book.title,
-        categoryID: book.categoryID,
-        authorID: book.authorID
-      };
-      console.log('Selected book:', this.selectedBook);
-      this.populateForm();
-      this.modalService.open(editModal, { centered: true });
-    }
-    
-    populateForm() {
-      console.log('Selected book for form population:', this.selectedBook);
-      this.editBookForm.patchValue({
-        title: this.selectedBook.title,
-        categoryID: this.selectedBook.categoryID,
-        authorID: this.selectedBook.authorID,
-      });
-    }
-    updateBook() {
-      const isvalid = this.editBookForm.valid
-      if (isvalid) {
-        const isUpdated = this.dataService.updateBook(this.editedBookId, this.selectedBook);
-        if (isUpdated) {
-          this.modalService.dismissAll();
-          this.router.navigate(['/admin/books']);
-        }
+  // ------------ edit ngModal --------------//
+  editBook(book: any, editModal: any) {
+    console.log('Editing book:', book);
+    this.editedBookId = book.bookID;
+    this.selectedBook = {
+      title: book.title,
+      categoryID: book.categoryID,
+      authorID: book.authorID,
+    };
+    console.log('Selected book:', this.selectedBook);
+    this.populateForm();
+    this.modalService.open(editModal, { centered: true });
+  }
+
+  populateForm() {
+    console.log('Selected book for form population:', this.selectedBook);
+    this.editBookForm.patchValue({
+      title: this.selectedBook.title,
+      categoryID: this.selectedBook.categoryID,
+      authorID: this.selectedBook.authorID,
+    });
+  }
+  updateBook() {
+    const isvalid = this.editBookForm.valid;
+    if (isvalid) {
+      const isUpdated = this.dataService.updateBook(
+        this.editedBookId,
+        this.selectedBook
+      );
+      if (isUpdated) {
+        this.modalService.dismissAll();
+        this.router.navigate(['/admin/books']);
       }
-      else {
-        console.log('Form is not valid');
-      }
-      console.log(this.editBookForm.value);
+    } else {
+      console.log('Form is not valid');
     }
-   
-    // ---------- delete ------------//
-    delete(id: number){
-      this.books = this.books.filter((book : any) => book.bookID !== id)
-    }
+    console.log(this.editBookForm.value);
+  }
+
+  // ---------- delete ------------//
+  delete(id: number) {
+    this.books = this.books.filter((book: any) => book.bookID !== id);
+  }
 }
