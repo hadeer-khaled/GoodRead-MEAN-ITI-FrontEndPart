@@ -1,0 +1,15 @@
+.nav-link :hover {
+    color: rgb(236, 234, 234) !important;
+  }
+  nav {
+    background-color: #f3faff !important;
+  }
+  a:hover {
+    color: #0302c8;
+    font-weight: bold;
+  }
+ .user{
+  margin-right: 5px;
+ }
+
+  

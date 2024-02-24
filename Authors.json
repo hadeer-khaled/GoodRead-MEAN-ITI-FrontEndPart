@@ -1,73 +1,60 @@
 {
   "Authors": [
     {
-      "authorID": 1,
+      "id": 1,
       "firstName": "Jane",
       "lastName": "Austen",
-      "image": "jane_austen.jpg",
-      "dob": "1775-12-16",
       "description": "Renowned English novelist known for her romantic fiction.",
-      "authorBooks": ["Pride and Prejudice", "Sense and Sensibility"]
+      "dob": "1775-12-16",
+      "image": "jane_austen.jpg"
     },
     {
-      "authorID": 2,
+      "id": 2,
       "firstName": "William",
       "lastName": "Shakespeare",
-      "image": "shakespeare.jpg",
-      "dob": "1564-04-23",
       "description": "Legendary English playwright and poet, often called England's national poet.",
-      "authorBooks": ["Hamlet", "Romeo and Juliet"]
+      "dob": "1564-04-23",
+      "image": "shakespeare.jpg"
     },
     {
-      "authorID": 3,
+      "id": 3,
       "firstName": "Charles",
       "lastName": "Dickens",
-      "image": "dickens.jpg",
-      "dob": "1812-02-07",
       "description": "Influential Victorian novelist known for vivid characters and social criticism.",
-      "authorBooks": ["A Tale of Two Cities", "Great Expectations"]
+      "dob": "1812-02-07",
+      "image": "dickens.jpg"
     },
     {
-      "authorID": 4,
+      "id": 4,
       "firstName": "Agatha",
       "lastName": "Christie",
-      "image": "christie.jpg",
-      "dob": "1890-09-15",
       "description": "Queen of Crime, renowned for her detective novels and mystery stories.",
-      "authorBooks": [
-        "Murder on the Orient Express",
-        "And Then There Were None"
-      ]
+      "dob": "1890-09-15",
+      "image": "christie.jpg"
     },
     {
-      "authorID": 5,
+      "id": 5,
       "firstName": "George",
       "lastName": "Orwell",
-      "image": "orwell.jpg",
-      "dob": "1903-06-25",
       "description": "Author and journalist, best known for dystopian novels and political writings.",
-      "authorBooks": ["1984", "Animal Farm"]
+      "dob": "1903-06-25",
+      "image": "orwell.jpg"
     },
     {
-      "authorID": 6,
+      "id": 6,
       "firstName": "Emily",
       "lastName": "Brontë",
-      "image": "bronte.jpg",
-      "dob": "1818-07-30",
       "description": "Novelist and poet, best known for her only novel, Wuthering Heights.",
-      "authorBooks": ["Wuthering Heights"]
+      "dob": "1818-07-30",
+      "image": "bronte.jpg"
     },
     {
-      "authorID": 10,
+      "id": 10,
       "firstName": "Gabriel",
       "lastName": "García Márquez",
-      "image": "marquez.jpg",
-      "dob": "1927-03-06",
       "description": "Colombian novelist and Nobel Prize winner, known for magical realism.",
-      "authorBooks": [
-        "One Hundred Years of Solitude",
-        "Love in the Time of Cholera"
-      ]
+      "dob": "1927-03-06",
+      "image": "marquez.jpg"
     }
   ]
 }

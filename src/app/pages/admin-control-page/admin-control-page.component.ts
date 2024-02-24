@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AdminNavbarComponent } from '../../components/admin-navbar/admin-navbar.component';
-import { LogedNavComponent } from '../../loged-nav/loged-nav.component';
+import { LogedNavComponent } from '../../components/loged-nav/loged-nav.component';
 
 @Component({
   selector: 'app-admin-control-page',
