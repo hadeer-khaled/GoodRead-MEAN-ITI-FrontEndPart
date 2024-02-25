@@ -17,6 +17,12 @@ export class BookService {
     // const headers = new HttpHeaders().set('token', token);
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
+  getBooksPagination(pageNum: number = 1): Observable<any[]> {
+    // const headers = new HttpHeaders().set('token', token);
+    return this.http
+      .get<any[]>(`${this.apiUrl}/pagination?pageNum=${pageNum}`)
+      .pipe(catchError(this.handleError));
+  }
 
   // method to create a new book
   createBook(bookData: any): Observable<any> {

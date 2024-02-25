@@ -17,26 +17,18 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [NgbRatingModule, NgbPaginationModule],
   templateUrl: './user-books.component.html',
   styleUrl: './user-books.component.css',
-  // changeDetection: ChangeDetectionStrategy.Default, // or ChangeDetectionStrategy.OnPush if you're using it
 })
 export class UserBooksComponent {
   books!: Array<Book>;
   userBooks$!: any;
   shelve!: string;
-  selected = 6;
+  selected = 1;
   readonly = true;
-  pageSize = 9;
+  pageSize = 8;
   page = 1;
-  // private differ: KeyValueDiffer<any, any>;
-  constructor(
-    private bookService: BookService // private cdr: ChangeDetectorRef, // private differs: KeyValueDiffers
-  ) {
-    // this.differ = differs.find({}).create();
-  }
+  pagedBooksList!: Array<Book>;
+  constructor(private bookService: BookService) {}
   ngOnInit(): void {
-    // this.shelve = this.bookService.getShelve();
-    // this.getBooksFilterByShelf(this.shelve);
-
     this.userBooks$ = this.bookService.getBooksFilterByShelf(this.shelve);
     this.bookService.getShelve().subscribe((shelve) => {
       this.shelve = shelve;
@@ -51,6 +43,7 @@ export class UserBooksComponent {
         (response: any) => {
           console.log('Subscribe response', response);
           this.books = response;
+          this.updatePagedBooks();
           console.log('this.books', this.books);
         },
         (error: any) => {
@@ -70,5 +63,17 @@ export class UserBooksComponent {
       //   }
       // );
     }
+  }
+  onPageChange() {
+    this.updatePagedBooks();
+  }
+  updatePagedBooks() {
+    // Call pagedBooks() to update the displayed books based on pagination logic
+    this.pagedBooksList = this.pagedBooks();
+  }
+  pagedBooks(): any[] {
+    const startIndex = (this.page - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.books.slice(startIndex, endIndex);
   }
 }

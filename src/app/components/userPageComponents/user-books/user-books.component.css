@@ -48,7 +48,33 @@ table.rounded-corners th:not(:last-child),
 table.rounded-corners td:not(:last-child) {
   border-right: var(--border);
 }
+:host ::ng-deep .ngb-pagination .pagination {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
 
-.btn-trach:hover {
-  color: brown;
+:host ::ng-deep .ngb-pagination .pagination .page-item .page-link {
+  border-radius: 50% !important;
+  border: 1px solid var(--royal-green);
+  margin-right: 10px;
+}
+:host ::ng-deep .ngb-pagination .pagination li.active .page-link {
+  border-radius: 50% !important;
+  background-color: #ffc107 !important;
+  border: 1px solid #ffc107;
+  margin-right: 10px;
+}
+
+:host ::ng-deep .ngb-pagination .pagination .page-item .page-link span {
+  font-size: 1.2rem;
+}
+:host ::ng-deep .ngb-pagination .pagination .page-item:last-child .page-link,
+:host ::ng-deep .ngb-pagination .pagination .page-item:first-child .page-link {
+  background-color: var(--royal-green) !important;
+  border: 1px solid var(--royal-green);
+  color: white;
+}
+:host ::ng-deep .ngb-pagination .pagination li.disabled .page-link {
+  color: gray !important;
 }

@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (book of books ; track $index ) {
+      @for (book of pagedBooksList ; track $index ) {
       <tr>
         <td>image</td>
         <td>{{ book.title }}</td>
@@ -35,10 +35,13 @@
       }
     </tbody>
   </table>
+
   <ngb-pagination
+    class="ngb-pagination"
     [(page)]="page"
     [pageSize]="pageSize"
     [collectionSize]="books.length"
+    (pageChange)="onPageChange()"
     aria-label="Default pagination"
   />
 </div>
