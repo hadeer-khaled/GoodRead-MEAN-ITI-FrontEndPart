@@ -1,5 +1,3 @@
-<h2>Games List</h2>
-<hr />
 <div class="row row-cols-1 row-cols-md-3 g-4">
   @for(author of authors; track author.id){
     <div class="col">
@@ -7,4 +5,12 @@
       <app-author-card [currentAuthor]="author"></app-author-card>
     </div>
   }
+  <!-- <ngb-pagination
+  class="ngb-pagination"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="books.length"
+  (pageChange)="onPageChange()"
+  aria-label="Default pagination"
+  /> -->
 </div>

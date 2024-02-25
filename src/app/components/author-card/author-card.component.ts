@@ -14,9 +14,9 @@ export class AuthorCardComponent {
 
   @Input() currentAuthor!: any ;
 
-  showDetails(){
+  showDetails(id : any ){
     console.log(this.currentAuthor);
-    this.router.navigate(['/admin'])
+    this.router.navigate(['/authors/author' , id ])
   }
   
 }
