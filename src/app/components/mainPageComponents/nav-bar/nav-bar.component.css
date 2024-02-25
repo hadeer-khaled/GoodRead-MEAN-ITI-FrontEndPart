@@ -13,7 +13,11 @@ a:hover {
   color: #e41c77;
 }
 .signup-btn:hover {
+  background-color: #e41c77;
+}
+.signup-btn:hover a {
   color: white;
+  font-weight: normal;
   background-color: #e41c77;
 }
 .ngbDropdownMenu {
