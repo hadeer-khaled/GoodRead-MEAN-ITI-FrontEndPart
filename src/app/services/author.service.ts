@@ -37,15 +37,15 @@ export class AuthorService {
       .pipe(catchError(this.handleError));
   }
 
-  updateAuthor(authorId: string, authorData: any): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+  updateAuthor(authorId: number , authorData: any , token : string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .patch<any>(`${this.apiUrl}/${authorId}`, authorData, { headers })
       .pipe(catchError(this.handleError));
   }
 
-  deleteAuthor(authorId: string): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+  deleteAuthor(authorId: number, token : string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .delete<any>(`${this.apiUrl}/${authorId}`, { headers })
       .pipe(catchError(this.handleError));
