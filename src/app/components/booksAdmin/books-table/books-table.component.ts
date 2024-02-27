@@ -30,16 +30,18 @@ export class BooksTableComponent {
   categories!: Array<Category>;
   authors!: Array<Author>;
   books!: Array<Book>;
+
   editBookForm!: FormGroup;
-  editedBookId!: number;
+  id!: number;
   selectedBook!: any;
   bookForm!: FormGroup;
   newBook: any;
+  categoriesArray2: any
 
   constructor(
     private router: Router,
     private dataService: DataService,
-    private formBuilder: FormBuilder,
+    // private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private bookService: BookService,
     private authorService: AuthorService,
@@ -54,21 +56,21 @@ export class BooksTableComponent {
       newAuthorID: new FormControl('', [Validators.required]),
     });
 
-    this.editBookForm = this.formBuilder.group({
+    this.editBookForm = new FormGroup({
+
       title: new FormControl('', [
         Validators.required,
         Validators.maxLength(25),
       ]),
-      categoryID: new FormControl('', [
+      editbookCategoryID: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[0-9]*$'),
       ]),
-      authorID: new FormControl('', [
+      editbookauthorID: new FormControl('', [
         Validators.required,
-        Validators.pattern('^[0-9]*$'),
       ]),
     });
   }
+  
   ngOnInit(): void {
     this.getAllBooks();
     this.getAllAuthors();
@@ -111,7 +113,7 @@ export class BooksTableComponent {
     );
   }
   // ================================ Get All Authors =================== \\
-
+  
   getAllAuthors() {
     this.authorService.getAuthors().subscribe(
       (response: any) => {
@@ -122,14 +124,14 @@ export class BooksTableComponent {
       (error: any) => {
         console.error('Error getting books:', error);
       }
-    );
+      );
   }
   // ================================ Get All Categries =================== \\
   getAllCategories() {
     const pageNum = 1; // Or any page number you want to fetch
     this.categoryService
-      .getcategoriesNames()
-      .pipe(
+    .getcategoriesNames()
+    .pipe(
         map((data: any) => {
           console.log('data', data);
           let categoriesArray = [];
@@ -141,17 +143,18 @@ export class BooksTableComponent {
           }
           return categoriesArray;
         })
-      )
-      .subscribe(
-        (categories) => {
+        )
+        .subscribe(
+          (categories) => {
           this.categories = categories;
+          console.log('this.categories', this.categories);
         },
         (error) => {
           console.error('Error getting categories:', error);
         }
-      );
+        );
   }
-
+  
   // --------------------------- NgBootstrap Code --------------------------- \\
   closeResult = '';
   open(content: TemplateRef<any>) {
@@ -164,59 +167,69 @@ export class BooksTableComponent {
         (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         }
-      );
+        );
   }
   private getDismissReason(reason: any): string {
     switch (reason) {
       case ModalDismissReasons.ESC:
         return 'by pressing ESC';
-      case ModalDismissReasons.BACKDROP_CLICK:
+        case ModalDismissReasons.BACKDROP_CLICK:
         return 'by clicking on a backdrop';
-      default:
-        return `with: ${reason}`;
+        default:
+          return `with: ${reason}`;
     }
   }
-  // ------------ edit ngModal --------------//
+
+  // ================================ edit ngModal ================================
+  
   editBook(book: any, editModal: any) {
     console.log('Editing book:', book);
-    this.editedBookId = book.bookID;
-    this.selectedBook = {
-      title: book.title,
-      categoryID: book.categoryID,
-      authorID: book.authorID,
-    };
-    console.log('Selected book:', this.selectedBook);
-    this.populateForm();
+    this.id = book.id;
+    console.log(this.id)
+    this.editBookForm.patchValue({
+      title:book.title,
+      // editbookCategoryID: book.category.name,
+      editbookauthorID: book.author.firstName + ' ' + book.author.lastName,
+    });
     this.modalService.open(editModal, { centered: true });
   }
+  // ================================ edit  ================================
 
-  populateForm() {
-    console.log('Selected book for form population:', this.selectedBook);
-    this.editBookForm.patchValue({
-      title: this.selectedBook.title,
-      categoryID: this.selectedBook.categoryID,
-      authorID: this.selectedBook.authorID,
-    });
-  }
-  updateBook() {
-    const isvalid = this.editBookForm.valid;
-    if (isvalid) {
-      const isUpdated = this.dataService.updateBook(
-        this.editedBookId,
-        this.selectedBook
-      );
-      if (isUpdated) {
-        this.modalService.dismissAll();
-        this.router.navigate(['/admin/books']);
+  updatebook(){
+    this.bookService.updateBook(this.id, this.editBookForm.value , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo')
+    .subscribe(
+      (response) => {
+        console.log('Book updated successfully:', response);
+        this.getAllBooks();
+       // window.location.reload();
+      },
+      (error) => {
+        console.error('Error updating Book:', error);
       }
-    } else {
-      console.log('Form is not valid');
-    }
-    console.log(this.editBookForm.value);
+    );
+    this.modalService.dismissAll();
   }
 
-  // ---------- delete ------------//
-  delete(id: number) {
-    this.books = this.books.filter((book: any) => book.bookID !== id);
+  // ================================ delete ngModal ================================
+
+  deleteBookModal(book: any, content: any) {
+    this.id = book.id;
+    this.modalService.open(content, { centered: true });
   }
+
+    // ================================ delete  ================================
+
+    deleteBook() {
+      this.bookService.deleteBook(this.id,'string').subscribe(
+          (response) => {
+            console.log('Book deleted successfully:', response);
+            window.location.reload();
+          },
+          (error) => {
+            console.error('Error deleting Book:', error);
+          }
+        );
+      this.modalService.dismissAll();
+    }
+
 }

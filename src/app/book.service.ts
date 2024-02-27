@@ -81,7 +81,7 @@ export class BookService {
   }
 
   // method to update a book
-  updateBook(bookId: string, bookData: any, token: string): Observable<any> {
+  updateBook(bookId: number, bookData: any, token: string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
     return this.http
       .patch<any>(`${this.apiUrl}/${bookId}`, bookData, { headers })
@@ -100,8 +100,8 @@ export class BookService {
       .pipe(catchError(this.handleError));
   }
   // method to delete a book
-  deleteBook(bookId: string): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+  deleteBook(bookId: number , token : string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .delete<any>(`${this.apiUrl}/${bookId}`, { headers })
       .pipe(catchError(this.handleError));
