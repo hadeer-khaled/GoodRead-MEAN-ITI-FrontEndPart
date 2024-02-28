@@ -54,6 +54,7 @@ export class BooksTableComponent {
       ]),
       newBookCategoryID: new FormControl('', [Validators.required]),
       newAuthorID: new FormControl('', [Validators.required]),
+      describtion: new FormControl('', [Validators.required]),
     });
 
     this.editBookForm = new FormGroup({
@@ -90,11 +91,9 @@ export class BooksTableComponent {
     console.log(this.bookForm);
     this.newBook = {
       title: this.bookForm.value.newBookName,
-      // category: this.categoryService.getCategoryById(
-      //   this.bookForm.value.newBookCategoryID
-      // ),
-      category: { _id: this.bookForm.value.newBookCategoryID },
+      category: this.bookForm.value.newBookCategoryID,
       author: this.bookForm.value.newAuthorID,
+      description: this.bookForm.value.describtion,
     };
     console.log('this.newBook: ', this.newBook);
     this.bookService.createBook(this.newBook).subscribe(
@@ -102,7 +101,7 @@ export class BooksTableComponent {
         console.log('Book added successfully:', response);
 
         this.getAllBooks();
-        // window.location.reload();
+        window.location.reload();
       },
       (error) => {
         console.error('Error adding Book:', error);

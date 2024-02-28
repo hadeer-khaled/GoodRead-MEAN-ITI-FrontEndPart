@@ -53,7 +53,7 @@ export class CategoryService {
       .pipe(catchError(this.handleError));
   }
   getcategoriesNames() {
-    return this.http.get(`${this.apiUrl}/${name}`);
+    return this.http.get(`${this.apiUrl}`);
   }
 
   getCategoryById(id: string): Observable<any> {

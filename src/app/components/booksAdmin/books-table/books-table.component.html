@@ -24,7 +24,6 @@
           <th scope="row">{{ book.id }}</th>
           <td><img src="../../../../assets/images/book1.jpg" /></td>
           <td>{{ book.title }}</td>
-          <!-- <td>{{ book.category.id }}</td> -->
           <td>{{ book.category.id }}</td>
           <td>{{ book.author.id }}</td>
 
@@ -99,7 +98,7 @@
               aria-label=".form-select-lg example"
             >
               @for( category of categories ; track category.id){
-              <option value="{{ category.id }}">
+              <option value="{{ category._id }}">
                 {{ category.name }}
               </option>
               }
@@ -141,6 +140,29 @@
           </div>
           }
         </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="describtion" class="mb-2">Describtion</label>
+          <div class="input-group">
+            <textarea
+              id="describtion"
+              class="form-control"
+              placeholder="describtion"
+              name="describtion"
+              formControlName="describtion"
+            ></textarea>
+          </div>
+          @if(bookForm.controls['describtion'].invalid &&
+          bookForm.controls['describtion'].touched){
+          <div class="form-text text-danger">
+            @if(bookForm.controls['describtion'].errors?.['required']){
+            <small>Describtion is required</small>
+            }
+          </div>
+          }
+        </div>
+
         <div class="modal-footer">
           <button
             type="submit"

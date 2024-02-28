@@ -43,6 +43,7 @@ export class SignupComponent {
           Validators.pattern(PasswordRegx),
         ]),
         rePassword: new FormControl('', [Validators.required]),
+        image: new FormControl('', [Validators.required]),
       },
       { validators: this.passwordMatchValidator }
     );
@@ -79,5 +80,8 @@ export class SignupComponent {
     }
 
     return null;
+  }
+  onImageSelected(event: Event) {
+    console.log(event);
   }
 }
