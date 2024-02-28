@@ -10,6 +10,7 @@ import {
 import { PasswordRegx } from '../../passwordRegex';
 import { Router } from '@angular/router';
 import { match } from 'node:assert';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,7 @@ import { match } from 'node:assert';
 export class SignupComponent {
   SignUpForm!: FormGroup;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private userServics: UserService) {
     this.SignUpForm = new FormGroup(
       {
         firstName: new FormControl('', [
@@ -49,6 +50,14 @@ export class SignupComponent {
 
   handleFormSubmit() {
     console.log(this.SignUpForm.value);
+    this.userServics.register(this.SignUpForm.value).subscribe(
+      (response) => {
+        console.log('Message:', response.Message);
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
     this.router.navigate(['user']);
   }
   noSpacesValidator(control: AbstractControl): ValidationErrors | null {
