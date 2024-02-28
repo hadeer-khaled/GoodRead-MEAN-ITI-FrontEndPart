@@ -19,8 +19,9 @@ export class BookService {
   }
   getBooksPagination(pageNum: number = 1): Observable<any[]> {
     // const headers = new HttpHeaders().set('token', token);
+    const params = new HttpParams().set('pageNum', pageNum.toString());
     return this.http
-      .get<any[]>(`${this.apiUrl}/pagination?pageNum=${pageNum}`)
+      .get<any[]>(`${this.apiUrl}/pagination`, { params })
       .pipe(catchError(this.handleError));
   }
 
@@ -41,12 +42,19 @@ export class BookService {
   //   return this.shelve;
   // }
   //   // method to get books filtered by shelf
-  getBooksFilterByShelf(queryParams: any): Observable<any[]> {
+  getBooksFilterByShelf(
+    pageNum: number = 1,
+    shelve: string = 'all'
+  ): Observable<any[]> {
     // const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    let params = new HttpParams()
+      .set('pageNum', pageNum.toString())
+      .set('shelve', shelve);
+
     return (
       this.http
         // .get<any[]>(`${this.apiUrl}/shelf`, { headers, params: queryParams })
-        .get<any[]>(`${this.apiUrl}/shelf`, { params: queryParams })
+        .get<any[]>(`${this.apiUrl}/shelve`, { params })
         .pipe(catchError(this.handleError))
     );
   }

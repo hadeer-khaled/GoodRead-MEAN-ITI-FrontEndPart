@@ -11,8 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      @for (book of pagedBooksList ; track $index ) {
-      <tr>
+      <!-- @for (book of books ; track $index ) { -->
+      <tr *ngFor="let book of books; let i = index">
         <td>image</td>
         <td>{{ book.title }}</td>
         <td>{{ book.author.firstName }}</td>
@@ -30,9 +30,32 @@
             [max]="6"
           />
         </td>
-        <td>{{ shelve }}</td>
+        <!-- <td>{{ shelve }}</td> -->
+        <td>
+          <!-- <select
+            aria-label=".form-select-lg example"
+            [(ngModel)]="selectedShelve"
+          >
+            @for( shelveOption of shelveOptions ; track $index){
+            <option value="{{ shelveOption }}">
+              {{ shelveOption }}
+            </option>
+            }
+          </select> -->
+          <select
+            aria-label=".form-select-lg example"
+            [(ngModel)]="selectedShelve[i]"
+          >
+            <option
+              *ngFor="let shelveOption of shelveOptions"
+              [value]="shelveOption"
+            >
+              {{ shelveOption }}
+            </option>
+          </select>
+        </td>
       </tr>
-      }
+      <!-- } -->
     </tbody>
   </table>
 
@@ -40,7 +63,7 @@
     class="ngb-pagination"
     [(page)]="page"
     [pageSize]="pageSize"
-    [collectionSize]="books.length"
+    [collectionSize]="booksLength"
     (pageChange)="onPageChange()"
     aria-label="Default pagination"
   />

@@ -1,9 +1,10 @@
+<p>Heloo</p>
 <div class="row row-cols-1 row-cols-md-3 g-4">
   @for(author of authors; track author.id){
-    <div class="col">
-     <!-- CHILD COMPONENT -->
-      <app-author-card [currentAuthor]="author"></app-author-card>
-    </div>
+  <div class="col">
+    <!-- CHILD COMPONENT -->
+    <app-author-card [currentAuthor]="author"></app-author-card>
+  </div>
   }
   <!-- <ngb-pagination
   class="ngb-pagination"

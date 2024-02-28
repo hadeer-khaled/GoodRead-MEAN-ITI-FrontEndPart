@@ -163,6 +163,13 @@
                       <label for="rePassword" class="form-label">
                         Re-type your Password</label
                       >
+
+                      @if(SignUpForm.controls['rePassword'].invalid &&
+                      SignUpForm.controls['rePassword'].touched) {
+                      <div id="emailHelp" class="form-text text-danger">
+                        <small>Password mismatch</small>
+                      </div>
+                      }
                     </div>
                   </div>
                   <!--  --------------------- Submit  ----------------------->
