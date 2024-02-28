@@ -36,7 +36,7 @@ export class BooksTableComponent {
   selectedBook!: any;
   bookForm!: FormGroup;
   newBook: any;
-  categoriesArray2: any
+  categoriesArray2: any;
 
   constructor(
     private router: Router,
@@ -57,20 +57,15 @@ export class BooksTableComponent {
     });
 
     this.editBookForm = new FormGroup({
-
       title: new FormControl('', [
         Validators.required,
         Validators.maxLength(25),
       ]),
-      editbookCategoryID: new FormControl('', [
-        Validators.required,
-      ]),
-      editbookauthorID: new FormControl('', [
-        Validators.required,
-      ]),
+      editbookCategoryID: new FormControl('', [Validators.required]),
+      editbookauthorID: new FormControl('', [Validators.required]),
     });
   }
-  
+
   ngOnInit(): void {
     this.getAllBooks();
     this.getAllAuthors();
@@ -100,12 +95,13 @@ export class BooksTableComponent {
       category: this.bookForm.value.newBookCategoryID,
       author: this.bookForm.value.newAuthorID,
     };
-
+    console.log('this.newBook: ', this.newBook);
     this.bookService.createBook(this.newBook).subscribe(
       (response) => {
         console.log('Book added successfully:', response);
+
         this.getAllBooks();
-        window.location.reload();
+        // window.location.reload();
       },
       (error) => {
         console.error('Error adding Book:', error);
@@ -113,7 +109,7 @@ export class BooksTableComponent {
     );
   }
   // ================================ Get All Authors =================== \\
-  
+
   getAllAuthors() {
     this.authorService.getAuthors().subscribe(
       (response: any) => {
@@ -124,14 +120,14 @@ export class BooksTableComponent {
       (error: any) => {
         console.error('Error getting books:', error);
       }
-      );
+    );
   }
   // ================================ Get All Categries =================== \\
   getAllCategories() {
     const pageNum = 1; // Or any page number you want to fetch
     this.categoryService
-    .getcategoriesNames()
-    .pipe(
+      .getcategoriesNames()
+      .pipe(
         map((data: any) => {
           console.log('data', data);
           let categoriesArray = [];
@@ -143,18 +139,18 @@ export class BooksTableComponent {
           }
           return categoriesArray;
         })
-        )
-        .subscribe(
-          (categories) => {
+      )
+      .subscribe(
+        (categories) => {
           this.categories = categories;
           console.log('this.categories', this.categories);
         },
         (error) => {
           console.error('Error getting categories:', error);
         }
-        );
+      );
   }
-  
+
   // --------------------------- NgBootstrap Code --------------------------- \\
   closeResult = '';
   open(content: TemplateRef<any>) {
@@ -167,27 +163,27 @@ export class BooksTableComponent {
         (reason) => {
           this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         }
-        );
+      );
   }
   private getDismissReason(reason: any): string {
     switch (reason) {
       case ModalDismissReasons.ESC:
         return 'by pressing ESC';
-        case ModalDismissReasons.BACKDROP_CLICK:
+      case ModalDismissReasons.BACKDROP_CLICK:
         return 'by clicking on a backdrop';
-        default:
-          return `with: ${reason}`;
+      default:
+        return `with: ${reason}`;
     }
   }
 
   // ================================ edit ngModal ================================
-  
+
   editBook(book: any, editModal: any) {
     console.log('Editing book:', book);
     this.id = book.id;
-    console.log(this.id)
+    console.log(this.id);
     this.editBookForm.patchValue({
-      title:book.title,
+      title: book.title,
       // editbookCategoryID: book.category.name,
       editbookauthorID: book.author.firstName + ' ' + book.author.lastName,
     });
@@ -195,18 +191,23 @@ export class BooksTableComponent {
   }
   // ================================ edit  ================================
 
-  updatebook(){
-    this.bookService.updateBook(this.id, this.editBookForm.value , 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo')
-    .subscribe(
-      (response) => {
-        console.log('Book updated successfully:', response);
-        this.getAllBooks();
-       // window.location.reload();
-      },
-      (error) => {
-        console.error('Error updating Book:', error);
-      }
-    );
+  updatebook() {
+    this.bookService
+      .updateBook(
+        this.id,
+        this.editBookForm.value,
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo'
+      )
+      .subscribe(
+        (response) => {
+          console.log('Book updated successfully:', response);
+          this.getAllBooks();
+          // window.location.reload();
+        },
+        (error) => {
+          console.error('Error updating Book:', error);
+        }
+      );
     this.modalService.dismissAll();
   }
 
@@ -217,19 +218,18 @@ export class BooksTableComponent {
     this.modalService.open(content, { centered: true });
   }
 
-    // ================================ delete  ================================
+  // ================================ delete  ================================
 
-    deleteBook() {
-      this.bookService.deleteBook(this.id,'string').subscribe(
-          (response) => {
-            console.log('Book deleted successfully:', response);
-            window.location.reload();
-          },
-          (error) => {
-            console.error('Error deleting Book:', error);
-          }
-        );
-      this.modalService.dismissAll();
-    }
-
+  deleteBook() {
+    this.bookService.deleteBook(this.id, 'string').subscribe(
+      (response) => {
+        console.log('Book deleted successfully:', response);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error deleting Book:', error);
+      }
+    );
+    this.modalService.dismissAll();
+  }
 }
