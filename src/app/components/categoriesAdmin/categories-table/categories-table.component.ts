@@ -170,6 +170,7 @@ export class CategoriesTableComponent {
             window.location.reload();
           },
           (error) => {
+            alert(`Error updating category: ${error}`)
             console.error('Error updating category:', error);
           }
         );
