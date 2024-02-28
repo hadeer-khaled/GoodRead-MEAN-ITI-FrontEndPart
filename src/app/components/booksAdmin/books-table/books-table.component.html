@@ -25,7 +25,7 @@
           <td><img src="../../../../assets/images/book1.jpg" /></td>
           <td>{{ book.title }}</td>
           <!-- <td>{{ book.category.id }}</td> -->
-          <td>6</td>
+          <td>{{ book.category.id }}</td>
           <td>{{ book.author.id }}</td>
 
           <td>
@@ -99,7 +99,7 @@
               aria-label=".form-select-lg example"
             >
               @for( category of categories ; track category.id){
-              <option value="{{ category.id }}">
+              <option value="{{ category._id }}">
                 {{ category.name }}
                 <!-- hader -->
               </option>
@@ -127,7 +127,7 @@
               aria-label=".form-select-lg example"
             >
               @for( author of authors ; track author.id){
-              <option value="{{ author.id }}">
+              <option value="{{ author._id }}">
                 {{ author.firstName }}
               </option>
               }
@@ -194,7 +194,7 @@
               formControlName="editbookCategoryID"
               aria-label=".form-select-lg example"
             >
-            <option selected></option>
+              <option selected></option>
               @for( category of categories ; track category.id){
               <option value="{{ category.id }}">
                 {{ category.name }}
@@ -202,21 +202,23 @@
               }
             </select>
           </div>
-          </div>
+        </div>
         <div class="mb-3">
           <label for="editbookauthorID" class="form-label">Author</label>
-          <select id="editbookauthorID"
-          class="form-select form-select-lg mb-3"
-          name="editbookauthorID"
-          formControlName="editbookauthorID">
-              @for( author of authors ; track author.id){
-                <!-- [selected]="author.firstName + '' + author.lastName === editBookForm.get('editbookauthorID')?.value -->
-              <option value="{{ author.id }}">
-                {{ author.firstName + ' ' + author.lastName }}
-                </option>
-              }
-            </select>
-          </div>
+          <select
+            id="editbookauthorID"
+            class="form-select form-select-lg mb-3"
+            name="editbookauthorID"
+            formControlName="editbookauthorID"
+          >
+            @for( author of authors ; track author.id){
+            <!-- [selected]="author.firstName + '' + author.lastName === editBookForm.get('editbookauthorID')?.value -->
+            <option value="{{ author.id }}">
+              {{ author.firstName + " " + author.lastName }}
+            </option>
+            }
+          </select>
+        </div>
         <div class="modal-footer">
           <button
             type="submit"
@@ -230,8 +232,8 @@
     </div>
   </ng-template>
 
-   <!-- delete modal -->
-   <ng-template #deleteModal let-modal>
+  <!-- delete modal -->
+  <ng-template #deleteModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
       <button
