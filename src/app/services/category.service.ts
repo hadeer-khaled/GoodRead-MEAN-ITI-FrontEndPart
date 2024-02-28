@@ -25,7 +25,7 @@ export class CategoryService {
     categoryData: any,
     token: string
   ): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .patch<any>(`${this.apiUrl}/${categoryId}`, categoryData, { headers })
       .pipe(catchError(this.handleError));
@@ -33,7 +33,7 @@ export class CategoryService {
 
   // method to delete a category by ID (admin only)
   deleteCategory(categoryId: number, token: string): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .delete<any>(`${this.apiUrl}/${categoryId}`, { headers })
       .pipe(catchError(this.handleError));

@@ -31,7 +31,7 @@ export class AdminLoginComponent {
     const credentials = {username: this.logObj.username, password: this.logObj.password };
     this.http.login(credentials).subscribe(response => {
     console.log('User logged in successfully:', response);
-    localStorage.setItem('token', JSON.stringify(response.data));
+    localStorage.setItem('token', (response.data));
     console.log(localStorage.getItem('token'));
     localStorage.setItem('loggedUser',credentials.username);
     console.log(localStorage.getItem('loggedUser'))

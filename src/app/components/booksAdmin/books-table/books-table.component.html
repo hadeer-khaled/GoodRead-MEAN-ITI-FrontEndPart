@@ -142,6 +142,27 @@
           </div>
           }
         </div>
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="describtion" class="mb-2">Describtion</label>
+          <div class="input-group">
+            <textarea
+              id="describtion"
+              class="form-control"
+              placeholder="describtion"
+              name="describtion"
+              formControlName="describtion"
+            ></textarea>
+          </div>
+          @if(bookForm.controls['describtion'].invalid &&
+          bookForm.controls['describtion'].touched){
+          <div class="form-text text-danger">
+            @if(bookForm.controls['describtion'].errors?.['required']){
+            <small>Describtion is required</small>
+            }
+          </div>
+          }
+        </div>
         <div class="modal-footer">
           <button
             type="submit"
@@ -186,12 +207,6 @@
           />
         </div>
         <div class="mb-3">
-          <label for="editdescription" class="form-label">Description</label>
-          <textarea id = "editdescription",
-          >
-          </textarea>
-        </div>
-        <div class="mb-3">
           <label for="editbookCategoryID" class="mb-2">Category</label>
           <div class="input-group">
             <select
@@ -201,7 +216,6 @@
               formControlName="editbookCategoryID"
               aria-label=".form-select-lg example"
             >
-              <option selected></option>
               @for( category of categories ; track category.id){
               <option value="{{ category.id }}">
                 {{ category.name }}
@@ -226,6 +240,19 @@
             }
           </select>
         </div>
+
+        <div class="mb-3">
+          <label for="editdescribtion" class="mb-2">Describtion</label>
+          <div class="input-group">
+            <textarea
+              id="editdescribtion"
+              class="form-control"
+              name="editdescribtion"
+              formControlName="editdescribtion"
+            >
+          </textarea>
+          </div>
+        </div>
         <div class="modal-footer">
           <button
             type="submit"
@@ -234,6 +261,7 @@
           >
             Save Changes
           </button>
+        </div>
         </div>
       </form>
     </div>

@@ -36,7 +36,9 @@ export class BooksTableComponent {
   selectedBook!: any;
   bookForm!: FormGroup;
   newBook: any;
-  categoriesArray2: any;
+  // categoriesArray2: any;
+  bookedit: any
+  token: string = ''
 
   constructor(
     private router: Router,
@@ -47,6 +49,8 @@ export class BooksTableComponent {
     private authorService: AuthorService,
     private categoryService: CategoryService
   ) {
+
+    this.token = localStorage.getItem('token') || ''
     this.bookForm = new FormGroup({
       newBookName: new FormControl('', [
         Validators.required,
@@ -54,6 +58,7 @@ export class BooksTableComponent {
       ]),
       newBookCategoryID: new FormControl('', [Validators.required]),
       newAuthorID: new FormControl('', [Validators.required]),
+      describtion: new FormControl('', [Validators.required]),
     });
 
     this.editBookForm = new FormGroup({
@@ -63,6 +68,7 @@ export class BooksTableComponent {
       ]),
       editbookCategoryID: new FormControl('', [Validators.required]),
       editbookauthorID: new FormControl('', [Validators.required]),
+      editdescribtion : new FormControl ('',[Validators.required])
     });
   }
 
@@ -87,13 +93,12 @@ export class BooksTableComponent {
   }
   // ================================ Add book =============== \\
   getNewBookName() {
+    console.log(this.bookForm);
     this.newBook = {
       title: this.bookForm.value.newBookName,
-      // category: this.categoryService.getCategoryById(
-      //   this.bookForm.value.newBookCategoryID
-      // ),
       category: this.bookForm.value.newBookCategoryID,
       author: this.bookForm.value.newAuthorID,
+      description: this.bookForm.value.describtion,
     };
     console.log('this.newBook: ', this.newBook);
     this.bookService.createBook(this.newBook).subscribe(
@@ -101,7 +106,7 @@ export class BooksTableComponent {
         console.log('Book added successfully:', response);
 
         this.getAllBooks();
-        // window.location.reload();
+        window.location.reload();
       },
       (error) => {
         console.error('Error adding Book:', error);
@@ -184,19 +189,29 @@ export class BooksTableComponent {
     console.log(this.id);
     this.editBookForm.patchValue({
       title: book.title,
-      // editbookCategoryID: book.category.name,
-      editbookauthorID: book.author.firstName + ' ' + book.author.lastName,
+      editbookCategoryID: book.category._id,
+      editbookauthorID: book.author._id,
+      editdescribtion : book.description
+      
     });
+    
     this.modalService.open(editModal, { centered: true });
   }
   // ================================ edit  ================================
 
   updatebook() {
+    this.bookedit = {
+      title : this.editBookForm.value.title,
+      category : this.editBookForm.value.editbookCategoryID,
+      author : this.editBookForm.value.editbookauthorID,
+      description : this.editBookForm.value.editdescribtion
+
+    }
     this.bookService
       .updateBook(
         this.id,
-        this.editBookForm.value,
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg3NDczNDh9.zqZU7dvGn9r4td2CJqF_Rkz5Mc_dcHf38brAT4J6vpo'
+        this.bookedit,
+        this.token
       )
       .subscribe(
         (response) => {
@@ -221,10 +236,10 @@ export class BooksTableComponent {
   // ================================ delete  ================================
 
   deleteBook() {
-    this.bookService.deleteBook(this.id, 'string').subscribe(
+    this.bookService.deleteBook(this.id, this.token).subscribe(
       (response) => {
         console.log('Book deleted successfully:', response);
-        window.location.reload();
+        // window.location.reload();
       },
       (error) => {
         console.error('Error deleting Book:', error);

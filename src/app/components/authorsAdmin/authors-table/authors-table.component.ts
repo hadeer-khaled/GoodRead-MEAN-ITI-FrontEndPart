@@ -26,6 +26,7 @@ export class AuthorsTableComponent {
   authorForm!: FormGroup;
   editAuthorForm!:FormGroup;
   id!: number
+  authorEdit!: any
   editFirstName!: string
   editLastName!: string
   constructor(private router: Router, private authorService: AuthorService) {
@@ -54,6 +55,7 @@ export class AuthorsTableComponent {
         Validators.maxLength(20),
         Validators.pattern('[a-zA-Z ]*'),
       ]),
+      description: new FormControl('', [Validators.required]),
       Dob: new FormControl('', [Validators.required]),
     });
 
@@ -137,16 +139,17 @@ export class AuthorsTableComponent {
       // ================= Author update =================== \\
 
   updateAuthor(){
-    const authorData = {
+    this.authorEdit = {
       firstName: this.editAuthorForm.value.firstName,
       lastName: this.editAuthorForm.value.lastName,
-      dob: this.editAuthorForm.value.dob,
+      description:this.editAuthorForm.value.description,
+      dob: this.editAuthorForm.value.Dob,
     };
-    console.log(authorData);
+    console.log(this.authorEdit);
     console.log(this.id);
-    if (authorData && this.id) {
+    if (this.authorEdit && this.id) {
       this.authorService
-     .updateAuthor(this.id, authorData , " token ")
+     .updateAuthor(this.id, this.authorEdit , " token ")
      .subscribe(
           (response) => {
             console.log('Author updated successfully:', response);
