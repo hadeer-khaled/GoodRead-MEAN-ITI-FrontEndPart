@@ -1,6 +1,6 @@
 .card{
-    background-color: #feccb5;
-    border: 10px solid #feccb5;
+    background-color: #f896dd;
+    border: 10px solid #f896dd;
 }
 .card-img-top{
     height: 85%;
@@ -17,8 +17,8 @@
     width: 100%;
     padding: auto;
     margin: auto;
-    background-color: #feccb5;
-    color: #143464;
+    background-color: #f896dd;
+    color: #07224a;
     transition: 0.2;
     text-transform: uppercase;
 }

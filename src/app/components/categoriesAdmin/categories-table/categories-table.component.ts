@@ -10,6 +10,7 @@ import {
   // FormsModule,
   Validators,
 } from '@angular/forms';
+import {Category} from '../../../interfaces/category'
 
 //import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
 // import { DataService } from '../../../services/data.service';
@@ -130,15 +131,15 @@ export class CategoriesTableComponent {
     }
   }
   // =============== Get Category by id ================== \\
-  getCategoryId = (): number => {
-    const category = this.categoriesArray.find(
-      (category: { name: any; id: number }) => {
-        return category.name === this.editCategoryForm.value.editCategoryName;
-      }
-    );
+  // getCategoryId = (): string => {
+  //   const category = this.categoriesArray.find(
+  //     (category :Category ) => {
+  //       return category._id === this.editCategoryForm.value.editCategoryName;
+  //     }
+  //   );
 
-    return category ? category.id : -1;
-  };
+  //   return category ? category.id : -1;
+  // };
 
   // =============== edit ngModal =============== \\
   editCategoryModal(category: any, content: any) {
@@ -151,7 +152,7 @@ export class CategoriesTableComponent {
 
   // =============== edit =============== \\
   updateCategory() {
-    this.getCategoryId();
+    // this.getCategoryId();
     const categoryData = {
       name: this.editCategoryForm.value.editCategoryName,
     };
@@ -170,8 +171,10 @@ export class CategoriesTableComponent {
             window.location.reload();
           },
           (error) => {
-            alert(`Error updating category: ${error}`)
-            console.error('Error updating category:', error);
+            // alert(error.error)
+            console.log('Error updating category:', error.error.error);
+            alert(`${error.error.error}`);
+
           }
         );
     }
@@ -186,7 +189,7 @@ export class CategoriesTableComponent {
 
   // ============== delete ================== \\
   deleteCategory() {
-    this.getCategoryId();
+    // this.getCategoryId();
     const categoryId = this.id;
     this.categoryService
       .deleteCategory(
