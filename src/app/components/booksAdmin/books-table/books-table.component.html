@@ -149,6 +149,7 @@
             [disabled]="
               !(
                 bookForm.controls['newBookName'].valid &&
+                bookForm.controls['newBookCategoryID'].valid &&
                 bookForm.controls['newAuthorID'].valid
               )
             "
@@ -183,6 +184,12 @@
             name="title"
             formControlName="title"
           />
+        </div>
+        <div class="mb-3">
+          <label for="editdescription" class="form-label">Description</label>
+          <textarea id = "editdescription",
+          >
+          </textarea>
         </div>
         <div class="mb-3">
           <label for="editbookCategoryID" class="mb-2">Category</label>
