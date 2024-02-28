@@ -1,40 +1,53 @@
-<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
-    <div class="container">
-      <div class="div">
-        <a class="navbar-brand"
-          ><img
-            src="../../../assets/images/logo2.png"
-            alt="logo"
-            style="width: 10%"
-        /></a>
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
+  <div class="container">
+    <div class="row">
+      <div class="col div">
+        <!-- <a class="navbar-brand"> -->
+        <img src="../../../assets/images/logo2.png" alt="logo" />
+        <!-- </a> -->
       </div>
-      <div class="d-flex">
-        <i class="fa-solid fa-circle-user m-2"></i> {{loggedAdmin}}
-        <button class="btn btn-outline-success m-2" type="submit" (click)="logOut()">log Out</button>
-      </div>
-    </div>
-  </nav> -->
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-  
-        <a class="navbar-brand"
-          ><img
-            src="../../../assets/images/logo2.png"
-            alt="logo"
-            style="width: 70px"
-        /></a>
-        <div class="user">
-          <i class="fa-solid fa-circle-user"></i>
-          <span class="text-uppercase fw-bold "> {{loggedAdmin}} </span> 
-         <button class="btn btn-outline-success m-2" type="submit" (click)="logOut()">log Out</button>
+      <div class="col d-flex justify-content-end">
+        <div class="row">
+          <div class="col">
+            <div class="user">
+              <i class="fa-solid fa-circle-user"></i>
+              <span class="text-uppercase fw-bold"> {{ loggedAdmin }} </span>
+              <button
+                class="btn d-inline-block logout-btn mx-2"
+                type="submit"
+                (click)="logOut()"
+              >
+                log Out
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </nav>
-  
-  
+  </div>
+</nav>
+<!-- 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand"
+        ><img
+          src="../../../assets/images/logo2.png"
+          alt="logo"
+          style="width: 70px"
+      /></a>
+
+      <div class="user">
+        <i class="fa-solid fa-circle-user"></i>
+        <span class="text-uppercase fw-bold"> {{ loggedAdmin }} </span>
+        <button
+          class="btn btn-outline-success m-2"
+          type="submit"
+          (click)="logOut()"
+        >
+          log Out
+        </button>
+      </div>
+    </div>
+  </div>
+</nav> -->

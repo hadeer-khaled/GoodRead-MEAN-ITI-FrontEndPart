@@ -99,9 +99,8 @@
               aria-label=".form-select-lg example"
             >
               @for( category of categories ; track category.id){
-              <option value="{{ category._id }}">
+              <option value="{{ category.id }}">
                 {{ category.name }}
-                <!-- hader -->
               </option>
               }
             </select>
@@ -149,6 +148,7 @@
             [disabled]="
               !(
                 bookForm.controls['newBookName'].valid &&
+                bookForm.controls['newBookCategoryID'].valid &&
                 bookForm.controls['newAuthorID'].valid
               )
             "

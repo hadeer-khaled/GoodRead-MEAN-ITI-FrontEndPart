@@ -87,12 +87,13 @@ export class BooksTableComponent {
   }
   // ================================ Add book =============== \\
   getNewBookName() {
+    console.log(this.bookForm);
     this.newBook = {
       title: this.bookForm.value.newBookName,
       // category: this.categoryService.getCategoryById(
       //   this.bookForm.value.newBookCategoryID
       // ),
-      category: this.bookForm.value.newBookCategoryID,
+      category: { _id: this.bookForm.value.newBookCategoryID },
       author: this.bookForm.value.newAuthorID,
     };
     console.log('this.newBook: ', this.newBook);
