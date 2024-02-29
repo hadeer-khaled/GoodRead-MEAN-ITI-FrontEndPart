@@ -107,13 +107,13 @@ export const routes: Routes = [
     path: 'books',
     component: BookComponent,
     title: 'Books',
-    // canActivate: [UserLoginGuard],
+    canActivate: [UserLoginGuard],
   },
   {
     path: 'books/book/:id/:name',
     component: BookCardComponent,
     title: 'Book Details',
-    // canActivate: [UserLoginGuard],
+    canActivate: [UserLoginGuard],
   },
   {
     path: '**',
