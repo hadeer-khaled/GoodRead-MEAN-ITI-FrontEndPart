@@ -22,7 +22,12 @@
         @for (author of authors ; track author.id){
         <tr>
           <th scope="row">{{ author.id }}</th>
-          <td><img src="../../../../assets/images/book1.jpg" /></td>
+          <td>
+            <img
+              class="author-img"
+              [src]="'http://localhost:3000/images/authors/' + author.image"
+            />
+          </td>
           <td>{{ author.firstName }}</td>
           <td>{{ author.lastName }}</td>
           <td>{{ author.dob }}</td>

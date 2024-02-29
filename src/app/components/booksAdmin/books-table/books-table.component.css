@@ -104,3 +104,7 @@ table.rounded-corners td:not(:last-child) {
 .btn-trach:hover {
   color: brown;
 }
+.books-img {
+  width: 100px;
+  height: 100px;
+}
