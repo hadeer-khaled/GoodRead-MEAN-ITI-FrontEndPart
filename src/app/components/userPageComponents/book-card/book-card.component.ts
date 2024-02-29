@@ -68,6 +68,15 @@ export class BookCardComponent {
     this.bookService.getBookByIdUser(this.id, token).subscribe(
       (data) => {
         this.book = data;
+        this.bookService.getBoookReviews(this.book._id, token).subscribe(
+          (data) => {
+            this.reviews = data;
+            this.reviews = this.reviews.reviews;
+          },
+          (error) => {
+            console.error('Error fetching books:', error);
+          }
+        );
         console.log(this.book);
         console.log("i'm here ");
         if (this.book.countOfRating == 0) {
@@ -94,7 +103,7 @@ export class BookCardComponent {
   }
   ///////////////////get rate form user books array/////////////////////
   getRating(books: any[], bookId: string): number | undefined {
-    const foundBook = books.find(book => book.idOfBook === bookId);
+    const foundBook = books.find((book) => book.idOfBook === bookId);
     return foundBook ? foundBook.rating : undefined;
   }
   //////////////////updateBookShelve//////////////////////
@@ -140,18 +149,20 @@ export class BookCardComponent {
   }
 
   addNewReview() {
-
-    const reviewContent = this.reviewForm.value.review; 
-    const token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
-    this.bookService.createReview(this.book._id, reviewContent, token)
-    .subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching books:', error);
-      }
-    );
+    const reviewContent = this.reviewForm.value.review;
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.bookService
+      .createReview(this.book._id, reviewContent, token)
+      .subscribe(
+        (data) => {
+          console.log(data);
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Error fetching books:', error);
+        }
+      );
   }
   open(content: TemplateRef<any>) {
     this.modalService

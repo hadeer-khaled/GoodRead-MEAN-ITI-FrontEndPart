@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container d-flex justify-content-center">
   <div class="row book-details">
     <div class="flex-box">
       <div class="left">
@@ -136,85 +136,81 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8 course-details-content">
-      <div class="course-details-card mt--40">
-        <div class="course-content">
-          <h5 class="mb--20">Review</h5>
-          <button
-            class="btn btn-lg btn-outline-primary"
-            (click)="open(content)"
-          >
-            Add Review
-          </button>
-          <hr />
-          @for(review of reviews; track review.id) {
-          <div class="row row--30">
-            <div class="comment-wrapper pt--40">
-            <div class="edu-comment">
-              <div class="thumbnail">
-                <img [src]="'http://localhost:3000/images/users/' + 'authorNum1.jpg'" alt="User Image" />
-              </div>
-              <div class="comment-content">
-                <div class="comment-top">
-                  <h6 class="title">{{review.user.firstName}} {{review.user.lastName}}</h6>
-                  <div style="display: flex; align-items: center">
-                      <ngb-rating [rate]="4" [max]="5"></ngb-rating>
-                  </div>
-                </div>
-                <span class="subtitle">“{{ review.content }}”</span>
-                <p>{{ review.content }}</p>
-              </div>
-            </div>
-            </div>
-          </div>
-        }
+<div class="reviews-section d-flex flex-column my-3">
+  <div class="header d-flex mb-2">
+    <h5 class="mb--20">Review</h5>
+    <button class="btn btn-outline-primary mx-2 px-2" (click)="open(content)">
+      Add Review
+    </button>
+  </div>
+
+  @for(review of reviews; track review.id) {
+  <div class="reviews d-flex flex-column">
+    <div class="card mb-3">
+      <div class="card-header d-flex px-4 py-1">
+        <div class="img-div">
+          <img
+            class="reviewer-img"
+            [src]="'http://localhost:3000/images/users/' + 'authorNum1.jpg'"
+            alt="User Image"
+          />
         </div>
+        <div class="d-flex flex-column mx-3">
+          <h4>{{ review.user.firstName }} {{ review.user.lastName }}</h4>
+          <div style="display: flex; align-items: center">
+            <ngb-rating [rate]="4" [max]="5"></ngb-rating>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body px-4 py-1">
+        <p class="card-text">{{ review.content }}</p>
       </div>
     </div>
   </div>
 
+  }
 
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add Review</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
-  </div>
-  <div class="modal-body">
-    <form
-      [formGroup]="reviewForm"
-      (ngSubmit)="[addNewReview(), modal.close('Save click')]"
-    >
-      <div class="mb-3">
-        <label for="review">Your Review</label>
-        <div class="input-group">
-          <textarea
-            id="review"
-            class="form-control"
-            placeholder="your review"
-            name="review"
-            formControlName="review"
-          ></textarea>
-        </div>
-        @if(reviewForm.controls['review'].invalid &&
-        reviewForm.controls['review'].touched){
-        <div class="form-text text-danger">
-          @if(reviewForm.controls['review'].errors?.['required']){
-          <small>Review is required</small>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Review</h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form
+        [formGroup]="reviewForm"
+        (ngSubmit)="[addNewReview(), modal.close('Save click')]"
+      >
+        <div class="mb-3">
+          <label for="review">Your Review</label>
+          <div class="input-group">
+            <textarea
+              id="review"
+              class="form-control"
+              placeholder="your review"
+              name="review"
+              formControlName="review"
+            ></textarea>
+          </div>
+          @if(reviewForm.controls['review'].invalid &&
+          reviewForm.controls['review'].touched){
+          <div class="form-text text-danger">
+            @if(reviewForm.controls['review'].errors?.['required']){
+            <small>Review is required</small>
+            }
+          </div>
           }
         </div>
-        }
-      </div>
 
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-outline-dark">Save</button>
-      </div>
-    </form>
-  </div>
-</ng-template>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-outline-dark">Save</button>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>

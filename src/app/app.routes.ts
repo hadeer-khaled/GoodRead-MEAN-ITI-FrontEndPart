@@ -43,7 +43,7 @@ export const routes: Routes = [
     path: 'userHome',
     component: UserPanelComponent,
     title: 'Home',
-    canActivate: [UserLoginGuard]
+    canActivate: [UserLoginGuard],
   },
   {
     path: 'adminControlPage',
@@ -60,67 +60,66 @@ export const routes: Routes = [
     path: 'adminControlPage/categoriesTable',
     component: CategoriesTableComponent,
     title: 'Categories Table',
-    canActivate: [AdminLoginGuard]
+    canActivate: [AdminLoginGuard],
   },
   {
     path: 'adminControlPage/booksTable',
     component: BooksTableComponent,
     title: 'Books Table',
-    canActivate: [AdminLoginGuard]
+    canActivate: [AdminLoginGuard],
   },
   {
     path: 'adminControlPage/authorsTable',
     component: AuthorsTableComponent,
     title: 'Authors Table',
-    canActivate: [AdminLoginGuard]
+    canActivate: [AdminLoginGuard],
   },
   {
     path: 'authors/author/:id/:name',
     component: AuthorDetailsComponent,
-    canActivate: [UserLoginGuard]
+    canActivate: [UserLoginGuard],
   },
   {
     path: 'authors',
     component: AuthorsPageComponent,
     title: 'Authors Page',
-    canActivate: [UserLoginGuard]
+    canActivate: [UserLoginGuard],
   },
   {
     path: 'categories',
     component: CategoriesComponent,
     title: 'categories names page',
-    canActivate: [UserLoginGuard]
+    canActivate: [UserLoginGuard],
   },
   {
     path: 'category-details/:id/:pageNum/:pageSize',
     component: ShowCategoryBooksCardComponent,
     title: 'categories List page',
-    canActivate: [UserLoginGuard]
+    canActivate: [UserLoginGuard],
   },
   {
     path: 'add-admin',
     component: AddAdminComponent,
     data: { title: 'Add Admin' },
-    canActivate: [AdminLoginGuard]
-
+    canActivate: [AdminLoginGuard],
   },
   {
-    path:"books",
-    component:BookComponent,
-    title:"Books",
-    canActivate: [UserLoginGuard]
+    path: 'books',
+    component: BookComponent,
+    title: 'Books',
+    // canActivate: [UserLoginGuard],
   },
   {
-    path:"books/book/:id/:name",
-    component:BookCardComponent,
-    title:"Book Details",
-    canActivate: [UserLoginGuard]
+    path: 'books/book/:id/:name',
+    component: BookCardComponent,
+    title: 'Book Details',
+    // canActivate: [UserLoginGuard],
   },
   {
     path: '**',
     component: NotFoundComponent,
-  }
-  
+  },
+
   //   {
   //     path: '**',
   //     component: NotFoundPage,
