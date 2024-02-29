@@ -194,6 +194,7 @@ export class BooksTableComponent {
       editdescribtion : book.description
       
     });
+    console.log(this.editBookForm)
     
     this.modalService.open(editModal, { centered: true });
   }
@@ -205,8 +206,8 @@ export class BooksTableComponent {
       category : this.editBookForm.value.editbookCategoryID,
       author : this.editBookForm.value.editbookauthorID,
       description : this.editBookForm.value.editdescribtion
-
     }
+    console.log('this.bookedit: ', this.bookedit);
     this.bookService
       .updateBook(
         this.id,

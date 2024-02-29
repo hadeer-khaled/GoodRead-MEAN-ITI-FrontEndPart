@@ -217,7 +217,7 @@
               aria-label=".form-select-lg example"
             >
               @for( category of categories ; track category.id){
-              <option value="{{ category.id }}">
+              <option value="{{ category._id }}">
                 {{ category.name }}
               </option>
               }
@@ -234,7 +234,7 @@
           >
             @for( author of authors ; track author.id){
             <!-- [selected]="author.firstName + '' + author.lastName === editBookForm.get('editbookauthorID')?.value -->
-            <option value="{{ author.id }}">
+            <option value="{{ author._id }}">
               {{ author.firstName + " " + author.lastName }}
             </option>
             }
@@ -253,15 +253,15 @@
           </textarea>
           </div>
         </div>
+        
         <div class="modal-footer">
           <button
             type="submit"
             class="btn btn-outline-dark add-confirm-btn"
-            [disabled]="editBookForm.invalid"
-          >
+            >
+            <!-- [disabled]="editBookForm.invalid" -->
             Save Changes
           </button>
-        </div>
         </div>
       </form>
     </div>
