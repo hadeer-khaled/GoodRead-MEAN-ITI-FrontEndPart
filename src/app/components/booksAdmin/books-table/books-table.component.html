@@ -22,7 +22,12 @@
         @for (book of books ; track $index){
         <tr>
           <th scope="row">{{ book.id }}</th>
-          <td><img [src]="'http://localhost:3000/images/books/' + book.image" /></td>
+          <td>
+            <img
+              class="books-img"
+              [src]="'http://localhost:3000/images/books/' + book.image"
+            />
+          </td>
           <td>{{ book.title }}</td>
           <td>{{ book.category.id }}</td>
           <td>{{ book.author.id }}</td>

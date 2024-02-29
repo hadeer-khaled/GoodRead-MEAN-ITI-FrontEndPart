@@ -15,6 +15,7 @@ import { ShowCategoryBooksCardComponent } from './components/show-category-books
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookComponent } from './components/userPageComponents/book/book.component';
 import { BookCardComponent } from './components/userPageComponents/book-card/book-card.component';
+import { AddAdminComponent } from './components/add-admin/add-admin.component.js';
 export const routes: Routes = [
   {
     path: '',
@@ -78,12 +79,17 @@ export const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+    title: 'categories names page',
+  },
+  {
+    path: 'category-details/:id/:pageNum/:pageSize',
+    component: ShowCategoryBooksCardComponent,
     title: 'categories List page',
   },
   {
-    path: 'category-details/:id/:pageNum',
-    component: ShowCategoryBooksCardComponent,
-    title: 'categories List page',
+    path: 'add-admin',
+    component: AddAdminComponent,
+    data: { title: 'Add Admin' }
   },
   {
     path:"books",

@@ -1,41 +1,71 @@
-<div class="container">
-    <div class="row">
-      @for(book of books; track book.id) {
-      <div class="col-md-3">
-        <div class="card" style="width: 18rem; margin-bottom: 20px; position: relative;">
+<div class="container mt-3">
+  <div class="row mb-5">
+    @for(book of books; track book.id) {
+    <div class="col-lg-4 col-md-6">
+      <div class="card" style="width: 18rem">
+        <div class="img-div">
           <a>
-            <img [src]="'http://localhost:3000/images/books/' + book.image" class="card-img-top" style="width: 285px; height: 200px;" alt="...">
-          </a>    
-          <div class="card-body">
-            <div class="d-flex align-items-center justify-content-between">
-              <a routerLink="/books/{{book.id}}" class="card-title">{{book.title}}</a>
-            </div>
-            <a routerLink="/authors/{{book.author.id}}">{{book.author.firstName}} {{book.author.lastName}}</a>
+            <img
+              [src]="'http://localhost:3000/images/books/' + book.image"
+              class="card-img-top"
+              alt="..."
+            />
+          </a>
+        </div>
+        <div class="card-body">
+          <div
+            class="d-flex flex-column align-items-center justify-content-center"
+          >
+            <h4 class="text-center">
+              <a routerLink="/books/{{ book.id }}" class="card-title">{{
+                book.title
+              }}</a>
+            </h4>
+            <p>
+              <a routerLink="/authors/{{ book.author.id }}"
+                >{{ book.author.firstName }} {{ book.author.lastName }}</a
+              >
+            </p>
           </div>
         </div>
       </div>
-      }
     </div>
+
+    }
   </div>
-  
-  <div class="container text-center mt-3">
-    <nav aria-label="...">
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link"  (click)="navigateToPage(currentPage - 1)">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link"  (click)="navigateToPage(1)">1</a></li>
-          <li class="page-item" [class.active]="currentPage === 2">
-            <a class="page-link"  (click)="navigateToPage(2)">2 <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="page-item" [class.active]="currentPage === 3">
-            <a class="page-link"  (click)="navigateToPage(3)">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link"  (click)="navigateToPage(currentPage + 1)">Next</a>
-          </li>
-        </ul>
-      </nav>
-      
-  </div>
-  
+
+  <ngb-pagination
+    class="ngb-pagination"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="booksLength"
+    (pageChange)="onPageChange()"
+    aria-label="Default pagination"
+  />
+</div>
+
+<div class="container text-center mt-3">
+  <nav aria-label="...">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" (click)="navigateToPage(currentPage - 1)"
+          >Previous</a
+        >
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="navigateToPage(1)">1</a>
+      </li>
+      <li class="page-item" [class.active]="currentPage === 2">
+        <a class="page-link" (click)="navigateToPage(2)"
+          >2 <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="page-item" [class.active]="currentPage === 3">
+        <a class="page-link" (click)="navigateToPage(3)">3</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="navigateToPage(currentPage + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

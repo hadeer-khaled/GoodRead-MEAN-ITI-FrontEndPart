@@ -77,8 +77,6 @@ export class UserBooksComponent {
           this.booksLength = response.count;
           console.log('this.booksLength', this.booksLength);
           console.log('Inside book component, Selected ===> ', shelve);
-
-          // console.log('selectedShelve Array ', this.selectedShelve);
         },
         (error: any) => {
           console.error('Error getting books:', error);
