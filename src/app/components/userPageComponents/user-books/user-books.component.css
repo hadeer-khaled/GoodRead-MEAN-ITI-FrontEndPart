@@ -12,6 +12,9 @@
   --foshia: #e41c77;
   --blue-blue: #0065a8;
 }
+.ngbDropdownMenu {
+  z-index: 2;
+}
 table {
   border-collapse: collapse;
   box-shadow: 0px 1px 8px 3px #bdbdbd9e;
@@ -77,4 +80,7 @@ table.rounded-corners td:not(:last-child) {
 }
 :host ::ng-deep .ngb-pagination .pagination li.disabled .page-link {
   color: gray !important;
+}
+img {
+  width: 20%;
 }

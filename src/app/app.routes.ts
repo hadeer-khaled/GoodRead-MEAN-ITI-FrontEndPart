@@ -10,6 +10,9 @@ import { UserPanelComponent } from './pages/user-panel/user-panel.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AuthorDetailsComponent } from './components/author-details/author-details.component';
 import { AuthorsPageComponent } from './pages/authors-page/authors-page.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { ShowCategoryBooksCardComponent } from './components/show-category-books-card/show-category-books-card.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 export const routes: Routes = [
   {
     path: '',
@@ -69,6 +72,20 @@ export const routes: Routes = [
     path: 'authors',
     component: AuthorsPageComponent,
     title: 'Authors Page',
+  },
+  {
+    path: 'categories',
+    component: CategoriesComponent,
+    title: 'categories List page',
+  },
+  {
+    path: 'category-details/:id/:pageNum',
+    component: ShowCategoryBooksCardComponent,
+    title: 'categories List page',
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
   },
   //   {
   //     path: '**',

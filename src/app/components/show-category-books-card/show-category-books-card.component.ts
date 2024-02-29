@@ -1,19 +1,19 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService } from '../services/category-service.service';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-show-category-books-card',
   standalone: true,
   imports: [NgIf, NgFor],
   templateUrl: './show-category-books-card.component.html',
-  styleUrl: './show-category-books-card.component.css'
+  styleUrl: './show-category-books-card.component.css',
 })
 export class ShowCategoryBooksCardComponent {
   category: any = {};
   books: any[] = [];
-  @Input() id: string = "";
+  @Input() id: string = '';
 
   constructor(private categoryService: CategoryService) {}
 

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { BookCardComponent } from '../../book-card/book-card.component';
-import { Books } from '../../../../../Books.json';
+import { BookCardComponent } from '../book-card/book-card.component';
+// import { Books } from '../../../../../Books.json';
+import { BookService } from '../../../book.service';
+import { Book } from '../../../interfaces/book';
 @Component({
   selector: 'app-popular-books',
   standalone: true,
@@ -9,5 +11,18 @@ import { Books } from '../../../../../Books.json';
   styleUrl: './popular-books.component.css',
 })
 export class PopularBooksComponent {
-  books = Books;
+  // books= books;
+  books!: Array<Book>;
+  constructor(private bookServices: BookService) {
+    this.bookServices.getPopularBooks().subscribe(
+      (response: any) => {
+        console.log('Subscribe response', response);
+        console.log('this.books', this.books);
+        this.books = response;
+      },
+      (error: any) => {
+        console.error('Error getting Popular books:', error);
+      }
+    );
+  }
 }

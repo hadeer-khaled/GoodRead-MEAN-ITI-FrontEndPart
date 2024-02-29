@@ -44,9 +44,10 @@ export class BookService {
   //   // method to get books filtered by shelf
   getBooksFilterByShelf(
     pageNum: number = 1,
-    shelve: string = 'all'
+    shelve: string = 'all',
+    token: string
   ): Observable<any[]> {
-    // const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+    const headers = new HttpHeaders().set('token', token);
     let params = new HttpParams()
       .set('pageNum', pageNum.toString())
       .set('shelve', shelve);
@@ -54,7 +55,7 @@ export class BookService {
     return (
       this.http
         // .get<any[]>(`${this.apiUrl}/shelf`, { headers, params: queryParams })
-        .get<any[]>(`${this.apiUrl}/shelve`, { params })
+        .get<any[]>(`${this.apiUrl}/shelve`, { headers, params })
         .pipe(catchError(this.handleError))
     );
   }
@@ -108,7 +109,7 @@ export class BookService {
       .pipe(catchError(this.handleError));
   }
   // method to delete a book
-  deleteBook(bookId: number , token : string): Observable<any> {
+  deleteBook(bookId: number, token: string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
     return this.http
       .delete<any>(`${this.apiUrl}/${bookId}`, { headers })
@@ -119,6 +120,18 @@ export class BookService {
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(error);
+  }
+  // method to update a book
+  updateBookShelve(
+    bookId: string,
+    shelve: any,
+    token: string
+  ): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
+    const params = new HttpParams().set('shelve', shelve);
+    return this.http
+      .patch<any>(`${this.apiUrl}/${bookId}/shelve`, null, { headers, params })
+      .pipe(catchError(this.handleError));
   }
 }
 
