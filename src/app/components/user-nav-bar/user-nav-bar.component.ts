@@ -1,5 +1,5 @@
-import { Component , OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AuthorService } from '../../services/author.service';
@@ -12,11 +12,10 @@ import { CategoryService } from '../../services/category.service';
 @Component({
   selector: 'app-user-nav-bar',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLinkActive, RouterLink],
   templateUrl: './user-nav-bar.component.html',
-  styleUrl: './user-nav-bar.component.css'
+  styleUrl: './user-nav-bar.component.css',
 })
-
 export class UserNavBarComponent {
   // loggedUser = localStorage.getItem('loggedUser')
   authors: Author[] = []; 
@@ -49,6 +48,9 @@ export class UserNavBarComponent {
         console.log('Subscribe response', response);
         this.authors = response;
         console.log('this.authors', this.authors);
+        this.authorsNames = this.authors.map(
+          (author) => author.firstName + ' ' + author.lastName
+        );
         this.authorsNames = this.authors.map(author => ({ id: author._id, name: author.firstName + ' ' + author.lastName }));
         console.log('authorsNames', this.authorsNames);
       },
@@ -126,6 +128,50 @@ export class UserNavBarComponent {
 
   search(id: string, name: string) {
     if (this.query.trim() !== '' && this.doesAuthorContainQuery(this.query)) {
+      this.router.navigate(['author', this.query]);
+    }
+  }
+}
+
+// export class UserNavBarComponent {
+//   authors : Array<Author> = []
+//   query: string = '';
+//   authorsNames!:any
+
+//   constructor(private router: Router,private http: AuthorService) {
+//    }
+//    getAllAuthors() {
+//     this.http.getAuthors().subscribe(
+//       (response: any) => {
+//         console.log('Subscribe response', response);
+//         this.authors = response;
+//         console.log('this.authors', this.authors);
+//         this.authorsNames = this.authors.map(obj => obj.firstName+''+obj.lastName);
+//         console.log('authorsNames', this.authorsNames);
+//       },
+//       (error: any) => {
+//         console.error('Error getting books:', error);
+//       }
+//     );
+//   }
+
+//   doesAutherContainQuery(query: string): boolean {
+//     for (const name of this.authorsNames) {
+//       if (name.toLowerCase().includes(query.toLowerCase())) {
+//         return true;
+//       }
+//     }
+//     return false;
+//   }
+
+//   search(){
+//     if (this.query.trim() !== '') {
+//       if (this.doesAutherContainQuery(this.query))
+//       this.router.navigate(['/author', this.query]);
+//     }
+//   }
+
+// }
       name = this.query;
       const author = this.authorsNames.find(author => author.name.toLowerCase() === name.toLowerCase());
       if (author) {
