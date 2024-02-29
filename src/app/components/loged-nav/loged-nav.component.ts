@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 })
 export class LogedNavComponent {
   collapsed = true;
-  loggedAdmin = localStorage.getItem('AdminLogged')
+  AdminLogged = localStorage.getItem('AdminLogged')
 
   constructor(private router: Router) { }
   logOut(){
     localStorage.removeItem('token')
     localStorage.removeItem('AdminLogged')
     console.log(localStorage.getItem('AdminLogged'))
-    this.loggedAdmin = null
+    this.AdminLogged = null
     this.router.navigate(['/'])
     
   }

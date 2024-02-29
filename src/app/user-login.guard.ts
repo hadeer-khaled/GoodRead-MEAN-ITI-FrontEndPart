@@ -6,8 +6,8 @@ import { AuthService } from './auth-service.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminLoginGuard implements CanActivate {
-  AdminLogged = localStorage.getItem('AdminLogged')
+export class UserLoginGuard implements CanActivate {
+  UserLogged = localStorage.getItem('UserLogged')
 
 
   constructor(private router: Router, private authService: AuthService) {}
@@ -16,16 +16,15 @@ export class AdminLoginGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    if (this.authService.isAdminLoggedIn() ) {
+    if (this.authService.isUserLoggedIn() ) {
       return true;
     } else {
       localStorage.removeItem('token')
-      localStorage.removeItem('AdminLogged')
-      console.log(localStorage.getItem('AdminLogged'))
-      this.AdminLogged = null
+      localStorage.removeItem('UserLogged')
+      console.log(localStorage.getItem('UserLogged'))
+      this.UserLogged = null
       return this.router.parseUrl('/');
     }
   }
 }
-
 
