@@ -10,7 +10,7 @@ import {
   // FormsModule,
   Validators,
 } from '@angular/forms';
-import {Category} from '../../../interfaces/category'
+import { Category } from '../../../interfaces/category';
 
 //import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
 // import { DataService } from '../../../services/data.service';
@@ -65,7 +65,7 @@ export class CategoriesTableComponent {
   getAllCategories() {
     const pageNum = 1; // Or any page number you want to fetch
     this.categoryService
-      .getAllCategories(pageNum, this.token)
+      .getAllCategories()
       .pipe(
         map((data: any) => {
           console.log('data', data);
@@ -175,7 +175,6 @@ export class CategoriesTableComponent {
             // alert(error.error)
             console.log('Error updating category:', error.error.error);
             alert(`${error.error.error}`);
-
           }
         );
     }

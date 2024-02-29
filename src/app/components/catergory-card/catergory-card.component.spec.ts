@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopularAuthorsComponent } from './popular-authors.component';
+import { CategoryCardComponent } from './catergory-card.component';
 
-describe('PopularAuthorsComponent', () => {
-  let component: PopularAuthorsComponent;
-  let fixture: ComponentFixture<PopularAuthorsComponent>;
+describe('ProductsComponent', () => {
+  let component: CategoryCardComponent;
+  let fixture: ComponentFixture<CategoryCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PopularAuthorsComponent]
+      imports: [CategoryCardComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PopularAuthorsComponent);
+    fixture = TestBed.createComponent(CategoryCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

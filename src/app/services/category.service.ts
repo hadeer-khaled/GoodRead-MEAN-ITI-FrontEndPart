@@ -47,19 +47,27 @@ export class CategoryService {
   }
 
   // Method to get all categories (public access)
-  getAllCategories(pageNum: number = 1, token: string): Observable<any[]> {
+  getAllCategories(): Observable<any[]> {
     return this.http
-      .get<any[]>(`${this.apiUrl}?pageNum=${pageNum}`)
+      .get<any[]>(`${this.apiUrl}`)
       .pipe(catchError(this.handleError));
   }
   getcategoriesNames() {
-    return this.http.get(`${this.apiUrl}/${name}`);
+    return this.http.get(`${this.apiUrl}`);
   }
 
-  getCategoryById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe();
-  }
+  // getCategoryById(id: string): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/${id}`).pipe();
+  // }
 
+  getAllcategoriesNames(categoriesName: string) {
+    return this.http.get(`${this.apiUrl}/${categoriesName}`);
+  }
+  getCategoryById(id: string, pageNum: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`, {
+      params: { pageNum: pageNum.toString() },
+    });
+  }
   // Method to handle errors
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);

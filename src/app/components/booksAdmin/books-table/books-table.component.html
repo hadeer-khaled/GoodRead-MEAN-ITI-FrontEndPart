@@ -24,7 +24,6 @@
           <th scope="row">{{ book.id }}</th>
           <td><img src="../../../../assets/images/book1.jpg" /></td>
           <td>{{ book.title }}</td>
-          <!-- <td>{{ book.category.id }}</td> -->
           <td>{{ book.category.id }}</td>
           <td>{{ book.author.id }}</td>
 
@@ -101,7 +100,6 @@
               @for( category of categories ; track category.id){
               <option value="{{ category._id }}">
                 {{ category.name }}
-                <!-- hader -->
               </option>
               }
             </select>
@@ -142,6 +140,10 @@
           </div>
           }
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9c25e65679821f76d4ea920a3592a4cd82a665cf
         <!-- Description -->
         <div class="mb-3">
           <label for="describtion" class="mb-2">Describtion</label>
@@ -163,6 +165,10 @@
           </div>
           }
         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9c25e65679821f76d4ea920a3592a4cd82a665cf
         <div class="modal-footer">
           <button
             type="submit"

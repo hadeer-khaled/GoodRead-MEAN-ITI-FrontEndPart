@@ -104,7 +104,6 @@
                       }
                     </div>
                   </div>
-
                   <!--  --------------------- Password  ----------------------->
                   <div class="d-flex flex-row align-items-center mb-3">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
@@ -168,6 +167,34 @@
                       SignUpForm.controls['rePassword'].touched) {
                       <div id="emailHelp" class="form-text text-danger">
                         <small>Password mismatch</small>
+                      </div>
+                      }
+                    </div>
+                  </div>
+
+                  <!--  --------------------- Image  ----------------------->
+                  <div class="d-flex flex-row align-items-center mb-3">
+                    <i
+                      class="fa-solid fa-upload me-3 fa-fw"
+                      style="font-size: 1.2rem"
+                    ></i>
+                    <div class="form-floating flex-fill mb-0">
+                      <input
+                        type="file"
+                        class="form-control"
+                        id="image"
+                        formControlName="image"
+                        (change)="onImageSelected($event)"
+                      />
+                      <!-- <label for="image" class="form-label"
+                        >Upload your image</label
+                      > -->
+                      @if(SignUpForm.controls['image'].invalid &&
+                      SignUpForm.controls['image'].touched){
+                      <div class="form-text text-danger">
+                        @if(SignUpForm.controls['image'].errors?.['required']){
+                        <small>Image is required</small>
+                        }
                       </div>
                       }
                     </div>

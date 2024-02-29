@@ -21,6 +21,7 @@ import { UserService } from '../../services/user.service';
 })
 export class SignupComponent {
   SignUpForm!: FormGroup;
+  selectedImage = null;
 
   constructor(private router: Router, private userServics: UserService) {
     this.SignUpForm = new FormGroup(
@@ -43,6 +44,7 @@ export class SignupComponent {
           Validators.pattern(PasswordRegx),
         ]),
         rePassword: new FormControl('', [Validators.required]),
+        image: new FormControl('', [Validators.required]),
       },
       { validators: this.passwordMatchValidator }
     );
@@ -79,5 +81,9 @@ export class SignupComponent {
     }
 
     return null;
+  }
+  onImageSelected(event: Event) {
+    // this.selectedImage = event.target.files[0];
+    console.log(event);
   }
 }
