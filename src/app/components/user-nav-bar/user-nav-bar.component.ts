@@ -1,5 +1,5 @@
-import { Component , OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AuthorService } from '../../services/author.service';
@@ -8,11 +8,10 @@ import { Author } from '../../interfaces/author';
 @Component({
   selector: 'app-user-nav-bar',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLinkActive, RouterLink],
   templateUrl: './user-nav-bar.component.html',
-  styleUrl: './user-nav-bar.component.css'
+  styleUrl: './user-nav-bar.component.css',
 })
-
 export class UserNavBarComponent {
   authors: any[] = []; // Adjust the type according to your Author interface or type
   query: string = '';
@@ -30,7 +29,9 @@ export class UserNavBarComponent {
         console.log('Subscribe response', response);
         this.authors = response;
         console.log('this.authors', this.authors);
-        this.authorsNames = this.authors.map(author => author.firstName + ' ' + author.lastName);
+        this.authorsNames = this.authors.map(
+          (author) => author.firstName + ' ' + author.lastName
+        );
         console.log('authorsNames', this.authorsNames);
       },
       (error: any) => {
@@ -80,12 +81,11 @@ export class UserNavBarComponent {
 //   doesAutherContainQuery(query: string): boolean {
 //     for (const name of this.authorsNames) {
 //       if (name.toLowerCase().includes(query.toLowerCase())) {
-//         return true; 
+//         return true;
 //       }
 //     }
-//     return false; 
+//     return false;
 //   }
-
 
 //   search(){
 //     if (this.query.trim() !== '') {

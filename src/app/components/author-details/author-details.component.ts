@@ -1,21 +1,21 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component';
 
 @Component({
   selector: 'app-author-details',
   standalone: true,
-  imports: [],
+  imports: [UserNavBarComponent],
   templateUrl: './author-details.component.html',
-  styleUrl: './author-details.component.css'
+  styleUrl: './author-details.component.css',
 })
 export class AuthorDetailsComponent {
-  
   authors = [
     {
       id: 'ded6041a-622f-4fb4-81e4-96fcfdad4dff',
       title: 'Ping Pong Championship',
       description:
-      "Enter the world of Ping Pong Championship and compete against the world's best to become the ultimate champion in this exciting game.",
+        "Enter the world of Ping Pong Championship and compete against the world's best to become the ultimate champion in this exciting game.",
       genre: 'Sports',
       released: '02/25/2005',
       ageRating: '3+',
@@ -24,10 +24,10 @@ export class AuthorDetailsComponent {
       onSale: true,
       image:
         'https://static.noroff.dev/api/gamehub/0-ping-pong-championship.jpg',
-        tags: ['gamehub', 'game'],
-        favorite: true,
-      },
-      {
+      tags: ['gamehub', 'game'],
+      favorite: true,
+    },
+    {
       id: 'e124e23f-8d25-4057-84b9-8adf6560f155',
       title: 'Assassin',
       description:
@@ -46,7 +46,7 @@ export class AuthorDetailsComponent {
       id: '14a20cf0-c230-45dd-a47f-7d0e76b73e3f',
       title: 'Boxer',
       description:
-      'Step into the ring and become the champion of boxing in this thrilling game.',
+        'Step into the ring and become the champion of boxing in this thrilling game.',
       genre: 'Sports',
       released: '2010',
       ageRating: '12+',
@@ -76,7 +76,7 @@ export class AuthorDetailsComponent {
       id: '2ace4e1d-cad7-4d35-8d59-6c9ac3e3eaf8',
       title: 'Super Duper',
       description:
-      "Celebrate some of the world's supe duper Superheroes with augmented reality.",
+        "Celebrate some of the world's supe duper Superheroes with augmented reality.",
       genre: 'Adventure',
       released: '2006',
       ageRating: '3+',
@@ -92,7 +92,7 @@ export class AuthorDetailsComponent {
       title: 'Forge Legend',
       description:
         'Unleash your inner warrior and become a legend of the forge in this epic adventure.',
-        genre: 'Adventure',
+      genre: 'Adventure',
       released: '2018',
       ageRating: '12+',
       price: 24.99,
@@ -106,7 +106,7 @@ export class AuthorDetailsComponent {
       id: '7d1741d2-71d7-4503-9788-3d0403b41a87',
       title: 'Racing',
       description:
-      'Rev the engines of your race cars in our highly immersive racing game.',
+        'Rev the engines of your race cars in our highly immersive racing game.',
       genre: 'Sports',
       released: '2008',
       ageRating: '16+',
@@ -121,7 +121,7 @@ export class AuthorDetailsComponent {
       id: 'ba43543f-b1b6-4655-aa99-1b81f8812558',
       title: 'Furious',
       description:
-      'Experience the next level virtual gaming with hardcore controls, lethal weapons, customisable and intense firefights.',
+        'Experience the next level virtual gaming with hardcore controls, lethal weapons, customisable and intense firefights.',
       genre: 'Horror',
       released: '2004',
       ageRating: '16+',
@@ -136,7 +136,7 @@ export class AuthorDetailsComponent {
       id: 'cac3b2cd-1611-4007-9883-3adf6f74948f',
       title: 'Cyberpunk',
       description:
-      'Explore the futuristic world of Cyberpunk and fight against the corrupt system to gain power and freedom.',
+        'Explore the futuristic world of Cyberpunk and fight against the corrupt system to gain power and freedom.',
       genre: 'Action',
       released: '2021',
       ageRating: '18+',
@@ -151,7 +151,7 @@ export class AuthorDetailsComponent {
       id: 'e80df958-5f7f-4c2d-a2df-315134d25b56',
       title: 'Black',
       description:
-      'Immerse yourself in two distinct single player in the world of sci-fi gaming.',
+        'Immerse yourself in two distinct single player in the world of sci-fi gaming.',
       genre: 'Action',
       released: '2005',
       ageRating: '18+',
@@ -163,21 +163,17 @@ export class AuthorDetailsComponent {
       favorite: true,
     },
   ];
-  
-  authorDetails:any
 
-  @Input() id : string ='' 
-          name ?: string = ''
+  authorDetails: any;
+
+  @Input() id: string = '';
+  name?: string = '';
 
   // constructor(private activeRouter: ActivatedRoute){}
-  ngOnInit(){
-    this.authorDetails = this.authors.find((author:any)=>{
-      return author.id === this.id
-    })
-    console.log(this.authorDetails.id)
-
-    
-    
+  ngOnInit() {
+    this.authorDetails = this.authors.find((author: any) => {
+      return author.id === this.id;
+    });
+    console.log(this.authorDetails.id);
   }
-
 }

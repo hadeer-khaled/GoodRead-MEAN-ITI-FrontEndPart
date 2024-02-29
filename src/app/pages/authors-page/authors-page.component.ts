@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { AuthorCardComponent } from '../../components/author-card/author-card.component';
 import { Author } from '../../interfaces/author';
 import { AuthorService } from '../../services/author.service';
+import { UserNavBarComponent } from '../../components/user-nav-bar/user-nav-bar.component';
 
 @Component({
   selector: 'app-authors-page',
   standalone: true,
-  imports: [AuthorCardComponent],
+  imports: [AuthorCardComponent, UserNavBarComponent],
   templateUrl: './authors-page.component.html',
-  styleUrl: './authors-page.component.css'
+  styleUrl: './authors-page.component.css',
 })
 export class AuthorsPageComponent {
   authors!: Array<Author>;
-  constructor(private authorService: AuthorService) {
-  }
+  constructor(private authorService: AuthorService) {}
 
   ngOnInit(): void {
     this.getAllAuthors();
@@ -32,6 +32,4 @@ export class AuthorsPageComponent {
       }
     );
   }
-
 }
-

@@ -12,6 +12,7 @@ import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
 
 @Component({
   selector: 'app-user-books',
@@ -22,6 +23,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
     NgbDropdownModule,
+    UserNavBarComponent,
   ],
   templateUrl: './user-books.component.html',
   styleUrl: './user-books.component.css',
