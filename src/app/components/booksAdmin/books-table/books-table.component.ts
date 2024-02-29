@@ -30,15 +30,15 @@ export class BooksTableComponent {
   categories!: Array<Category>;
   authors!: Array<Author>;
   books!: Array<Book>;
-
+  selectedImage!: File;
   editBookForm!: FormGroup;
   id!: number;
   selectedBook!: any;
   bookForm!: FormGroup;
   newBook: any;
   // categoriesArray2: any;
-  bookedit: any
-  token: string = ''
+  bookedit: any;
+  token: string = '';
 
   constructor(
     private router: Router,
@@ -49,8 +49,7 @@ export class BooksTableComponent {
     private authorService: AuthorService,
     private categoryService: CategoryService
   ) {
-
-    this.token = localStorage.getItem('token') || ''
+    this.token = localStorage.getItem('token') || '';
     this.bookForm = new FormGroup({
       newBookName: new FormControl('', [
         Validators.required,
@@ -59,6 +58,7 @@ export class BooksTableComponent {
       newBookCategoryID: new FormControl('', [Validators.required]),
       newAuthorID: new FormControl('', [Validators.required]),
       describtion: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required]),
     });
 
     this.editBookForm = new FormGroup({
@@ -68,7 +68,7 @@ export class BooksTableComponent {
       ]),
       editbookCategoryID: new FormControl('', [Validators.required]),
       editbookauthorID: new FormControl('', [Validators.required]),
-      editdescribtion : new FormControl ('',[Validators.required])
+      editdescribtion: new FormControl('', [Validators.required]),
     });
   }
 
@@ -101,7 +101,16 @@ export class BooksTableComponent {
       description: this.bookForm.value.describtion,
     };
     console.log('this.newBook: ', this.newBook);
-    this.bookService.createBook(this.newBook).subscribe(
+    const formData = new FormData();
+    formData.append('title', this.bookForm.value.newBookName);
+    formData.append('category', this.bookForm.value.newBookCategoryID);
+    formData.append('author', this.bookForm.value.newAuthorID);
+    formData.append('description', this.bookForm.value.describtion);
+    formData.append('image', this.selectedImage);
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+    this.bookService.createBook(formData).subscribe(
       (response) => {
         console.log('Book added successfully:', response);
 
@@ -155,7 +164,16 @@ export class BooksTableComponent {
         }
       );
   }
-
+  onImageSelected(event: any): void {
+    // Ensure that event.target is not null before proceeding
+    if (event.target) {
+      const files: FileList | null = event.target.files;
+      if (files && files.length > 0) {
+        this.selectedImage = files[0];
+        console.log('Selected File:', this.selectedImage);
+      }
+    }
+  }
   // --------------------------- NgBootstrap Code --------------------------- \\
   closeResult = '';
   open(content: TemplateRef<any>) {
@@ -191,40 +209,32 @@ export class BooksTableComponent {
       title: book.title,
       editbookCategoryID: book.category._id,
       editbookauthorID: book.author._id,
-      editdescribtion : book.description
-      
+      editdescribtion: book.description,
     });
-    console.log(this.editBookForm)
-    
+    console.log(this.editBookForm);
+
     this.modalService.open(editModal, { centered: true });
   }
   // ================================ edit  ================================
 
   updatebook() {
     this.bookedit = {
-      title : this.editBookForm.value.title,
-      category : this.editBookForm.value.editbookCategoryID,
-      author : this.editBookForm.value.editbookauthorID,
-      description : this.editBookForm.value.editdescribtion
-    }
+      title: this.editBookForm.value.title,
+      category: this.editBookForm.value.editbookCategoryID,
+      author: this.editBookForm.value.editbookauthorID,
+      description: this.editBookForm.value.editdescribtion,
+    };
     console.log('this.bookedit: ', this.bookedit);
-    this.bookService
-      .updateBook(
-        this.id,
-        this.bookedit,
-        this.token
-      )
-      .subscribe(
-        (response) => {
-          console.log('Book updated successfully:', response);
-          this.getAllBooks();
-        },
-        (error) => {
-          console.error('Error updating Book:', error);
-          alert(`${error.error.error}`);
-
-        }
-      );
+    this.bookService.updateBook(this.id, this.bookedit, this.token).subscribe(
+      (response) => {
+        console.log('Book updated successfully:', response);
+        this.getAllBooks();
+      },
+      (error) => {
+        console.error('Error updating Book:', error);
+        alert(`${error.error.error}`);
+      }
+    );
     this.modalService.dismissAll();
   }
 
@@ -246,7 +256,6 @@ export class BooksTableComponent {
       (error) => {
         console.error('Error deleting Book:', error);
         alert(`${error.error.error}`);
-
       }
     );
     this.modalService.dismissAll();

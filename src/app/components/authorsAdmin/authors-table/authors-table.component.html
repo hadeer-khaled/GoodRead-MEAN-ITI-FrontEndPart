@@ -28,17 +28,17 @@
           <td>{{ author.dob }}</td>
 
           <td>
-            <button class="btn btn-sm btn-trach border-0 mx-2"
-            (click)="deleteAuthorModal(author,deleteModal)"
+            <button
+              class="btn btn-sm btn-trach border-0 mx-2"
+              (click)="deleteAuthorModal(author, deleteModal)"
             >
               <i class="fa-solid fa-trash-can"></i>
             </button>
-            <button class="btn btn-sm btn-edit border-0 mx-2"
-            (click)="editAuthor(author,editAuthormodal)"
+            <button
+              class="btn btn-sm btn-edit border-0 mx-2"
+              (click)="editAuthor(author, editAuthormodal)"
             >
-              
-              <i class="fa-solid fa-pen-to-square" accordion 
-              ></i>
+              <i class="fa-solid fa-pen-to-square" accordion></i>
             </button>
           </td>
         </tr>
@@ -113,6 +113,30 @@
           </div>
           }
         </div>
+        <!--  --------------------- Image  ----------------------->
+        <div class="mb-3">
+          <label for="image" class="mb-2">Author Image</label>
+          <div class="input-group">
+            <input
+              type="file"
+              class="form-control"
+              id="image"
+              name="image"
+              formControlName="image"
+              (change)="onImageSelected($event)"
+            />
+
+            @if(authorForm.controls['image'].invalid &&
+            authorForm.controls['image'].touched){
+            <div class="form-text text-danger">
+              @if(authorForm.controls['image'].errors?.['required']){
+              <small>Image is required</small>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
         <!-- new Date of Birth -->
         <div class="mb-3">
           <div
@@ -136,6 +160,7 @@
           </div>
           }
         </div>
+
         <div class="modal-footer">
           <button
             type="submit"
@@ -167,41 +192,51 @@
         (click)="modal.dismiss('Cross click')"
       ></button>
     </div>
-    
+
     <div class="modal-body">
       <form [formGroup]="editAuthorForm" (ngSubmit)="updateAuthor()">
-          <div class="mb-3">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" formControlName="firstName">
-          </div>
-          <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" formControlName="lastName">
-          </div>
-          <div class="mb-3">
-            <label for="birthday" class="mb-2">Birthday:</label>
-            <input
-              class="mx-3"
-              type="date"
-              id="dob" name="dob" 
-              formControlName="dob">
-          </div>      
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstName"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            formControlName="lastName"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="birthday" class="mb-2">Birthday:</label>
+          <input
+            class="mx-3"
+            type="date"
+            id="dob"
+            name="dob"
+            formControlName="dob"
+          />
+        </div>
         <div class="modal-footer">
-          <button
-          type="submit"
-          class="btn btn-outline-dark add-confirm-btn"
-          >
-          <!-- [disabled]="editAuthorForm.invalid" -->
-          Save Changes
-        </button>
+          <button type="submit" class="btn btn-outline-dark add-confirm-btn">
+            <!-- [disabled]="editAuthorForm.invalid" -->
+            Save Changes
+          </button>
         </div>
       </form>
-      </div>
-   
+    </div>
   </ng-template>
 
-   <!-- delete modal -->
-   <ng-template #deleteModal let-modal>
+  <!-- delete modal -->
+  <ng-template #deleteModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Delete Category</h4>
       <button
