@@ -26,9 +26,12 @@ export class AuthorsTableComponent {
   authorForm!: FormGroup;
   editAuthorForm!:FormGroup;
   id!: number
+  _id!:string
   authorEdit!: any
   editFirstName!: string
   editLastName!: string
+  token: string = ''
+  discription:string = ''
   constructor(private router: Router, private authorService: AuthorService) {
     this.authorForm = new FormGroup({
       newFirstName: new FormControl('', [
@@ -56,8 +59,9 @@ export class AuthorsTableComponent {
         Validators.pattern('[a-zA-Z ]*'),
       ]),
       description: new FormControl('', [Validators.required]),
-      Dob: new FormControl('', [Validators.required]),
+      dob: new FormControl('', [Validators.required]),
     });
+    this.token = localStorage.getItem('token') || ''
 
 
   }
@@ -84,8 +88,9 @@ export class AuthorsTableComponent {
       firstName: this.authorForm.value.newFirstName,
       lastName: this.authorForm.value.newLastName,
       dob: this.authorForm.value.newDob,
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris non justo scelerisque, ut consectetur sapien tincidunt.'
     };
-    this.authorService.createAuthor(this.newAuthors).subscribe(
+    this.authorService.createAuthor(this.newAuthors,this.token).subscribe(
       (response) => {
         console.log('Author added successfully:', response);
         this.getAllAuthors();
@@ -125,7 +130,11 @@ export class AuthorsTableComponent {
     // ================= edit modale =================== \\
 
   editAuthor( author : any , content : any){
+    console.log('Editing book:', author);
     this.id = author.id;
+    this._id = author._id
+    this.discription = author.description
+    console.log(this.discription)
     this.editAuthorForm.patchValue({
       firstName: author.firstName,
       lastName: author.lastName,
@@ -140,16 +149,19 @@ export class AuthorsTableComponent {
 
   updateAuthor(){
     this.authorEdit = {
+      _id: this._id,
+      id: this.id,
       firstName: this.editAuthorForm.value.firstName,
       lastName: this.editAuthorForm.value.lastName,
-      description:this.editAuthorForm.value.description,
-      dob: this.editAuthorForm.value.Dob,
+      dob: this.editAuthorForm.value.dob,
+      discription:this.discription
     };
     console.log(this.authorEdit);
     console.log(this.id);
+    console.log(this.authorEdit._id)
     if (this.authorEdit && this.id) {
       this.authorService
-     .updateAuthor(this.id, this.authorEdit , " token ")
+     .updateAuthor(this.authorEdit._id, this.authorEdit , this.token)
      .subscribe(
           (response) => {
             console.log('Author updated successfully:', response);
@@ -158,6 +170,8 @@ export class AuthorsTableComponent {
           },
           (error) => {
             console.error('Error updating Author:', error);
+            alert(`${error.error.error}`);
+
           }
         );
     }
@@ -168,6 +182,7 @@ export class AuthorsTableComponent {
 
         deleteAuthorModal(author: any, content: any) {
           this.id = author.id;
+          this._id = author._id
           this.modalService.open(content, { centered: true });
         }
 
@@ -176,7 +191,7 @@ export class AuthorsTableComponent {
           console.log(this.id);
           if (this.id) {
             this.authorService
-          .deleteAuthor(this.id, " token ")
+          .deleteAuthor(this._id, this.token)
           .subscribe(
                 (response) => {
                   console.log('Author deleted successfully:', response);
@@ -185,6 +200,7 @@ export class AuthorsTableComponent {
                 },
                 (error) => {
                   console.error('Error deleting Author:', error);
+                  alert(`${error.error.error}`);
                 }
               );
           }

@@ -16,8 +16,8 @@ export class AuthorService {
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
 
-  createAuthor(authorData: any): Observable<any> {
-    const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+  createAuthor(authorData: any , token:string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .post<any>(this.apiUrl, authorData, { headers })
       .pipe(catchError(this.handleError));
@@ -37,14 +37,14 @@ export class AuthorService {
       .pipe(catchError(this.handleError));
   }
 
-  updateAuthor(authorId: number , authorData: any , token : string): Observable<any> {
+  updateAuthor(authorId: string , authorData: any , token : string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
     return this.http
       .patch<any>(`${this.apiUrl}/${authorId}`, authorData, { headers })
       .pipe(catchError(this.handleError));
   }
 
-  deleteAuthor(authorId: number, token : string): Observable<any> {
+  deleteAuthor(authorId: string, token : string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
     return this.http
       .delete<any>(`${this.apiUrl}/${authorId}`, { headers })

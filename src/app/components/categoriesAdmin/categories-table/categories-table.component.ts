@@ -203,6 +203,7 @@ export class CategoriesTableComponent {
         },
         (error) => {
           console.error('Error deleting category:', error);
+          alert(`${error.error.error}`);
         }
       );
     this.modalService.dismissAll();

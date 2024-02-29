@@ -218,10 +218,11 @@ export class BooksTableComponent {
         (response) => {
           console.log('Book updated successfully:', response);
           this.getAllBooks();
-          // window.location.reload();
         },
         (error) => {
           console.error('Error updating Book:', error);
+          alert(`${error.error.error}`);
+
         }
       );
     this.modalService.dismissAll();
@@ -240,10 +241,12 @@ export class BooksTableComponent {
     this.bookService.deleteBook(this.id, this.token).subscribe(
       (response) => {
         console.log('Book deleted successfully:', response);
-        // window.location.reload();
+        window.location.reload();
       },
       (error) => {
         console.error('Error deleting Book:', error);
+        alert(`${error.error.error}`);
+
       }
     );
     this.modalService.dismissAll();
