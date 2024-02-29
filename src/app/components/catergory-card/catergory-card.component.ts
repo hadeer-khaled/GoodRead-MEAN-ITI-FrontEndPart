@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,8 +11,9 @@ import { Router } from '@angular/router';
 })
 export class CategoryCardComponent {
   @Input() categoryItem: any;
+ // booksLength!:number;
   constructor(private router : Router){}
   redirectToDetails(_id: string) {
-    this.router.navigate(['category-details', _id, 1]); 
+    this.router.navigate(['category-details', _id,1,4]); 
   }
 }
