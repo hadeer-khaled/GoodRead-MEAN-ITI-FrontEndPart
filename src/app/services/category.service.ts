@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -60,17 +60,24 @@ export class CategoryService {
   //   return this.http.get<any>(`${this.apiUrl}/${id}`).pipe();
   // }
 
-  getAllcategoriesNames(categoriesName: string) {
-    return this.http.get(`${this.apiUrl}/${categoriesName}`);
+  getAllcategoriesNames(categoriesName: string,token:string) {
+    const headers = new HttpHeaders().set('token', token);
+    return this.http.get(`${this.apiUrl}/${categoriesName}`,{headers});
   }
-  getCategoryById(id: string, pageNum: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`, {
-      params: { pageNum: pageNum.toString() },
-    });
+  getCategoryById(id: string, page: number, pageSize: number, token: string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<any>(`${this.apiUrl}/${id}`, { headers, params });
   }
+
+
   // Method to handle errors
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
     return throwError(error);
   }
+
+
 }
