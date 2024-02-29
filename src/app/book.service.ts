@@ -17,6 +17,13 @@ export class BookService {
     // const headers = new HttpHeaders().set('token', token);
     return this.http.get<any[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
+  getUserBooks(queryParams: any, token:string): Observable<any[]> {
+    const headers = new HttpHeaders().set('token', token); 
+    return this.http.get<any[]>(`${this.apiUrl}/pagination`, { headers, params: queryParams })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   getBooksPagination(pageNum: number = 1): Observable<any[]> {
     // const headers = new HttpHeaders().set('token', token);
     const params = new HttpParams().set('pageNum', pageNum.toString());
@@ -88,7 +95,13 @@ export class BookService {
       .get<any>(`${this.apiUrl}/${bookId}`, { headers })
       .pipe(catchError(this.handleError));
   }
-
+  getBookByIdUser(bookId: string, token:string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
+    return this.http.get<any>(`${this.apiUrl}/${bookId}`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   // method to update a book
   updateBook(bookId: number, bookData: any, token: string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
@@ -108,6 +121,7 @@ export class BookService {
       .patch<any>(`${this.apiUrl}/${bookId}/rating`, null, { headers, params })
       .pipe(catchError(this.handleError));
   }
+  
   // method to delete a book
   deleteBook(bookId: number, token: string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
@@ -133,6 +147,8 @@ export class BookService {
       .patch<any>(`${this.apiUrl}/${bookId}/shelve`, null, { headers, params })
       .pipe(catchError(this.handleError));
   }
+
+
 }
 
 /*

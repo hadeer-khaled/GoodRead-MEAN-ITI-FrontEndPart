@@ -13,6 +13,8 @@ import { AuthorsPageComponent } from './pages/authors-page/authors-page.componen
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ShowCategoryBooksCardComponent } from './components/show-category-books-card/show-category-books-card.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { BookComponent } from './components/userPageComponents/book/book.component';
+import { BookCardComponent } from './components/userPageComponents/book-card/book-card.component';
 export const routes: Routes = [
   {
     path: '',
@@ -84,9 +86,20 @@ export const routes: Routes = [
     title: 'categories List page',
   },
   {
+    path:"books",
+    component:BookComponent,
+    title:"Books"
+  },
+  {
+    path:"books/:id",
+    component:BookCardComponent,
+    title:"Book Details"
+  },
+  {
     path: '**',
     component: NotFoundComponent,
-  },
+  }
+  
   //   {
   //     path: '**',
   //     component: NotFoundPage,
