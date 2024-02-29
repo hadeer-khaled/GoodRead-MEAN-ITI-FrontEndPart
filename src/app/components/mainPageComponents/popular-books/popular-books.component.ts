@@ -19,6 +19,7 @@ export class PopularBooksComponent {
         console.log('Subscribe response', response);
         console.log('this.books', this.books);
         this.books = response;
+        console.log('this.books', this.books);
       },
       (error: any) => {
         console.error('Error getting Popular books:', error);

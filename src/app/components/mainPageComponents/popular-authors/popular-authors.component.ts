@@ -11,13 +11,13 @@ import { AuthorCardComponent } from '../author-card/author-card.component';
   styleUrl: './popular-authors.component.css',
 })
 export class PopularAuthorsComponent {
-  authors!: Array<Author>;
+  authors!: Array<any>;
   constructor(private authorServices: AuthorService) {
     this.authorServices.getPopularAuthors().subscribe(
       (response: any) => {
         console.log('Subscribe response', response);
-        console.log('this.books', this.authors);
         this.authors = response;
+        console.log('this.authors', this.authors);
       },
       (error: any) => {
         console.error('Error getting Popular books:', error);

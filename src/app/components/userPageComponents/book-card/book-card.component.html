@@ -141,80 +141,40 @@
     <div class="col-md-8 course-details-content">
       <div class="course-details-card mt--40">
         <div class="course-content">
-          <div class="d-flex">
-            <h5 class="mb--20">Review</h5>
-            <button
-              class="btn btn-outline-primary px-3 mx-5"
-              (click)="open(content)"
-            >
-              Add Review
-            </button>
-          </div>
-
+          <h5 class="mb--20">Review</h5>
+          <button
+            class="btn btn-lg btn-outline-primary"
+            (click)="open(content)"
+          >
+            Add Review
+          </button>
           <hr />
-
+          @for(review of reviews; track review.id) {
           <div class="row row--30">
             <div class="comment-wrapper pt--40">
-              <!-- Comment Box start-->
-              <div class="edu-comment">
-                <div class="thumbnail">
-                  <img src="images/student-1.png" alt="Comment Images" />
-                </div>
-                <div class="comment-content">
-                  <div class="comment-top">
-                    <h6 class="title">CSS Tutorials</h6>
-                    <div class="rating">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i
-                      ><i class="fa fa-star" aria-hidden="true"></i
-                      ><i class="fa fa-star" aria-hidden="true"></i
-                      ><i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <span class="subtitle">“ Outstanding Review Design ”</span>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
+            <div class="edu-comment">
+              <div class="thumbnail">
+                <img [src]="'http://localhost:3000/images/users/' + 'authorNum1.jpg'" alt="User Image" />
               </div>
-              <!-- Comment Box end-->
-              <!-- Comment Box start-->
-              <div class="edu-comment">
-                <div class="thumbnail">
-                  <img src="images/student-1.png" alt="Comment Images" />
-                </div>
-                <div class="comment-content">
-                  <div class="comment-top">
-                    <h6 class="title">HTML CSS Tutorials</h6>
-                    <div class="rating">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i
-                      ><i class="fa fa-star" aria-hidden="true"></i
-                      ><i class="fa fa-star" aria-hidden="true"></i
-                      ><i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
+              <div class="comment-content">
+                <div class="comment-top">
+                  <h6 class="title">{{review.user.firstName}} {{review.user.lastName}}</h6>
+                  <div style="display: flex; align-items: center">
+                      <ngb-rating [rate]="4" [max]="5"></ngb-rating>
                   </div>
-                  <span class="subtitle">“ Nice Review Design ”</span>
-                  <p>
-                    Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                    odit aut fugit, sed quia consequuntur magni dolores eos qui
-                    ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-                    qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                    velit, sed quia non numquam.
-                  </p>
                 </div>
+                <span class="subtitle">“{{ review.content }}”</span>
+                <p>{{ review.content }}</p>
               </div>
-              <!-- Comment Box end-->
+            </div>
             </div>
           </div>
+        }
         </div>
       </div>
     </div>
   </div>
-</div>
+
 
 <ng-template #content let-modal>
   <div class="modal-header">

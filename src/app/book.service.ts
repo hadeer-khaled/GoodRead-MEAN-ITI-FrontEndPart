@@ -33,10 +33,10 @@ export class BookService {
   }
 
   // method to create a new book
-  createBook(bookData: any , token : string): Observable<any> {
+  createBook(bookData: any,token:string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
     return this.http
-      .post<any>(this.apiUrl, bookData)
+      .post<any>(this.apiUrl, bookData,{ headers})
       .pipe(catchError(this.handleError));
   }
 
@@ -87,7 +87,14 @@ export class BookService {
       .get<any[]>(`${this.apiUrl}/popular`)
       .pipe(catchError(this.handleError));
   }
-
+ 
+  // get book reviews
+  getBoookReviews(bookId: string, token: string): Observable<any[]> {
+    const headers = new HttpHeaders().set('token', token);
+    return this.http
+    .get<any>(`${this.apiUrl}/${bookId}/reviews`, { headers })
+    .pipe(catchError(this.handleError));
+  }
   // method to get a specific book by ID
   getBookById(bookId: string, token: string): Observable<any> {
     const headers = new HttpHeaders().set('token', token);
@@ -146,6 +153,16 @@ export class BookService {
     return this.http
       .patch<any>(`${this.apiUrl}/${bookId}/shelve`, null, { headers, params })
       .pipe(catchError(this.handleError));
+  }
+  //method make review for book made by specific user 
+  createReview(bookId: string, reviewContent: any, token: string): Observable<any> {
+    console.log('here in create review');
+    const headers = new HttpHeaders().set('token', token);
+    const reviewData = { content: reviewContent };
+    console.log(`${this.apiUrl}/${bookId}/review`);
+    console.log(bookId);
+    return this.http.post<any>(`${this.apiUrl}/${bookId}/review`, reviewData, { headers })
+           .pipe(catchError(this.handleError));
   }
 
 

@@ -1,8 +1,7 @@
-<p>author-card works!</p>
 <div class="card" style="width: 18rem">
   <div class="img-div">
     <img
-      src="../../../assets/images/{{ authorImage }}"
+     [src]="'http://localhost:3000/images/authors/' + authorImage " 
       class="card-img-top"
       alt="..."
     />
