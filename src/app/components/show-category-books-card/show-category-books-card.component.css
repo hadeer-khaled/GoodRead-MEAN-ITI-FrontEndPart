@@ -53,18 +53,10 @@ a:hover {
     .postcard {
         flex-wrap: inherit;
     }
-    .postcard .postcard__img {
-        max-width: 300px;
-        max-height: 300px;
-        transition: transform 0.3s ease;
-    }
     .postcard .postcard__text {
         padding: 10px;
         width: 100%;
         margin: 10px;
-    }
-    .postcard:hover .postcard__img {
-        transform: scale(1.1);
     }
     .postcard:nth-child(odd) {
         flex-direction: row;
@@ -112,6 +104,9 @@ a:hover {
 #postcard__title{
     color: rgb(9, 9, 31);
 }
+img {
+  width:300px;
+  height:200px;}
 
 
 
