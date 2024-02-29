@@ -18,11 +18,11 @@ export class UserService {
     );
   }
 
-  // method to log in a user
   login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials).pipe(
-      catchError(this.handleError) // Handle error here
-    );
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // method to handle errors

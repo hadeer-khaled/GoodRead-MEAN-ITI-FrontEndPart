@@ -22,7 +22,7 @@
         @for (book of books ; track $index){
         <tr>
           <th scope="row">{{ book.id }}</th>
-          <td><img src="../../../../assets/images/book1.jpg" /></td>
+          <td><img [src]="'http://localhost:3000/images/books/' + book.image" /></td>
           <td>{{ book.title }}</td>
           <td>{{ book.category.id }}</td>
           <td>{{ book.author.id }}</td>
@@ -161,6 +161,29 @@
           </div>
           }
         </div>
+        <!--  --------------------- Image  ----------------------->
+        <div class="mb-3">
+          <label for="image" class="mb-2">Book Cover</label>
+          <div class="input-group">
+            <input
+              type="file"
+              class="form-control"
+              id="image"
+              name="image"
+              formControlName="image"
+              (change)="onImageSelected($event)"
+            />
+
+            @if(bookForm.controls['image'].invalid &&
+            bookForm.controls['image'].touched){
+            <div class="form-text text-danger">
+              @if(bookForm.controls['image'].errors?.['required']){
+              <small>Image is required</small>
+              }
+            </div>
+            }
+          </div>
+        </div>
 
         <div class="modal-footer">
           <button
@@ -249,15 +272,12 @@
               name="editdescribtion"
               formControlName="editdescribtion"
             >
-          </textarea>
+            </textarea>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button
-            type="submit"
-            class="btn btn-outline-dark add-confirm-btn"
-            >
+          <button type="submit" class="btn btn-outline-dark add-confirm-btn">
             <!-- [disabled]="editBookForm.invalid" -->
             Save Changes
           </button>

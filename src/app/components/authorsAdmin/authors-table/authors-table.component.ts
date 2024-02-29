@@ -24,15 +24,18 @@ export class AuthorsTableComponent {
   authors!: Array<Author>;
   newAuthors: any;
   authorForm!: FormGroup;
-  editAuthorForm!:FormGroup;
-  id!: number
-  _id!:string
-  authorEdit!: any
-  editFirstName!: string
-  editLastName!: string
-  token: string = ''
-  discription:string = ''
+  editAuthorForm!: FormGroup;
+  id!: number;
+  _id!: string;
+  authorEdit!: any;
+  editFirstName!: string;
+  editLastName!: string;
+  token: string = '';
+  discription: string = '';
+  selectedImage!: File;
   constructor(private router: Router, private authorService: AuthorService) {
+     this.token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
     this.authorForm = new FormGroup({
       newFirstName: new FormControl('', [
         Validators.required,
@@ -45,6 +48,7 @@ export class AuthorsTableComponent {
         Validators.pattern('[a-zA-Z ]*'),
       ]),
       newDob: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required]),
     });
 
     this.editAuthorForm = new FormGroup({
@@ -61,9 +65,7 @@ export class AuthorsTableComponent {
       description: new FormControl('', [Validators.required]),
       dob: new FormControl('', [Validators.required]),
     });
-    this.token = localStorage.getItem('token') || ''
-
-
+    this.token = localStorage.getItem('token') || '';
   }
   ngOnInit(): void {
     this.getAllAuthors();
@@ -88,9 +90,23 @@ export class AuthorsTableComponent {
       firstName: this.authorForm.value.newFirstName,
       lastName: this.authorForm.value.newLastName,
       dob: this.authorForm.value.newDob,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor mauris non justo scelerisque, ut consectetur sapien tincidunt.'
+      description:
+        'This is A new Author with dummy description , This is A new Author with dummy description',
     };
-    this.authorService.createAuthor(this.newAuthors,this.token).subscribe(
+
+    const formData = new FormData();
+    formData.append('firstName', this.authorForm.value.newFirstName);
+    formData.append('lastName', this.authorForm.value.newLastName);
+    formData.append('dob', this.authorForm.value.newDob);
+    formData.append(
+      'description',
+      'This is A new Author with dummy description , This is A new Author with dummy description'
+    );
+    formData.append('image', this.selectedImage);
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+    this.authorService.createAuthor(formData, this.token).subscribe(
       (response) => {
         console.log('Author added successfully:', response);
         this.getAllAuthors();
@@ -100,6 +116,16 @@ export class AuthorsTableComponent {
         console.error('Error adding Author:', error);
       }
     );
+  }
+  onImageSelected(event: any): void {
+    // Ensure that event.target is not null before proceeding
+    if (event.target) {
+      const files: FileList | null = event.target.files;
+      if (files && files.length > 0) {
+        this.selectedImage = files[0];
+        console.log('Selected File:', this.selectedImage);
+      }
+    }
   }
   // --------------------------- NgBootstrap Code --------------------------- \\
   private modalService = inject(NgbModal);
@@ -127,42 +153,41 @@ export class AuthorsTableComponent {
     }
   }
 
-    // ================= edit modale =================== \\
+  // ================= edit modale =================== \\
 
-  editAuthor( author : any , content : any){
+  editAuthor(author: any, content: any) {
     console.log('Editing book:', author);
     this.id = author.id;
-    this._id = author._id
-    this.discription = author.description
-    console.log(this.discription)
+    this._id = author._id;
+    this.discription = author.description;
+    console.log(this.discription);
     this.editAuthorForm.patchValue({
       firstName: author.firstName,
       lastName: author.lastName,
-      dob: new Date (author.dob),
-    })
+      dob: new Date(author.dob),
+    });
 
     this.modalService.open(content, { centered: true });
   }
 
+  // ================= Author update =================== \\
 
-      // ================= Author update =================== \\
-
-  updateAuthor(){
+  updateAuthor() {
     this.authorEdit = {
       _id: this._id,
       id: this.id,
       firstName: this.editAuthorForm.value.firstName,
       lastName: this.editAuthorForm.value.lastName,
       dob: this.editAuthorForm.value.dob,
-      discription:this.discription
+      discription: this.discription,
     };
     console.log(this.authorEdit);
     console.log(this.id);
-    console.log(this.authorEdit._id)
+    console.log(this.authorEdit._id);
     if (this.authorEdit && this.id) {
       this.authorService
-     .updateAuthor(this.authorEdit._id, this.authorEdit , this.token)
-     .subscribe(
+        .updateAuthor(this.authorEdit._id, this.authorEdit, this.token)
+        .subscribe(
           (response) => {
             console.log('Author updated successfully:', response);
             this.getAllAuthors();
@@ -171,40 +196,35 @@ export class AuthorsTableComponent {
           (error) => {
             console.error('Error updating Author:', error);
             alert(`${error.error.error}`);
-
           }
         );
     }
     this.modalService.dismissAll();
-
   }
-        // ================= delete modal  =================== \\
+  // ================= delete modal  =================== \\
 
-        deleteAuthorModal(author: any, content: any) {
-          this.id = author.id;
-          this._id = author._id
-          this.modalService.open(content, { centered: true });
+  deleteAuthorModal(author: any, content: any) {
+    this.id = author.id;
+    this._id = author._id;
+    this.modalService.open(content, { centered: true });
+  }
+
+  // ================= Author delete =================== \\
+  deleteaAuthor() {
+    console.log(this.id);
+    if (this.id) {
+      this.authorService.deleteAuthor(this._id, this.token).subscribe(
+        (response) => {
+          console.log('Author deleted successfully:', response);
+          this.getAllAuthors();
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Error deleting Author:', error);
+          alert(`${error.error.error}`);
         }
-
-        // ================= Author delete =================== \\
-        deleteaAuthor(){
-          console.log(this.id);
-          if (this.id) {
-            this.authorService
-          .deleteAuthor(this._id, this.token)
-          .subscribe(
-                (response) => {
-                  console.log('Author deleted successfully:', response);
-                  this.getAllAuthors();
-                  window.location.reload();
-                },
-                (error) => {
-                  console.error('Error deleting Author:', error);
-                  alert(`${error.error.error}`);
-                }
-              );
-          }
-          this.modalService.dismissAll();
-        }
-
+      );
+    }
+    this.modalService.dismissAll();
+  }
 }

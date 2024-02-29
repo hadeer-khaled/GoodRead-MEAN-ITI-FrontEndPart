@@ -1,13 +1,13 @@
 <div class="d-flex border-2 m-5 h-auto w-75">
     <div class="left">
         <div class="img">
-          <img alt="Card" [src]="authorDetails.img"/>
+          <!-- <img alt="Card" [src]="author.image"/> -->
         </div>
     </div>
     <div class="right">
-        <div class="name">name</div>
-        <div> Date of Birth </div>
-        <div class="url">discription</div>
+        <div class="name">{{author.firstName + ' ' + author.lastName}}</div>
+        <div> {{author.dob}} </div>
+        <div class="url">{{author.description}}</div>
     </div>
 </div>
 

@@ -5,7 +5,7 @@
         src="../../../assets/author.jpg"
         alt="Card image cap">
     <div class="card-body">
-        <button class = " name " (click)="showDetails(currentAuthor._id)">
+        <button class = " name " (click)="showDetails(currentAuthor._id , currentAuthor.firstName + '' + currentAuthor.lastName)">
             <span> {{currentAuthor.firstName + currentAuthor.lastName}} </span> 
         </button>
     </div>

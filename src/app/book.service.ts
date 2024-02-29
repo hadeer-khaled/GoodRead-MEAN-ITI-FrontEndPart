@@ -33,8 +33,8 @@ export class BookService {
   }
 
   // method to create a new book
-  createBook(bookData: any): Observable<any> {
-    // const headers = new HttpHeaders().set('token', 'YOUR_AUTH_TOKEN');
+  createBook(bookData: any , token : string): Observable<any> {
+    const headers = new HttpHeaders().set('token', token);
     return this.http
       .post<any>(this.apiUrl, bookData)
       .pipe(catchError(this.handleError));
