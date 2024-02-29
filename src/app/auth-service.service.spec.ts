@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HandleTokenService } from './handle-token.service';
+import { AuthServiceService } from './auth-service.service';
 
-describe('HandleTokenService', () => {
-  let service: HandleTokenService;
+describe('AuthServiceService', () => {
+  let service: AuthServiceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HandleTokenService);
+    service = TestBed.inject(AuthServiceService);
   });
 
   it('should be created', () => {

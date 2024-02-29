@@ -112,8 +112,7 @@ export class BooksTableComponent {
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
     });
-    // this.bookService.createBook(formData, this.token).subscribe(
-    this.bookService.createBook(formData).subscribe(
+    this.bookService.createBook(formData, this.token).subscribe(
       (response) => {
         console.log('Book added successfully:', response);
 
