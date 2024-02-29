@@ -1,14 +1,21 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminService } from '../../services/admin.service.js';
+import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component.js';
 
 @Component({
   selector: 'app-add-admin',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AdminNavbarComponent],
   templateUrl: './add-admin.component.html',
-  styleUrl: './add-admin.component.css'
+  styleUrl: './add-admin.component.css',
 })
 export class AddAdminComponent {
   token: string = '';
@@ -31,7 +38,9 @@ export class AddAdminComponent {
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [
           Validators.required,
-          Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+          ),
         ]),
         rePassword: new FormControl('', [Validators.required]),
       },
@@ -39,18 +48,22 @@ export class AddAdminComponent {
     );
   }
 
-  noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  noSpacesValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
     if (control.value && /\s/.test(control.value)) {
-      return { 'noSpaces': true };
+      return { noSpaces: true };
     }
     return null;
   }
 
-  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  passwordMatchValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
     const password = control.get('password');
     const rePassword = control.get('rePassword');
     if (password && rePassword && password.value !== rePassword.value) {
-      return { 'passwordMismatch': true };
+      return { passwordMismatch: true };
     }
     return null;
   }
@@ -66,8 +79,8 @@ export class AddAdminComponent {
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
     });
-    this.token = localStorage.getItem('token') || ''
-    this.adminService.addAdmin(this.addAdminForm.value,this.token).subscribe(
+    this.token = localStorage.getItem('token') || '';
+    this.adminService.addAdmin(this.addAdminForm.value, this.token).subscribe(
       (response) => {
         console.log('Message:', response.Message);
       },

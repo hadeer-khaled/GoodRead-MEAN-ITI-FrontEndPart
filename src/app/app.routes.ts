@@ -98,7 +98,7 @@ export const routes: Routes = [
     canActivate: [UserLoginGuard],
   },
   {
-    path: 'add-admin',
+    path: 'adminControlPage/add-admin',
     component: AddAdminComponent,
     data: { title: 'Add Admin' },
     canActivate: [AdminLoginGuard],
