@@ -7,6 +7,8 @@ import { AuthService } from './auth-service.service';
   providedIn: 'root'
 })
 export class UserLoginGuard implements CanActivate {
+  UserLogged = localStorage.getItem('UserLogged')
+
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -17,7 +19,11 @@ export class UserLoginGuard implements CanActivate {
     if (this.authService.isUserLoggedIn() ) {
       return true;
     } else {
-      return this.router.parseUrl('/userHome');
+      localStorage.removeItem('token')
+      localStorage.removeItem('UserLogged')
+      console.log(localStorage.getItem('UserLogged'))
+      this.UserLogged = null
+      return this.router.parseUrl('/');
     }
   }
 }

@@ -28,13 +28,11 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminLoginComponent,
     title: 'Login',
-    canActivate: [AdminLoginGuard]
   },
   {
     path: 'user',
     component: UserLoginComponent,
     title: 'Login',
-    canActivate: [UserLoginGuard]
   },
   {
     path: 'userSignUp',

@@ -17,7 +17,7 @@ import { CategoryService } from '../../services/category.service';
   styleUrl: './user-nav-bar.component.css',
 })
 export class UserNavBarComponent {
-  // loggedUser = localStorage.getItem('loggedUser')
+  UserLogged = localStorage.getItem('UserLogged')
   authors: Author[] = []; 
   books: Book[] = [];
   categories: Category[] = []; 
@@ -34,8 +34,6 @@ export class UserNavBarComponent {
     private bookService: BookService,
     private categoryService: CategoryService) {}
 
- 
-
   ngOnInit() {
     this.getAllAuthors();
     this.getAllBooks();
@@ -48,9 +46,6 @@ export class UserNavBarComponent {
         console.log('Subscribe response', response);
         this.authors = response;
         console.log('this.authors', this.authors);
-        this.authorsNames = this.authors.map(
-          (author) => author.firstName + ' ' + author.lastName
-        );
         this.authorsNames = this.authors.map(author => ({ id: author._id, name: author.firstName + ' ' + author.lastName }));
         console.log('authorsNames', this.authorsNames);
       },
@@ -128,50 +123,6 @@ export class UserNavBarComponent {
 
   search(id: string, name: string) {
     if (this.query.trim() !== '' && this.doesAuthorContainQuery(this.query)) {
-      this.router.navigate(['author', this.query]);
-    }
-  }
-}
-
-// export class UserNavBarComponent {
-//   authors : Array<Author> = []
-//   query: string = '';
-//   authorsNames!:any
-
-//   constructor(private router: Router,private http: AuthorService) {
-//    }
-//    getAllAuthors() {
-//     this.http.getAuthors().subscribe(
-//       (response: any) => {
-//         console.log('Subscribe response', response);
-//         this.authors = response;
-//         console.log('this.authors', this.authors);
-//         this.authorsNames = this.authors.map(obj => obj.firstName+''+obj.lastName);
-//         console.log('authorsNames', this.authorsNames);
-//       },
-//       (error: any) => {
-//         console.error('Error getting books:', error);
-//       }
-//     );
-//   }
-
-//   doesAutherContainQuery(query: string): boolean {
-//     for (const name of this.authorsNames) {
-//       if (name.toLowerCase().includes(query.toLowerCase())) {
-//         return true;
-//       }
-//     }
-//     return false;
-//   }
-
-//   search(){
-//     if (this.query.trim() !== '') {
-//       if (this.doesAutherContainQuery(this.query))
-//       this.router.navigate(['/author', this.query]);
-//     }
-//   }
-
-// }
       name = this.query;
       const author = this.authorsNames.find(author => author.name.toLowerCase() === name.toLowerCase());
       if (author) {
@@ -202,19 +153,16 @@ export class UserNavBarComponent {
     }
   
 }
-  }
- 
+}
 
-
-
-  // logOut(){
-  //   localStorage.removeItem('token')
-  //   localStorage.removeItem('loggedUser')
-  //   console.log(localStorage.getItem('loggedUser'))
-  //   this.loggedUser = null
-  //   this.router.navigate(['/'])
+  logOut(){
+    localStorage.removeItem('token')
+    localStorage.removeItem('UserLogged')
+    console.log(localStorage.getItem('UserLogged'))
+    this.UserLogged = null
+    this.router.navigate(['/'])
     
-  // }
+  }
 }
 
 

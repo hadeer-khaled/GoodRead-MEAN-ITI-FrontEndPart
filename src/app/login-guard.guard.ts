@@ -7,6 +7,8 @@ import { AuthService } from './auth-service.service';
   providedIn: 'root'
 })
 export class AdminLoginGuard implements CanActivate {
+  AdminLogged = localStorage.getItem('AdminLogged')
+
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -17,7 +19,11 @@ export class AdminLoginGuard implements CanActivate {
     if (this.authService.isAdminLoggedIn() ) {
       return true;
     } else {
-      return this.router.parseUrl('/adminControlPage');
+      localStorage.removeItem('token')
+      localStorage.removeItem('AdminLogged')
+      console.log(localStorage.getItem('AdminLogged'))
+      this.AdminLogged = null
+      return this.router.parseUrl('/');
     }
   }
 }
