@@ -6,8 +6,7 @@ import { AuthorService } from '../../services/author.service';
 import { Author } from '../../interfaces/author';
 import { BookService } from '../../book.service';
 import { Book } from '../../interfaces/book';
-import { Category } from '../../interfaces/category';
-import { CategoryService } from '../../services/category.service';
+
 
 @Component({
   selector: 'app-user-nav-bar',
@@ -20,24 +19,21 @@ export class UserNavBarComponent {
   UserLogged = localStorage.getItem('UserLogged')
   authors: Author[] = []; 
   books: Book[] = [];
-  categories: Category[] = []; 
 
   query: string = '';
   id: string= '';
 
   authorsNames: { id: string, name: string }[] = []; 
   booksNames: { id: string, name: string }[] = [];
-  categoriesNames: { id: string, name: string }[] = []; 
   
   constructor(private router: Router, 
     private authorService: AuthorService,
     private bookService: BookService,
-    private categoryService: CategoryService) {}
+    ) {}
 
   ngOnInit() {
     this.getAllAuthors();
     this.getAllBooks();
-    this.getAllCategories();
   }
 
   getAllAuthors() {
@@ -94,40 +90,13 @@ export class UserNavBarComponent {
     return false;
   }
 
-  getAllCategories() {
-    this.categoryService.getAllCategories().subscribe(
-      (response: any[]) => {
-        console.log('Subscribe response', response);
-        this.categories = response;
-        console.log('this.categories', this.categories);
-        this.categoriesNames = this.categories.map(category => ({ id: category._id, name: category.name }));
-        console.log('categoriesNames', this.categoriesNames);
-      },
-      (error: any) => {
-        console.error('Error getting categories:', error);
-      }
-    );
-  }
-  
-  doesCategoryContainQuery(query: string): boolean {
-    for (const category of this.categoriesNames) {
-      if (category.name.toLowerCase().includes(query.toLowerCase())) {
-        this.query = category.name;
-        console.log(this.categoriesNames);
-        console.log(this.query);
-        return true;
-      }
-    }
-    return false;
-  }
-
   search(id: string, name: string) {
     if (this.query.trim() !== '' && this.doesAuthorContainQuery(this.query)) {
       name = this.query;
       const author = this.authorsNames.find(author => author.name.toLowerCase() === name.toLowerCase());
       if (author) {
         id = author.id;
-        this.router.navigate(['authors/author', id, name]);
+        this.router.navigate(['/authors/author', id, name]);
       } else {
         console.error('Author not found');
       }
@@ -137,22 +106,12 @@ export class UserNavBarComponent {
       const book = this.booksNames.find(book => book.name.toLowerCase() === name.toLowerCase());
       if (book) {
         id = book.id;
-        this.router.navigate(['books/book', id, name]);
+        this.router.navigate(['/books/book', id, name]);
       } else {
         console.error('Book not found');
       }
   }
-  if (this.query.trim()!== '' && this.doesCategoryContainQuery(this.query)) {
-    name = this.query;
-    const category = this.categoriesNames.find(category => category.name.toLowerCase() === name.toLowerCase());
-    if (category) {
-      id = category.id;
-      this.router.navigate(['categories/category', id, name]);
-    } else {
-      console.error('Category not found');
-    }
   
-}
 }
 
   logOut(){
