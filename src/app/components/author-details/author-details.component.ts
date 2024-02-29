@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Author } from '../../interfaces/author';
+import { AuthorService } from '../../services/author.service';
 import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component';
 
 @Component({

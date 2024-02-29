@@ -68,7 +68,7 @@ export const routes: Routes = [
     title: 'Authors Table',
   },
   {
-    path: 'authors/author/:id',
+    path: 'authors/author/:id/:name',
     component: AuthorDetailsComponent,
   },
   {
@@ -97,7 +97,7 @@ export const routes: Routes = [
     title:"Books"
   },
   {
-    path:"books/:id",
+    path:"books/book/:id/:name",
     component:BookCardComponent,
     title:"Book Details"
   },

@@ -18,13 +18,13 @@ export class AdminService {
         catchError(this.handleError)
       );
   }
-
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, credentials)
       .pipe(
         catchError(this.handleError)
       );
   }
+
 
   private handleError(error: any): Observable<never> {
     console.error('An error occurred:', error);
