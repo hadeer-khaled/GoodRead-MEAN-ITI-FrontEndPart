@@ -39,7 +39,6 @@ export class AddAdminComponent {
     );
   }
 
-  // Custom validator to check for spaces
   noSpacesValidator(control: AbstractControl): { [key: string]: boolean } | null {
     if (control.value && /\s/.test(control.value)) {
       return { 'noSpaces': true };
@@ -47,7 +46,6 @@ export class AddAdminComponent {
     return null;
   }
 
-  // Custom validator to check if password matches rePassword
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
     const rePassword = control.get('rePassword');
@@ -59,6 +57,15 @@ export class AddAdminComponent {
 
   handleFormSubmit() {
     console.log(this.addAdminForm.value);
+
+    const formData = new FormData();
+    formData.append('firstName', this.addAdminForm.value.firstName);
+    formData.append('lastName', this.addAdminForm.value.lastName);
+    formData.append('email', this.addAdminForm.value.email);
+    formData.append('password', this.addAdminForm.value.password);
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
     this.token = localStorage.getItem('token') || ''
     this.adminService.addAdmin(this.addAdminForm.value,this.token).subscribe(
       (response) => {
@@ -68,6 +75,6 @@ export class AddAdminComponent {
         console.error('Error:', error);
       }
     );
-    this.router.navigate(['user']);
+    this.router.navigate(['admin']);
   }
 }
