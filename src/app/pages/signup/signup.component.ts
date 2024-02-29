@@ -11,19 +11,24 @@ import { PasswordRegx } from '../../passwordRegex';
 import { Router } from '@angular/router';
 import { match } from 'node:assert';
 import { UserService } from '../../services/user.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
   SignUpForm!: FormGroup;
-  selectedImage = null;
+  selectedImage!: File;
 
-  constructor(private router: Router, private userServics: UserService) {
+  constructor(
+    private router: Router,
+    private userServics: UserService,
+    private httpClient: HttpClient
+  ) {
     this.SignUpForm = new FormGroup(
       {
         firstName: new FormControl('', [
@@ -52,7 +57,20 @@ export class SignupComponent {
 
   handleFormSubmit() {
     console.log(this.SignUpForm.value);
-    this.userServics.register(this.SignUpForm.value).subscribe(
+
+    const formData = new FormData();
+    formData.append('firstName', this.SignUpForm.value.firstName);
+    formData.append('lastName', this.SignUpForm.value.lastName);
+    formData.append('email', this.SignUpForm.value.email);
+    formData.append('password', this.SignUpForm.value.password);
+    formData.append('image', this.selectedImage);
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    // formData.append('image', this.selectedImage, this.selectedImage.name);
+
+    this.userServics.register(formData).subscribe(
       (response) => {
         console.log('Message:', response.Message);
       },
@@ -82,8 +100,19 @@ export class SignupComponent {
 
     return null;
   }
-  onImageSelected(event: Event) {
-    // this.selectedImage = event.target.files[0];
-    console.log(event);
+  onImageSelected(event: any): void {
+    // Ensure that event.target is not null before proceeding
+    if (event.target) {
+      const files: FileList | null = event.target.files;
+      if (files && files.length > 0) {
+        this.selectedImage = files[0];
+        console.log('Selected File:', this.selectedImage);
+      }
+    }
   }
+
+  // onUpload() {
+  //   const formData = new FormData();
+  //   formData.append('image', this.selectedImage, this.selectedImage.name);
+  // }
 }
