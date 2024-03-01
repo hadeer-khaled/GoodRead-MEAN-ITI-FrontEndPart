@@ -13,10 +13,7 @@
     width: 40%;
     margin-right: 20px;
 }
-.img{
-    width:150px;
-    height: 150px;
-}
+
 
 .url{
     font-size: 16px;
@@ -96,4 +93,55 @@
 }
 .buy-btn:hover{
     background-color: #0066ff;
+}
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+
+ngb-rating {
+  color: #ff9800 !important;
+}
+
+.rating:not(:checked) > input {
+  position: absolute;
+  appearance: none;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  cursor: pointer;
+  font-size: 30px;
+  color: #666;
+}
+
+.rating:not(:checked) > label:before {
+  content: "★";
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #e58e09;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #ff9e0b;
+}
+
+.rating > input:checked ~ label {
+  color: #ffa723;
+}
+.auth{
+    margin-left: 200px;
+    margin-bottom: 30px;
+}
+.container{
+    margin-left: 500px;
+    margin-top: 50px;
+    width: 600px;
+    height: 400px;
 }

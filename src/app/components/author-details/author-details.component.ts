@@ -3,15 +3,13 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthorService } from '../../services/author.service';
 import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
-import { log } from 'console';
 import { BookService } from '../../book.service.js';
-import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
-import { NgFor } from '@angular/common';
+import { NgbDropdownModule, NgbRating, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-author-details',
   standalone: true,
-  imports: [UserNavBarComponent,RouterLink,NgbRating],
+  imports: [UserNavBarComponent,RouterLink, NgbDropdownModule,NgbRatingModule],
   templateUrl: './author-details.component.html',
   styleUrl: './author-details.component.css'
 })
