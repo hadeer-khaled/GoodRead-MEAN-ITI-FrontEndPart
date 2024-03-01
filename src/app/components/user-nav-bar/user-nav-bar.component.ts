@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AuthorService } from '../../services/author.service';
 import { Author } from '../../interfaces/author';
-import { BookService } from '../../book.service';
+import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book';
+import { StorageService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-user-nav-bar',
@@ -15,21 +16,24 @@ import { Book } from '../../interfaces/book';
   styleUrl: './user-nav-bar.component.css',
 })
 export class UserNavBarComponent {
-  UserLogged = localStorage.getItem('UserLogged');
-  authors: Author[] = [];
-  books: Book[] = [];
-
-  query: string = '';
-  id: string = '';
-
-  authorsNames: { id: string; name: string }[] = [];
-  booksNames: { id: string; name: string }[] = [];
 
   constructor(
     private router: Router,
     private authorService: AuthorService,
-    private bookService: BookService
+    private bookService: BookService,
+    private storageService: StorageService
+
   ) {}
+  UserLogged = this.storageService.getItem('UserLogged');
+  authors: Author[] = [];
+  books: Book[] = [];
+
+  query: string = '';
+  id: any;
+
+  authorsNames: { id: string; name: string }[] = [];
+  booksNames: { id: number; name: string }[] = [];
+
 
   ngOnInit() {
     this.getAllAuthors();
@@ -73,7 +77,7 @@ export class UserNavBarComponent {
         this.books = response;
         console.log('this.books', this.books);
         this.booksNames = this.books.map((book) => ({
-          id: book._id,
+          id: book.id,
           name: book.title,
         }));
         console.log('booksNames', this.booksNames);
@@ -96,7 +100,7 @@ export class UserNavBarComponent {
     return false;
   }
 
-  search(id: string, name: string) {
+  search(id: any, name: string) {
     if (this.query.trim() !== '' && this.doesAuthorContainQuery(this.query)) {
       name = this.query;
       const author = this.authorsNames.find(
@@ -124,10 +128,10 @@ export class UserNavBarComponent {
   }
 
   logOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('UserLogged');
-    localStorage.removeItem('loggedUser');
-    localStorage.removeItem('role');
+    this.storageService.removeItem('token');
+    this.storageService.removeItem('UserLogged');
+    this.storageService.removeItem('loggedUser');
+    this.storageService.removeItem('role');
     this.UserLogged = null;
     this.router.navigate(['/']);
   }

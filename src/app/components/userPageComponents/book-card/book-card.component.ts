@@ -5,7 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Book } from '../../../interfaces/book';
-import { BookService } from '../../../book.service';
+import { BookService } from '../../../services/book.service';
 import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   ModalDismissReasons,
@@ -20,6 +20,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
+import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
   selector: 'app-book-card',
@@ -54,7 +55,9 @@ export class BookCardComponent {
 
   reviewForm!: FormGroup;
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService , 
+    private storageService: StorageService
+) {
     this.reviewForm = new FormGroup({
       review: new FormControl('', [
         Validators.required,
@@ -64,7 +67,7 @@ export class BookCardComponent {
   }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     const queryParams = { pageNum: 1 };
     console.log(this.id);
     console.log('im am her on init');
@@ -114,7 +117,7 @@ export class BookCardComponent {
     // update the sheleve in db
     this.shelve = value;
     console.log('Selected value:', value);
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
       (data) => {
         console.log(data);
@@ -129,7 +132,7 @@ export class BookCardComponent {
     this.userRating = rating;
     console.log(`the id ${this.book}`);
     console.log(this.userRating);
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService
       .updateBookRating(this.book._id, this.userRating, this.token)
       .subscribe(
@@ -151,7 +154,7 @@ export class BookCardComponent {
 
   addNewReview() {
     const reviewContent = this.reviewForm.value.review;
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService
       .createReview(this.book._id, reviewContent, this.token)
       .subscribe(

@@ -11,6 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Category } from '../../../interfaces/category';
+import { StorageService } from '../../../services/storage-service.service';
 
 //import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
 // import { DataService } from '../../../services/data.service';
@@ -34,9 +35,11 @@ export class CategoriesTableComponent {
   constructor(
     private router: Router,
     private modalService: NgbModal,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private storageService: StorageService
+
   ) {
-    this.token = localStorage.getItem('token') || ''
+    this.token = this.storageService.getItem('token') || ''
     // this.token =
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1OTg2NTZ9.ImHWrsLWSeMohEiGD-pIBWsCGzge9KMB98JeFXH2JWQ';
     this.categoryForm = new FormGroup({
@@ -56,7 +59,7 @@ export class CategoriesTableComponent {
     });
   }
   ngOnInit(): void {
-    // if (this.token === localStorage.getItem('token')){
+    // if (this.token === this.storageService.getItem('token')){
     //   console.log("authorized")
     this.getAllCategories();
   }

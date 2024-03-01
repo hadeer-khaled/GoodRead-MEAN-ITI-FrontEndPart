@@ -6,13 +6,14 @@ import {
 } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Book } from '../../../interfaces/book';
-import { BookService } from '../../../book.service';
+import { BookService } from '../../../services/book.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
+import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
   selector: 'app-user-books',
@@ -41,10 +42,12 @@ export class UserBooksComponent {
   pageSize = 2;
   page = 1;
   booksLength!: number;
+  
+  constructor(private bookService: BookService ,
+    private storageService: StorageService
+) {}
+  token = this.storageService.getItem('token') || '';
 
-  token = localStorage.getItem('token') || '';
-
-  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
     // ====================== Try New one ================
@@ -102,7 +105,7 @@ export class UserBooksComponent {
   onDropdownItemClicked(bookId: string, value: string) {
     // update the sheleve in db
     console.log(`For Book: ${bookId} the mew Selected Shelve: ${value}`);
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService.updateBookShelve(bookId, value, this.token).subscribe(
       (data) => {
         console.log(data);
@@ -114,46 +117,4 @@ export class UserBooksComponent {
     );
   }
 
-  // ====================== Old working one ================
-  // getUsersBooks(shelve: string) {
-  //   if (shelve == 'all') {
-  //     this.bookService.getBooks().subscribe(
-  //       (response: any) => {
-  //         console.log('Subscribe response', response);
-  //         this.books = response;
-  //         this.updatePagedBooks();
-  //         console.log('this.books', this.books);
-  //       },
-  //       (error: any) => {
-  //         console.error('Error getting books:', error);
-  //       }
-  //     );
-  //   } else {
-  //     console.log('Not All Shelve , Selected ===> ', shelve);
-  //     // this.bookService.getBooksFilterByShelf(shelve).subscribe(
-  //     //   (response: any) => {
-  //     //     console.log('Subscribe response', response);
-  //     //     this.books = response;
-  //     //     console.log('this.books', this.books);
-  //     //   },
-  //     //   (error: any) => {
-  //     //     console.error('Error getting books:', error);
-  //     //   }
-  //     // );
-  //   }
-  // }
-
-  // onPageChange() {
-  //   this.updatePagedBooks();
-  // }
-  // updatePagedBooks() {
-  //   // Call pagedBooks() to update the displayed books based on pagination logic
-  //   this.pagedBooksList = this.pagedBooks();
-  // }
-
-  // pagedBooks(): any[] {
-  //   const startIndex = (this.page - 1) * this.pageSize;
-  //   const endIndex = startIndex + this.pageSize;
-  //   return this.books.slice(startIndex, endIndex);
-  // }
 }

@@ -1,10 +1,11 @@
-import { Author } from './../../interfaces/author';
 import { Component, Input } from '@angular/core';
+import { Author } from './../../interfaces/author';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthorService } from '../../services/author.service';
 import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
-import { BookService } from '../../book.service.js';
+import { BookService } from '../../services/book.service.js';
 import { NgbDropdownModule, NgbRating, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { StorageService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-author-details',
@@ -19,48 +20,32 @@ export class AuthorDetailsComponent {
   averageRating?: number;
   readonly = true;
   author:any
-  book:any;
   books:any[] = [];
   @Input() id : string ='' 
   name ?: string = ''
   token:string='';
 
   
-  constructor( private http:AuthorService ,private bookService:BookService){
+  constructor( private http:AuthorService ,private bookService:BookService,
+    private storageService: StorageService){
        
   }
 
   ngOnInit(){
     this.http.getAuthorById(this.id).subscribe( (data:any) => {
       this.author = data.authorDetails[0].author;
+      let dob = new Date(this.author.dob);
+      let newDate = dob.getFullYear() + '/' + (dob.getMonth() + 1) + '/' + dob.getDate();
+      this.author.dob = newDate;
       console.log(data);
       this.books = data.authorBooks;
       console.log('author books',data.authorBooks);
+      console.log('bookID' ,this.books[0]._id)
     },
     (error) => {
       console.error('Error fetching books:', error);
     }
   );
-
-
-
-  this.bookService.getBookByIdUser(this.id, this.token).subscribe(
-    (data) => {
-      this.book = data;
-      console.log(this.book);
-      console.log("i'm here ");
-      if (this.book.countOfRating == 0) {
-        this.averageRating = 0;
-      } else {
-        this.averageRating = this.book.totalRating / this.book.countOfRating;
-      }
-    },
-    (error) => {
-      console.error('Error fetching books:', error);
-    }
-  );
-  console.log("i'm here ");
-  console.log('im am her on afeer first method init');
  
   }
 
@@ -72,12 +57,16 @@ export class AuthorDetailsComponent {
     return foundBook ? foundBook.rating : undefined;
   }
   //////////////////updateBookShelve//////////////////////
-  onDropdownItemClicked(value: string) {
-    // update the sheleve in db
+  onDropdownItemClicked(id:string,value: string) {
+    const book = this.books.find(book => book._id === id);
+    if (book) {
+      book._id = id;
+    }    
     this.shelve = value;
     console.log('Selected value:', value);
-    this.token = localStorage.getItem('token') || '';
-    this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
+    console.log('dropId',id);
+    this.token = this.storageService.getItem('token') || '';
+    this.bookService.updateBookShelve(id, value, this.token).subscribe(
       (data) => {
         console.log(data);
       },
@@ -87,13 +76,16 @@ export class AuthorDetailsComponent {
     );
   }
   //////////////////updateBookRating//////////////////////
-  onRatingChange(rating: number) {
+  onRatingChange(id:string , rating: number) {
     this.userRating = rating;
-    console.log(`the id ${this.book}`);
+    const book = this.books.find(book => book._id === id);
+    if (book) {
+      book._id = id;
+    } 
     console.log(this.userRating);
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService
-      .updateBookRating(this.book._id, this.userRating, this.token)
+      .updateBookRating(id, this.userRating, this.token)
       .subscribe(
         (data) => {
           console.log(data);
@@ -103,7 +95,7 @@ export class AuthorDetailsComponent {
         }
       );
   }
-  calculateAverageRating(totalRating: number, countOfRating: number): number {
+  calculateAverageRating( totalRating: number, countOfRating: number): number {
     if (countOfRating === 0) {
       return 0;
     }

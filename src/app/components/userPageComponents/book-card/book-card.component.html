@@ -15,9 +15,9 @@
       <div class="left">
         <h2 class="mb-2">{{ book.title }}</h2>
         <div>
-          <a routerLink="/authors/{{ book.author.id }}" class="card-title">
-            by {{ book.author.firstName }} {{ book.author.lastName }}</a
-          >
+          <a class="text-black-50 fw-bolder text-decoration-none " routerLink="/authors/author/{{book.author._id}}/{{book.author.firstName +' ' + book.author.lastName}}"
+          >by {{ book.author.firstName }} {{ book.author.lastName }}</a
+        >
         </div>
         <a routerLink="/categories/{{ book.category.id }}" class="card-title">{{
           book.category.name

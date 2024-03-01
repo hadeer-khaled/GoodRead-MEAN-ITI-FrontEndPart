@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminService } from '../../services/admin.service.js';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component.js';
+import { StorageService } from '../../services/storage-service.service.js';
 
 @Component({
   selector: 'app-add-admin',
@@ -20,7 +21,9 @@ import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component.js'
 export class AddAdminComponent {
   token: string = '';
   addAdminForm: FormGroup;
-  constructor(private router: Router, private adminService: AdminService) {
+  constructor(private router: Router, private adminService: AdminService,
+    private storageService: StorageService
+    ) {
     this.addAdminForm = new FormGroup(
       {
         firstName: new FormControl('', [
@@ -79,7 +82,7 @@ export class AddAdminComponent {
     formData.forEach((value, key) => {
       console.log(`${key}:`, value);
     });
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.adminService.addAdmin(this.addAdminForm.value, this.token).subscribe(
       (response) => {
         console.log('Message:', response.Message);

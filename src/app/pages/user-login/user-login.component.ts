@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Users } from '../../interfaces/users';
 import { UserService } from '../../services/user.service';
+import { StorageService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-user-login',
@@ -17,7 +18,9 @@ export class UserLoginComponent {
   token: string = '';
   isLoggedIn: boolean = false;
 
-  constructor(private router: Router, private http: UserService) {
+  constructor(private router: Router, private http: UserService,
+    private storageService: StorageService
+) {
     this.logObj = {
       username: '',
       firstName: '',
@@ -29,7 +32,7 @@ export class UserLoginComponent {
   }
 
   checkLoggedIn() {
-    const token = localStorage.getItem('token');
+    const token = this.storageService.getItem('token');
     console.log(token);
     this.isLoggedIn = !!token;
   }
@@ -37,19 +40,19 @@ export class UserLoginComponent {
   onSubmit(form:any){
     const credentials = {username: this.logObj.username, password: this.logObj.password };
     this.http.login(credentials).subscribe(response => {
-      localStorage.setItem('token', (response.data));
-      console.log('token',localStorage.getItem('token'));
+      this.storageService.setItem('token', (response.data));
+      console.log('token',this.storageService.getItem('token'));
       this.checkLoggedIn();
       console.log(this.isLoggedIn);
       const jwtToken = response.data;
           const tokenParts = jwtToken.split('.');
           const payload = JSON.parse(atob(tokenParts[1]));
           console.log('payload',payload)
-          localStorage.setItem('UserLogged', (payload.userExist.firstName));
-          console.log('UserLogged',localStorage.getItem('UserLogged'));
+          this.storageService.setItem('UserLogged', (payload.userExist.firstName));
+          console.log('UserLogged',this.storageService.getItem('UserLogged'));
           const role = payload.userExist.role;
           console.log('role', role);
-          localStorage.setItem('role', (payload.userExist.role));
+          this.storageService.setItem('role', (payload.userExist.role));
              this.router.navigate(['/userHome']);
                   }, error => {
       console.error('Error logging in:', error.errorMessage);

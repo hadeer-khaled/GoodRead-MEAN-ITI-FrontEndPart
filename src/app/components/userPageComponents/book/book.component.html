@@ -26,7 +26,7 @@
               >
             </h4>
             <p>
-              <a routerLink="/authors/author/{{ book.author.id }}"
+              <a routerLink="/authors/author/{{ book.author._id }}/{{ book.author.firstName + '' + book.author.lastName }}"
                 >{{ book.author.firstName }} {{ book.author.lastName }}</a
               >
             </p>
