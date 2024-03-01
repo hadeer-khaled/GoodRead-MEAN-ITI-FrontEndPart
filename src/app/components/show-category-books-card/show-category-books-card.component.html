@@ -1,30 +1,5 @@
-<!--<div *ngIf="category">
-  <h2>{{ category.name }}</h2>
-  <div *ngFor="let book of books">
-    <div>{{ book.title }}</div>
-    <div>{{ book.author.firstName }} {{ book.author.lastName }}</div>
-    <img *ngIf="book.image" [src]="book.image" alt="Book Image">
-  </div>
-</div>
 
-<div class="container py-4">
-<h1 class="h1 text-center" id="pageHeaderTitle">My Cards Dark</h1>
-<article class="postcard dark blue"  *ngIf="category" >
-  <h1 class="postcard__title blue">{{ category.name }}</h1>
-  <div class="postcard__text" *ngFor="let book of books">
-    <a class="postcard__img_link" href="#">
-      <img class="postcard__img" *ngIf="book.image" [src]="book.image" alt="Book Image" />
-    </a>
-    <div class="postcard__subtitle small">
-        <i class="fas fa-calendar-alt mr-2"></i>{{ book.title }}
-    </div>
-    <div class="postcard__bar"></div>
-    <div class="postcard__preview-txt">{{ book.author.firstName }} {{ book.author.lastName }}</div>
-  </div>
-</article>
-</div> -->
-
-
+<app-user-nav-bar></app-user-nav-bar>
 <section class="light">
 	<div class="container py-2">
 		<div id="pageHeaderTitle" *ngIf="category">{{ category }}</div>

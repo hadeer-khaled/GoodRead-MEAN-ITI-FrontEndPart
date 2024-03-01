@@ -5,10 +5,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Book } from '../../../interfaces/book';
 import { BookService } from '../../../book.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
 @Component({
   selector: 'app-book',
   standalone: true,
-  imports: [FormsModule,RouterLink,RouterLinkActive,  NgbPaginationModule],
+  imports: [FormsModule,RouterLink,RouterLinkActive,  NgbPaginationModule,UserNavBarComponent],
   templateUrl: './book.component.html',
   styleUrl: './book.component.css'
 })

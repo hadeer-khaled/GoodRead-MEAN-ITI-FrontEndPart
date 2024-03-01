@@ -63,33 +63,5 @@ export class AdminLoginComponent {
   }
 
 
-  // -------------------------- add admin ---------------------- \\
-  //   admindata: any;
-  // this.admindata = {
-  //   username: 'haderkhaled',
-  //   firstName: 'khaled',
-  //   lastName: 'khaled',
-  //   email: 'hader@ample.com',
-  //   password: 'password1234',
-  //   repassword: 'password1234',
-  //   role: 'admin',
-  // };
-  // onSubmit(form: any) {
-  //   if (!form.valid) {
-  //     alert('Please fill all the fields');
-  //     return;
-  //   } else {
-  //     // Move the following part inside the else block to access admindata and token
-  //     this.http.addAdmin(this.admindata, this.token).subscribe(
-  //       (response) => {
-  //         console.log(response);
-  //       },
-  //       (error) => {
-  //         console.error('Error adding admin:', error);
-  //       }
-  //     );
-  //   }
-  // }
-
-// ---------------------- end add admin --------------------------- \\
+  
 }

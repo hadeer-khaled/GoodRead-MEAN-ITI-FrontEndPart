@@ -116,7 +116,7 @@ export class UserNavBarComponent {
       );
       if (book) {
         id = book.id;
-        this.router.navigate(['/books/book', id, name]);
+        this.router.navigate(['books/book', id, name]);
       } else {
         console.error('Book not found');
       }
@@ -126,7 +126,9 @@ export class UserNavBarComponent {
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('UserLogged');
-    console.log(localStorage.getItem('UserLogged'));
+    localStorage.removeItem('UserLogged');
+    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('role');
     this.UserLogged = null;
     this.router.navigate(['/']);
   }
