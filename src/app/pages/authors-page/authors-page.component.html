@@ -1,17 +1,31 @@
 <app-user-nav-bar></app-user-nav-bar>
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  @for(author of authors; track author.id){
-  <div class="col">
-    <!-- CHILD COMPONENT -->
-    <app-author-card [currentAuthor]="author"></app-author-card>
+<div class="container mt-3">
+  <div class="row mb-5">
+    @for(author of authors; track author.id) {
+    <div class="col-lg-4 col-md-6">
+      <div class="card" style="width: 18rem">
+        <div class="img-div">
+          <a>
+            <img
+              [src]="'http://localhost:3000/images/authors/' + author.image"
+              class="card-img-top"
+              alt="..."
+            />
+          </a>
+        </div>
+        <div class="card-body">
+          <div
+            class="d-flex flex-column align-items-center justify-content-center"
+          >
+            <p>
+              <a routerLink="/authors/author/{{author._id}}/{{author.firstName +' ' + author.lastName}}"
+                >{{ author.firstName }} {{ author.lastName }}</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    }
   </div>
-  }
-  <!-- <ngb-pagination
-  class="ngb-pagination"
-  [(page)]="page"
-  [pageSize]="pageSize"
-  [collectionSize]="books.length"
-  (pageChange)="onPageChange()"
-  aria-label="Default pagination"
-  /> -->
-</div>

@@ -1,3 +1,5 @@
+<app-user-nav-bar></app-user-nav-bar>
+
 <div class="container mt-3">
   <div class="row mb-5">
     @for(book of books; track book.id) {
@@ -18,7 +20,7 @@
           >
             <h4 class="text-center">
               <a
-                routerLink="/books/book/{{ book.id }}/{{ book.title }}"
+                routerLink="/books/book/{{ book._id }}/{{ book.title }}"
                 class="card-title"
                 >{{ book.title }}</a
               >

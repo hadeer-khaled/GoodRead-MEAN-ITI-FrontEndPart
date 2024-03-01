@@ -19,6 +19,7 @@ import {
   // FormsModule,
   Validators,
 } from '@angular/forms';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
 
 @Component({
   selector: 'app-book-card',
@@ -32,6 +33,7 @@ import {
     NgbDatepickerModule,
     ReactiveFormsModule,
     CommonModule,
+    UserNavBarComponent
   ],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.css',

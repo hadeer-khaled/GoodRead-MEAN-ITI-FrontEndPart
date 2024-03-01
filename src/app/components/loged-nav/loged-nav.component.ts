@@ -16,6 +16,8 @@ export class LogedNavComponent {
   logOut(){
     localStorage.removeItem('token')
     localStorage.removeItem('AdminLogged')
+    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('role');
     console.log(localStorage.getItem('AdminLogged'))
     this.AdminLogged = null
     this.router.navigate(['/'])

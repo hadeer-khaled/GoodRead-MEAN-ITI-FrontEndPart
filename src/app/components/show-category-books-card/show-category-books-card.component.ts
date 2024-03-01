@@ -7,7 +7,7 @@ import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
 @Component({
   selector: 'app-show-category-books-card',
   standalone: true,
-  imports: [NgIf, NgFor, NgbPaginationModule, UserNavBarComponent],
+  imports: [NgIf, NgFor, NgbPaginationModule, UserNavBarComponent,UserNavBarComponent],
   templateUrl: './show-category-books-card.component.html',
   styleUrl: './show-category-books-card.component.css',
 })

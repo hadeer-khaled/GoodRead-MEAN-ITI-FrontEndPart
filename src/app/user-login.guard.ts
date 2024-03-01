@@ -21,6 +21,8 @@ export class UserLoginGuard implements CanActivate {
     } else {
       localStorage.removeItem('token')
       localStorage.removeItem('UserLogged')
+      localStorage.removeItem('loggedUser');
+      localStorage.removeItem('role');
       console.log(localStorage.getItem('UserLogged'))
       this.UserLogged = null
       return this.router.parseUrl('/');

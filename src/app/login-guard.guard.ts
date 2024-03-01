@@ -21,6 +21,8 @@ export class AdminLoginGuard implements CanActivate {
     } else {
       localStorage.removeItem('token')
       localStorage.removeItem('AdminLogged')
+      localStorage.removeItem('loggedUser');
+      localStorage.removeItem('role');
       console.log(localStorage.getItem('AdminLogged'))
       this.AdminLogged = null
       return this.router.parseUrl('/');
