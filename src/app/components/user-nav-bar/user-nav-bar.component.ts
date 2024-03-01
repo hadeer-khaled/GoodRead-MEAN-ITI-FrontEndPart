@@ -126,7 +126,6 @@ export class UserNavBarComponent {
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('UserLogged');
-    localStorage.removeItem('UserLogged');
     localStorage.removeItem('loggedUser');
     localStorage.removeItem('role');
     this.UserLogged = null;
