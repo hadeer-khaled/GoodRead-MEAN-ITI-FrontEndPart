@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiUrl = 'http://127.0.0.1:3000/categories';
+  private apiUrl = 'https://goodread-mean-iti-backendpart-3.onrender.com/categories';
 
   constructor(private http: HttpClient) {}
 

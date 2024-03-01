@@ -47,6 +47,8 @@ export class BookCardComponent {
   reviews!: any;
   private modalService = inject(NgbModal);
   closeResult = '';
+  token:string='';
+
 
   @Input() id: string = '';
 
@@ -62,15 +64,14 @@ export class BookCardComponent {
   }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem('token') || '';
     const queryParams = { pageNum: 1 };
     console.log(this.id);
     console.log('im am her on init');
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
-    this.bookService.getBookByIdUser(this.id, token).subscribe(
+    this.bookService.getBookByIdUser(this.id, this.token).subscribe(
       (data) => {
         this.book = data;
-        this.bookService.getBoookReviews(this.book._id, token).subscribe(
+        this.bookService.getBoookReviews(this.book._id, this.token).subscribe(
           (data) => {
             this.reviews = data;
             this.reviews = this.reviews.reviews;
@@ -93,7 +94,7 @@ export class BookCardComponent {
     );
     console.log("i'm here ");
     console.log('im am her on afeer first method init');
-    this.bookService.getBoookReviews(this.book._id, token).subscribe(
+    this.bookService.getBoookReviews(this.book._id, this.token).subscribe(
       (data) => {
         this.reviews = data;
         this.reviews = this.reviews.reviews;
@@ -113,9 +114,8 @@ export class BookCardComponent {
     // update the sheleve in db
     this.shelve = value;
     console.log('Selected value:', value);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
-    this.bookService.updateBookShelve(this.book._id, value, token).subscribe(
+    this.token = localStorage.getItem('token') || '';
+    this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
       (data) => {
         console.log(data);
       },
@@ -129,10 +129,9 @@ export class BookCardComponent {
     this.userRating = rating;
     console.log(`the id ${this.book}`);
     console.log(this.userRating);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = localStorage.getItem('token') || '';
     this.bookService
-      .updateBookRating(this.book._id, this.userRating, token)
+      .updateBookRating(this.book._id, this.userRating, this.token)
       .subscribe(
         (data) => {
           console.log(data);
@@ -152,10 +151,9 @@ export class BookCardComponent {
 
   addNewReview() {
     const reviewContent = this.reviewForm.value.review;
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = localStorage.getItem('token') || '';
     this.bookService
-      .createReview(this.book._id, reviewContent, token)
+      .createReview(this.book._id, reviewContent, this.token)
       .subscribe(
         (data) => {
           console.log(data);

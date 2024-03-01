@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class BookService {
-  private apiUrl = 'http://127.0.0.1:3000/books';
+  private apiUrl = 'https://goodread-mean-iti-backendpart-3.onrender.com/books';
   shelve: string = 'all';
 
   constructor(private http: HttpClient) {}
@@ -178,7 +178,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BookService {
-  private apiUrl = 'http://127.0.0.1:3000/books';
+  private apiUrl = 'https://goodread-mean-iti-backendpart-3.onrender.com/books';
 
   constructor(private http: HttpClient) { }
 

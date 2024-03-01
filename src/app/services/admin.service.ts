@@ -7,8 +7,8 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://127.0.0.1:3000/admin';
-
+  private apiUrl = 'https://goodread-mean-iti-backendpart-3.onrender.com/admin';
+//https://goodread-mean-iti-backendpart-2.onrender.com
   constructor(private http: HttpClient) { }
 
   addAdmin(adminData: any , token:string): Observable<any> {

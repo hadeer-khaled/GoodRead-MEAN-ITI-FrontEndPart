@@ -24,8 +24,9 @@ export class AuthorDetailsComponent {
   @Input() id : string ='' 
   name ?: string = ''
   token:string='';
+
+  
   constructor( private http:AuthorService ,private bookService:BookService){
-    this.token =localStorage.getItem('token')||''
        
   }
 
@@ -40,6 +41,27 @@ export class AuthorDetailsComponent {
       console.error('Error fetching books:', error);
     }
   );
+
+
+
+  this.bookService.getBookByIdUser(this.id, this.token).subscribe(
+    (data) => {
+      this.book = data;
+      console.log(this.book);
+      console.log("i'm here ");
+      if (this.book.countOfRating == 0) {
+        this.averageRating = 0;
+      } else {
+        this.averageRating = this.book.totalRating / this.book.countOfRating;
+      }
+    },
+    (error) => {
+      console.error('Error fetching books:', error);
+    }
+  );
+  console.log("i'm here ");
+  console.log('im am her on afeer first method init');
+ 
   }
 
 
@@ -54,6 +76,7 @@ export class AuthorDetailsComponent {
     // update the sheleve in db
     this.shelve = value;
     console.log('Selected value:', value);
+    this.token = localStorage.getItem('token') || '';
     this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
       (data) => {
         console.log(data);
@@ -68,10 +91,9 @@ export class AuthorDetailsComponent {
     this.userRating = rating;
     console.log(`the id ${this.book}`);
     console.log(this.userRating);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = localStorage.getItem('token') || '';
     this.bookService
-      .updateBookRating(this.book._id, this.userRating, token)
+      .updateBookRating(this.book._id, this.userRating, this.token)
       .subscribe(
         (data) => {
           console.log(data);

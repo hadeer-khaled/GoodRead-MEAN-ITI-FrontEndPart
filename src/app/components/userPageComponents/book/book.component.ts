@@ -19,13 +19,15 @@ export class BookComponent {
   length!:number;
   pageSize:number=5;
   page:number=1
+  token:string='';
+
   constructor(private bookService: BookService){
    
   }
   ngOnInit(): void {
     const queryParams = { pageNum: 1 }; 
-    const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTJmYmI0MWMzZDg4OWJlYjRmN2QyIiwidXNlcm5hbWUiOiJub3VyIiwiZmlyc3ROYW1lIjoiYWx4aSIsImxhc3ROYW1lIjoiVGFyZWtrIiwiZW1haWwiOiJhbHNra2lAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImNyZWF0ZWRBdCI6IjIwMjQtMDItMjBUMjM6MDM6MjMuMzA1WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjBUMjM6MDM6MjMuMzA1WiIsIl9fdiI6MH0sImlhdCI6MTcwODYyOTM2M30.48MxSfSnOy91SzUPPqICTl_EoASigAm75tNA7wR7FHg";
-    this.bookService.getUserBooks(queryParams, token)
+    this.token = localStorage.getItem('token') || '';
+    this.bookService.getUserBooks(queryParams, this.token)
     .subscribe((data:any) => {
       this.books = data.books;
       this.length=data.bookCount;
@@ -37,11 +39,12 @@ export class BookComponent {
   
 
 onPageChange(pageNumber: number){
+  this.token = localStorage.getItem('token') || '';
+
   this.currentPage = pageNumber; 
   const queryParams = { pageNum: pageNumber }; 
   console.log(queryParams);
-  const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTJmYmI0MWMzZDg4OWJlYjRmN2QyIiwidXNlcm5hbWUiOiJub3VyIiwiZmlyc3ROYW1lIjoiYWx4aSIsImxhc3ROYW1lIjoiVGFyZWtrIiwiZW1haWwiOiJhbHNra2lAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImNyZWF0ZWRBdCI6IjIwMjQtMDItMjBUMjM6MDM6MjMuMzA1WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjBUMjM6MDM6MjMuMzA1WiIsIl9fdiI6MH0sImlhdCI6MTcwODYyOTM2M30.48MxSfSnOy91SzUPPqICTl_EoASigAm75tNA7wR7FHg";
-  this.bookService.getUserBooks(queryParams, token)
+  this.bookService.getUserBooks(queryParams, this.token)
     .subscribe(
       (data:any) => {
         this.books = data.books;
