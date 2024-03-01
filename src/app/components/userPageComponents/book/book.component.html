@@ -39,13 +39,13 @@
   </div>
 
   <ngb-pagination
-    class="ngb-pagination"
-    [(page)]="page"
-    [pageSize]="pageSize"
-    [collectionSize]="length"
-    (pageChange)="onPageChange(page)"
-    aria-label="Default pagination"
-  />
+  class="ngb-pagination"
+  [(page)]="currentPage"
+  [pageSize]="pageSize"
+  [collectionSize]="length"
+  (pageChange)="onPageChange($event)"
+  aria-label="Default pagination"
+></ngb-pagination>
 </div>
 
 <!--<div class="container text-center mt-3">
