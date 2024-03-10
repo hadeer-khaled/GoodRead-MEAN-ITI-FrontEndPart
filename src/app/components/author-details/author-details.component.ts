@@ -1,17 +1,16 @@
-import { Author } from './../../interfaces/author';
 import { Component, Input } from '@angular/core';
+import { Author } from './../../interfaces/author';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthorService } from '../../services/author.service';
 import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
-import { log } from 'console';
-import { BookService } from '../../book.service.js';
-import { NgbRating } from '@ng-bootstrap/ng-bootstrap';
-import { NgFor } from '@angular/common';
+import { BookService } from '../../services/book.service.js';
+import { NgbDropdownModule, NgbRating, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { StorageService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-author-details',
   standalone: true,
-  imports: [UserNavBarComponent,RouterLink,NgbRating],
+  imports: [UserNavBarComponent,RouterLink, NgbDropdownModule,NgbRatingModule],
   templateUrl: './author-details.component.html',
   styleUrl: './author-details.component.css'
 })
@@ -21,27 +20,33 @@ export class AuthorDetailsComponent {
   averageRating?: number;
   readonly = true;
   author:any
-  book:any;
   books:any[] = [];
   @Input() id : string ='' 
   name ?: string = ''
   token:string='';
-  constructor( private http:AuthorService ,private bookService:BookService){
-    this.token =localStorage.getItem('token')||''
+
+  
+  constructor( private http:AuthorService ,private bookService:BookService,
+    private storageService: StorageService){
        
   }
 
   ngOnInit(){
     this.http.getAuthorById(this.id).subscribe( (data:any) => {
       this.author = data.authorDetails[0].author;
+      let dob = new Date(this.author.dob);
+      let newDate = dob.getFullYear() + '/' + (dob.getMonth() + 1) + '/' + dob.getDate();
+      this.author.dob = newDate;
       console.log(data);
       this.books = data.authorBooks;
       console.log('author books',data.authorBooks);
+      console.log('bookID' ,this.books[0]._id)
     },
     (error) => {
       console.error('Error fetching books:', error);
     }
   );
+ 
   }
 
 
@@ -52,11 +57,16 @@ export class AuthorDetailsComponent {
     return foundBook ? foundBook.rating : undefined;
   }
   //////////////////updateBookShelve//////////////////////
-  onDropdownItemClicked(value: string) {
-    // update the sheleve in db
+  onDropdownItemClicked(id:string,value: string) {
+    const book = this.books.find(book => book._id === id);
+    if (book) {
+      book._id = id;
+    }    
     this.shelve = value;
     console.log('Selected value:', value);
-    this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
+    console.log('dropId',id);
+    this.token = this.storageService.getItem('token') || '';
+    this.bookService.updateBookShelve(id, value, this.token).subscribe(
       (data) => {
         console.log(data);
       },
@@ -66,14 +76,16 @@ export class AuthorDetailsComponent {
     );
   }
   //////////////////updateBookRating//////////////////////
-  onRatingChange(rating: number) {
+  onRatingChange(id:string , rating: number) {
     this.userRating = rating;
-    console.log(`the id ${this.book}`);
+    const book = this.books.find(book => book._id === id);
+    if (book) {
+      book._id = id;
+    } 
     console.log(this.userRating);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService
-      .updateBookRating(this.book._id, this.userRating, token)
+      .updateBookRating(id, this.userRating, this.token)
       .subscribe(
         (data) => {
           console.log(data);
@@ -83,7 +95,7 @@ export class AuthorDetailsComponent {
         }
       );
   }
-  calculateAverageRating(totalRating: number, countOfRating: number): number {
+  calculateAverageRating( totalRating: number, countOfRating: number): number {
     if (countOfRating === 0) {
       return 0;
     }

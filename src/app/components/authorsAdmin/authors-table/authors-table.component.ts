@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthorService } from '../../../services/author.service';
+import { StorageService } from '../../../services/storage-service.service';
 // import { DatePipe } from '@angular/common';
 
 @Component({
@@ -33,9 +34,9 @@ export class AuthorsTableComponent {
   token: string = '';
   discription: string = '';
   selectedImage!: File;
-  constructor(private router: Router, private authorService: AuthorService) {
-    this.token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+  constructor(private router: Router, private authorService: AuthorService,
+    private storageService: StorageService) {
+    this.token =this.storageService.getItem('token') || ''
     this.authorForm = new FormGroup({
       newFirstName: new FormControl('', [
         Validators.required,
@@ -65,7 +66,7 @@ export class AuthorsTableComponent {
       description: new FormControl('', [Validators.required]),
       dob: new FormControl('', [Validators.required]),
     });
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
   }
   ngOnInit(): void {
     this.getAllAuthors();

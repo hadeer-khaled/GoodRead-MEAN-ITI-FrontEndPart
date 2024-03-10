@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from '../../services/category.service.js';
 import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
+import { StorageService } from '../../services/storage-service.service.js';
 @Component({
   selector: 'app-show-category-books-card',
   standalone: true,
@@ -22,7 +23,9 @@ export class ShowCategoryBooksCardComponent {
 
   constructor(
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
+
   ) {}
 
   ngOnInit() {
@@ -34,7 +37,7 @@ export class ShowCategoryBooksCardComponent {
   }
 
   getCategoryBooks() {
-    this.token = localStorage.getItem('token') || '';
+    this.token = this.storageService.getItem('token') || '';
     this.categoryService
       .getCategoryById(this.id, this.page, this.pageSize, this.token)
       .subscribe(

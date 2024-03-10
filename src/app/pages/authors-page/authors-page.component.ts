@@ -6,6 +6,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserNavBarComponent } from '../../components/user-nav-bar/user-nav-bar.component.js';
 
+
 @Component({
   selector: 'app-authors-page',
   standalone: true,

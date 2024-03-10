@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth-service.service';
+import { StorageService } from './services/storage-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminLoginGuard implements CanActivate {
-  AdminLogged = localStorage.getItem('AdminLogged')
-
-
-  constructor(private router: Router, private authService: AuthService) {}
+  
+  constructor(private router: Router, private authService: AuthService,
+    private storageService: StorageService
+) {}
+  AdminLogged = this.storageService.getItem('AdminLogged')
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -19,11 +21,10 @@ export class AdminLoginGuard implements CanActivate {
     if (this.authService.isAdminLoggedIn() ) {
       return true;
     } else {
-      localStorage.removeItem('token')
-      localStorage.removeItem('AdminLogged')
-      localStorage.removeItem('loggedUser');
-      localStorage.removeItem('role');
-      console.log(localStorage.getItem('AdminLogged'))
+      this.storageService.removeItem('token')
+      this.storageService.removeItem('AdminLogged')
+      this.storageService.removeItem('loggedUser');
+      this.storageService.removeItem('role');
       this.AdminLogged = null
       return this.router.parseUrl('/');
     }

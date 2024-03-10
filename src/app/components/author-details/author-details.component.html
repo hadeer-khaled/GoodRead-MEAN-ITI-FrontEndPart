@@ -1,66 +1,109 @@
 <app-user-nav-bar></app-user-nav-bar>
 
-<div class="d-flex border-2 m-5 h-auto w-75">
+<div class="d-flex border-2 m-3 h-auto w-75">
     <div class="left">
         <div class="img">
-            <img class="w-100 h-100" alt="Card" [src]="'http://localhost:3000/images/authors/' + author.image"/>
+            <img class=" auth w-200 h-100 rounded m-3 " alt="Card" [src]="'https://goodread-mean-iti-backendpart-3.onrender.com/images/authors/' + author.image"/>
         </div>
     </div>
     <div class="right">
         <div class="name">{{ author.fullName }}</div>
         <div>{{ author.dob }}</div>
-        <div class="url">{{ author.description }}</div>
+        <div class="url fw-bold ">{{ author.description }}</div>
     </div>
 </div>
 
-<div>
-    <p>Author Books</p>
+<div class="border-black p-5">
+    <p class="border-black text-info-emphasis fs-5 fst-italic ">Author Books</p>
     <hr>
-    <div class="container d-flex justify-content-center">
-        <div class="row book-details">
-            <div class="flex-box">
-                <div class="left">
-                    <div class="big-img d-flex flex-column justify-content-center">
-                        <img [src]="'http://localhost:3000/images/books/' + book.image" style="height: 40% !important" alt="Cover">
-                    </div>
-                </div>
-                <div class="left">
-                    <h2 class="mb-2">{{ book.title }}</h2>
-                    <a routerLink="/categories/{{ book.category }}" class="card-title">{{ book.category }}</a>
-                    <div class="d-flex align-items-center">
-                        <div style="display: flex; align-items: center">
-                            <ngb-rating [rate]="calculateAverageRating(book.totalRating, book.countOfRating)" [readonly]="readonly" [max]="6"></ngb-rating>
-                        </div>
-                        <div class="mx-2">
-                            <span style="font-size: 0.8rem">{{ averageRating?.toFixed(1) }}</span>
-                            <span style="font-size: 0.8rem"> - </span>
-                            <span style="font-size: 0.8rem">{{ book.countOfRating }} ratings</span>
+    <div class="container">
+    <div class="card-container">
+    @for (book of books; track $index) {
+            <div class="book-details mt-2 mx-2 ">
+                <div class="flex-box">
+                    <div class="left">
+                        <div class=" d-flex flex-column justify-content-center ">
+                            <img class="w-75 h-75 rounded-2" [src]="'https://goodread-mean-iti-backendpart-3.onrender.com/images/books/' + book.image" alt="Cover">
                         </div>
                     </div>
-                    <div class="d-flex align-items-center">
-                        <div ngbDropdown class="d-inline-block mx-2">
-                            <button type="button" class="btn btn-outline-primary p-1 mt-4" id="dropdownBasic1" ngbDropdownToggle>{{ shelve }}</button>
-                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="ngbDropdownMenu p-2">
-                                <li><a class="dropdown-item" (click)="onDropdownItemClicked('read')">Read</a></li>
-                                <li><a class="dropdown-item" (click)="onDropdownItemClicked('want to read')">Want to Read</a></li>
-                                <li><a class="dropdown-item" (click)="onDropdownItemClicked('reading')">Reading</a></li>
+                    <div class="right">
+                        <h2 class="mb-2">{{ book.title }}</h2>
+                        <p class="mb-1">{{ book.description }}</p>
+                        <div class="d-flex align-items-center">
+                            <div style="display: flex; align-items: center">
+                                <ngb-rating [rate]="calculateAverageRating(book.totalRating, book.countOfRating)" [readonly]="readonly" [max]="6"></ngb-rating>
+                            </div>
+                            <div class="mx-2">
+                                <span style="font-size: 0.8rem">{{ averageRating?.toFixed(1) }}</span>
+                                <span style="font-size: 0.8rem"> - </span>
+                                <span style="font-size: 0.8rem">{{ book.countOfRating }} ratings</span>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center" class="rating">
-                            <input value="5" name="rate" id="star5" type="radio" (change)="onRatingChange(5)">
-                            <label title="text" for="star5"></label>
-                            <input value="4" name="rate" id="star4" type="radio" (change)="onRatingChange(4)">
-                            <label title="text" for="star4"></label>
-                            <input value="3" name="rate" id="star3" type="radio" (change)="onRatingChange(3)">
-                            <label title="text" for="star3"></label>
-                            <input value="2" name="rate" id="star2" type="radio" (change)="onRatingChange(2)">
-                            <label title="text" for="star2"></label>
-                            <input value="1" name="rate" id="star1" type="radio" (change)="onRatingChange(1)">
-                            <label title="text" for="star1"></label>
+                        <div class="d-flex align-items-center">
+                            <div ngbDropdown class="d-inline-block mx-2">
+                                <button type="button" class="btn btn-outline-primary p-1 mt-4" id="dropdownBasic1" ngbDropdownToggle>{{ shelve }}</button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="ngbDropdownMenu p-2">
+                                    <li><a class="dropdown-item" (click)="onDropdownItemClicked(book._id,'read')">Read</a></li>
+                                    <li><a class="dropdown-item" (click)="onDropdownItemClicked(book._id,'want to read')">Want to Read</a></li>
+                                    <li><a class="dropdown-item" (click)="onDropdownItemClicked(book._id,'reading')">Reading</a></li>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center">
+                                <span style="display: flex; align-items: center">
+                                  <div class="rating">
+                                    <input
+                                      value="5"
+                                      name="rate"
+                                      id="star5"
+                                      type="radio"
+                                      (change)="onRatingChange(book._id,5)"
+                                    />
+                                    <label title="text" for="star5"></label>
+                    
+                                    <input
+                                      value="4"
+                                      name="rate"
+                                      id="star4"
+                                      type="radio"
+                                      (change)="onRatingChange(book._id,4)"
+                                    />
+                                    <label title="text" for="star4"></label>
+                    
+                                    <input
+                                      value="3"
+                                      name="rate"
+                                      id="star3"
+                                      type="radio"
+                                      (change)="onRatingChange(book._id,3)"
+                                    />
+                                    <label title="text" for="star3"></label>
+                    
+                                    <input
+                                      value="2"
+                                      name="rate"
+                                      id="star2"
+                                      type="radio"
+                                      (change)="onRatingChange(book._id,2)"
+                                    />
+                                    <label title="text" for="star2"></label>
+                    
+                                    <input
+                                      value="1"
+                                      name="rate"
+                                      id="star1"
+                                      type="radio"
+                                      (change)="onRatingChange(book._id,1)"
+                                    />
+                                    <label title="text" for="star1"></label>
+                                  </div>
+                                </span>
+                              </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
+    </div>
+
 </div>

@@ -5,7 +5,7 @@ import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Book } from '../../../interfaces/book';
-import { BookService } from '../../../book.service';
+import { BookService } from '../../../services/book.service';
 import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   ModalDismissReasons,
@@ -20,6 +20,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
+import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
   selector: 'app-book-card',
@@ -47,12 +48,16 @@ export class BookCardComponent {
   reviews!: any;
   private modalService = inject(NgbModal);
   closeResult = '';
+  token:string='';
+
 
   @Input() id: string = '';
 
   reviewForm!: FormGroup;
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService , 
+    private storageService: StorageService
+) {
     this.reviewForm = new FormGroup({
       review: new FormControl('', [
         Validators.required,
@@ -62,15 +67,14 @@ export class BookCardComponent {
   }
 
   ngOnInit(): void {
+    this.token = this.storageService.getItem('token') || '';
     const queryParams = { pageNum: 1 };
     console.log(this.id);
     console.log('im am her on init');
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
-    this.bookService.getBookByIdUser(this.id, token).subscribe(
+    this.bookService.getBookByIdUser(this.id, this.token).subscribe(
       (data) => {
         this.book = data;
-        this.bookService.getBoookReviews(this.book._id, token).subscribe(
+        this.bookService.getBoookReviews(this.book._id, this.token).subscribe(
           (data) => {
             this.reviews = data;
             this.reviews = this.reviews.reviews;
@@ -93,7 +97,7 @@ export class BookCardComponent {
     );
     console.log("i'm here ");
     console.log('im am her on afeer first method init');
-    this.bookService.getBoookReviews(this.book._id, token).subscribe(
+    this.bookService.getBoookReviews(this.book._id, this.token).subscribe(
       (data) => {
         this.reviews = data;
         this.reviews = this.reviews.reviews;
@@ -113,9 +117,8 @@ export class BookCardComponent {
     // update the sheleve in db
     this.shelve = value;
     console.log('Selected value:', value);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
-    this.bookService.updateBookShelve(this.book._id, value, token).subscribe(
+    this.token = this.storageService.getItem('token') || '';
+    this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
       (data) => {
         console.log(data);
       },
@@ -129,10 +132,9 @@ export class BookCardComponent {
     this.userRating = rating;
     console.log(`the id ${this.book}`);
     console.log(this.userRating);
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService
-      .updateBookRating(this.book._id, this.userRating, token)
+      .updateBookRating(this.book._id, this.userRating, this.token)
       .subscribe(
         (data) => {
           console.log(data);
@@ -152,10 +154,9 @@ export class BookCardComponent {
 
   addNewReview() {
     const reviewContent = this.reviewForm.value.review;
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = this.storageService.getItem('token') || '';
     this.bookService
-      .createReview(this.book._id, reviewContent, token)
+      .createReview(this.book._id, reviewContent, this.token)
       .subscribe(
         (data) => {
           console.log(data);

@@ -1,3 +1,4 @@
+
 <section style="background-color: #f3faff">
   <div class="container pt-4">
     <div class="row d-flex justify-content-center align-items-center">
@@ -8,16 +9,9 @@
             style="background-color: #f3faff"
           >
             <div class="row justify-content-center">
-              <div class="d-flex flex-column">
-                <h2 class="login-title">Hello there!</h2>
-                <p class="notice">
-                  Ready to dive back into your personalized experience?
-                </p>
-              </div>
-
-              <div class="row justify-content-center align-items-center">
-                <div class="form-div col-lg-4">
-                  <form
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold my-3 mx-md-4 mt-2">Log In</p>
+                <form
                     class="loginForm"
                     #loginForm="ngForm"
                     (ngSubmit)="onSubmit(loginForm)"
@@ -72,14 +66,14 @@
                       Log In
                     </button>
                   </form>
-                </div>
-
-                <div class="p-2 col-lg-6">
-                  <img
-                    style="width: 90%"
-                    src="../../../assets/images/read2.jpg"
-                  />
-                </div>
+              </div>
+              <div
+                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
+              >
+              <img
+              style="width: 90%"
+              src="../../../assets/images/read2.jpg"
+            />
               </div>
             </div>
           </div>

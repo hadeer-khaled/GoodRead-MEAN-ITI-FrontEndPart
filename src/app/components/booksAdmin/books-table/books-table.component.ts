@@ -15,9 +15,10 @@ import { map } from 'rxjs/operators';
 import { Book } from '../../../interfaces/book';
 import { Author } from '../../../interfaces/author';
 import { Category } from '../../../interfaces/category';
-import { BookService } from '../../../book.service';
+import { BookService } from '../../../services/book.service';
 import { AuthorService } from '../../../services/author.service';
 import { CategoryService } from '../../../services/category.service';
+import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
   selector: 'app-books-table',
@@ -47,11 +48,12 @@ export class BooksTableComponent {
     private modalService: NgbModal,
     private bookService: BookService,
     private authorService: AuthorService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private storageService: StorageService
+
   ) {
     // this.token = localStorage.getItem('token') || '';
-    this.token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkZjJjMGRiNGI4ZGZiMTFmZmIyNWFiIiwidXNlcm5hbWUiOiJhbGFhU2hlcmZpIiwiZmlyc3ROYW1lIjoiZW1hZCIsImxhc3ROYW1lIjoic2hlcmlmIiwiZW1haWwiOiJhbGFhQGV4YW1wbGUuY29tIiwicm9sZSI6InVzZXIiLCJib29rcyI6W10sImNyZWF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDItMjhUMTI6NTA6MjEuMTQ5WiIsImlkIjoxLCJfX3YiOjB9LCJpYXQiOjE3MDkxMzQ4ODh9.B_LwrIWFn581LkPoKMvfWIXr0igR4eUc3GOr62BKasg';
+    this.token = this.storageService.getItem('token') || '';
     this.bookForm = new FormGroup({
       newBookName: new FormControl('', [
         Validators.required,

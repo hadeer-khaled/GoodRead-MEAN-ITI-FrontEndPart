@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BookCardComponent } from '../book-card/book-card.component';
 // import { Books } from '../../../../../Books.json';
-import { BookService } from '../../../book.service';
+import { BookService } from '../../../services/book.service';
 import { Book } from '../../../interfaces/book';
 @Component({
   selector: 'app-popular-books',
