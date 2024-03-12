@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { CategoryCardComponent } from '../catergory-card/catergory-card.component.js';
-import { CategoryService } from '../../services/category.service.js';
-import { UserNavBarComponent } from '../userPageComponents/user-nav-bar/user-nav-bar.component.js';
-import { StorageService } from '../../services/storage-service.service.js';
+import { CategoryService } from '../../../../services/category.service.js';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
+import { StorageService } from '../../../../services/storage-service.service.js';
 
 @Component({
   selector: 'app-categories',

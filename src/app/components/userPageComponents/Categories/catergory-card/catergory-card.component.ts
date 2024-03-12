@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [NgIf],
   templateUrl: './catergory-card.component.html',
-  styleUrl: './catergory-card.component.css'
+  styleUrl: './catergory-card.component.css',
 })
 export class CategoryCardComponent {
   @Input() categoryItem: any;
- // booksLength!:number;
-  constructor(private router : Router){}
+  // booksLength!:number;
+  constructor(private router: Router) {}
   redirectToDetails(_id: string) {
-    this.router.navigate(['category-details', _id,1,4]); 
+    this.router.navigate(['category-details', _id, 1, 4]);
   }
 }
