@@ -6,7 +6,13 @@ import { LogedNavComponent } from '../../components/loged-nav/loged-nav.componen
 @Component({
   selector: 'app-admin-control-page',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, AdminNavbarComponent , LogedNavComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    AdminNavbarComponent,
+    LogedNavComponent,
+  ],
   templateUrl: './admin-control-page.component.html',
   styleUrl: './admin-control-page.component.css',
 })

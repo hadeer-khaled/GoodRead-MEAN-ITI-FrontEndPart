@@ -19,7 +19,7 @@ import {
   // FormsModule,
   Validators,
 } from '@angular/forms';
-import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
+import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
 import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
@@ -34,7 +34,7 @@ import { StorageService } from '../../../services/storage-service.service';
     NgbDatepickerModule,
     ReactiveFormsModule,
     CommonModule,
-    UserNavBarComponent
+    UserNavBarComponent,
   ],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.css',
@@ -48,16 +48,16 @@ export class BookCardComponent {
   reviews!: any;
   private modalService = inject(NgbModal);
   closeResult = '';
-  token:string='';
-
+  token: string = '';
 
   @Input() id: string = '';
 
   reviewForm!: FormGroup;
 
-  constructor(private bookService: BookService , 
+  constructor(
+    private bookService: BookService,
     private storageService: StorageService
-) {
+  ) {
     this.reviewForm = new FormGroup({
       review: new FormControl('', [
         Validators.required,
@@ -118,14 +118,16 @@ export class BookCardComponent {
     this.shelve = value;
     console.log('Selected value:', value);
     this.token = this.storageService.getItem('token') || '';
-    this.bookService.updateBookShelve(this.book._id, value, this.token).subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching books:', error);
-      }
-    );
+    this.bookService
+      .updateBookShelve(this.book._id, value, this.token)
+      .subscribe(
+        (data) => {
+          console.log(data);
+        },
+        (error) => {
+          console.error('Error fetching books:', error);
+        }
+      );
   }
   //////////////////updateBookRating//////////////////////
   onRatingChange(rating: number) {

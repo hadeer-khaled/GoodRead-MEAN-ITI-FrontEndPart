@@ -21,7 +21,11 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link pb-2" aria-current="page" routerLink="/userHome"
+          <a
+            class="nav-link pb-2"
+            aria-current="page"
+            routerLink="/userHome"
+            routerLinkActive="active-link"
             >Home</a
           >
         </li>
@@ -35,29 +39,45 @@
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link pb-2" aria-current="page" routerLink="/books"
+          <a
+            class="nav-link pb-2"
+            aria-current="page"
+            routerLink="/books"
+            routerLinkActive="active-link"
             >Books</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link pb-2" aria-current="page" routerLink="/authors"
+          <a
+            class="nav-link pb-2"
+            aria-current="page"
+            routerLink="/authors"
+            routerLinkActive="active-link"
             >Authors</a
           >
         </li>
       </ul>
-      <form class="d-flex">
-        <input
-          class="form-control me-2 search-input"
-          type="text"
-          name="search"
-          [(ngModel)]="query"
-          placeholder="Search..."
-        />
-        <button class="btn search-btn m-2" (click)="search(id, query)">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
+
+      <form class="d-flex w-75 mx-3 justify-content-end">
+        <!-- Search Input -->
+        <div class="search-container w-75">
+          <input
+            class="form-control search-field"
+            type="text"
+            name="search"
+            [(ngModel)]="query"
+            placeholder="Search..."
+          />
+
+          <!-- Search Button -->
+          <button class="btn search-btn m-2" (click)="search(id, query)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
       </form>
+
       <i class="fa-solid fa-circle-user m-2"></i> {{ UserLogged }}
+
       <!-- Log Out Button -->
       <button class="btn logout-btn m-2" type="submit" (click)="logOut()">
         <i class="fa-solid fa-right-from-bracket"></i>

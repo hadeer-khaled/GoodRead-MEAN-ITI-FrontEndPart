@@ -4,20 +4,24 @@ import { AuthorService } from '../../services/author.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserNavBarComponent } from '../../components/user-nav-bar/user-nav-bar.component.js';
-
+import { UserNavBarComponent } from '../../components/userPageComponents/user-nav-bar/user-nav-bar.component.js';
 
 @Component({
   selector: 'app-authors-page',
   standalone: true,
-  imports: [FormsModule,RouterLink,RouterLinkActive, NgbPaginationModule,UserNavBarComponent],
+  imports: [
+    FormsModule,
+    RouterLink,
+    RouterLinkActive,
+    NgbPaginationModule,
+    UserNavBarComponent,
+  ],
   templateUrl: './authors-page.component.html',
-  styleUrl: './authors-page.component.css'
+  styleUrl: './authors-page.component.css',
 })
 export class AuthorsPageComponent {
   authors!: Array<Author>;
-  constructor(private authorService: AuthorService) {
-  }
+  constructor(private authorService: AuthorService) {}
 
   ngOnInit(): void {
     this.getAllAuthors();
@@ -36,6 +40,4 @@ export class AuthorsPageComponent {
       }
     );
   }
-
 }
-

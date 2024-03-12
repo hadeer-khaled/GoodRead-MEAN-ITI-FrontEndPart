@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { AuthorService } from '../../services/author.service';
-import { Author } from '../../interfaces/author';
-import { BookService } from '../../services/book.service';
-import { Book } from '../../interfaces/book';
-import { StorageService } from '../../services/storage-service.service';
+import { AuthorService } from '../../../services/author.service';
+import { Author } from '../../../interfaces/author';
+import { BookService } from '../../../services/book.service';
+import { Book } from '../../../interfaces/book';
+import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
   selector: 'app-user-nav-bar',
@@ -16,13 +16,11 @@ import { StorageService } from '../../services/storage-service.service';
   styleUrl: './user-nav-bar.component.css',
 })
 export class UserNavBarComponent {
-
   constructor(
     private router: Router,
     private authorService: AuthorService,
     private bookService: BookService,
     private storageService: StorageService
-
   ) {}
   UserLogged = this.storageService.getItem('UserLogged');
   authors: Author[] = [];
@@ -33,7 +31,6 @@ export class UserNavBarComponent {
 
   authorsNames: { id: string; name: string }[] = [];
   booksNames: { id: number; name: string }[] = [];
-
 
   ngOnInit() {
     this.getAllAuthors();

@@ -5,7 +5,7 @@ import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserNavBarComponent } from '../../../user-nav-bar/user-nav-bar.component';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
 import { StorageService } from '../../../../services/storage-service.service';
 import { TableModule } from 'primeng/table';
 

@@ -3,12 +3,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryService } from '../../services/category.service.js';
-import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
+import { UserNavBarComponent } from '../userPageComponents/user-nav-bar/user-nav-bar.component.js';
 import { StorageService } from '../../services/storage-service.service.js';
 @Component({
   selector: 'app-show-category-books-card',
   standalone: true,
-  imports: [NgIf, NgFor, NgbPaginationModule, UserNavBarComponent,UserNavBarComponent],
+  imports: [
+    NgIf,
+    NgFor,
+    NgbPaginationModule,
+    UserNavBarComponent,
+    UserNavBarComponent,
+  ],
   templateUrl: './show-category-books-card.component.html',
   styleUrl: './show-category-books-card.component.css',
 })
@@ -25,7 +31,6 @@ export class ShowCategoryBooksCardComponent {
     private categoryService: CategoryService,
     private router: Router,
     private storageService: StorageService
-
   ) {}
 
   ngOnInit() {
