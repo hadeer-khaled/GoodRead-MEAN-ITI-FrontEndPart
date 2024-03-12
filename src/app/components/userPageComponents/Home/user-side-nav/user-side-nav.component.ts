@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { BookService } from '../../../services/book.service';
+import { BookService } from '../../../../services/book.service';
 // import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 @Component({

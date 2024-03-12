@@ -11,7 +11,16 @@
   --foshia: #e41c77;
   --blue-blue: #0065a8;
 }
-
+.btn {
+  color: var(--royal-green);
+  border-color: var(--royal-green);
+}
+.btn.clicked,
+.btn:hover {
+  color: white;
+  background-color: var(--royal-green);
+}
+/*
 .active-btn {
   border-left: 1px solid var(--royal-blue) !important;
   border-right: 1px solid var(--royal-blue) !important;
@@ -25,12 +34,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* justify-content: space-evenly; */
   border-radius: 10px;
-  /* background: #eee; */
   overflow-x: hidden;
   height: 60vh;
-  /* padding: 10px; */
   border: 1px solid var(--royal-green);
 }
 button {
@@ -56,7 +62,6 @@ button.clicked {
   .sidenav {
     flex-direction: row;
     height: fit-content;
-    /* padding: 10px 5px 0px; */
     padding: 0px;
   }
   button {
@@ -75,4 +80,4 @@ button.clicked {
     color: var(--royal-green);
     font-weight: bold;
   }
-}
+} */

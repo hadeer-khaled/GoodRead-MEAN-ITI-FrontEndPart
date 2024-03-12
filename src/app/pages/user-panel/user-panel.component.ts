@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserSideNavComponent } from '../../components/userPageComponents/user-side-nav/user-side-nav.component';
-import { UserBooksComponent } from '../../components/userPageComponents/user-books/user-books.component';
+import { UserSideNavComponent } from '../../components/userPageComponents/Home/user-side-nav/user-side-nav.component';
+import { UserBooksComponent } from '../../components/userPageComponents/Home/user-books/user-books.component';
 import { UserNavBarComponent } from '../../components/user-nav-bar/user-nav-bar.component';
 
 @Component({

@@ -6,10 +6,7 @@
       <div class="left">
         <div class="big-img d-flex flex-column justify-content-center">
           <img
-            [src]="
-              'https://goodread-mean-iti-backendpart-3.onrender.com/images/books/' +
-              book.image
-            "
+            [src]="'https://goodread-mean-iti-backendpart-3.onrender.com/images/books/' + book.image"
             style="height: 70% !important"
             alt="cover"
           />
@@ -18,13 +15,9 @@
       <div class="left">
         <h2 class="mb-2">{{ book.title }}</h2>
         <div>
-          <a
-            class="text-black-50 fw-bolder text-decoration-none"
-            routerLink="/authors/author/{{ book.author._id }}/{{
-              book.author.firstName + ' ' + book.author.lastName
-            }}"
-            >by {{ book.author.firstName }} {{ book.author.lastName }}</a
-          >
+          <a class="text-black-50 fw-bolder text-decoration-none " routerLink="/authors/author/{{book.author._id}}/{{book.author.firstName +' ' + book.author.lastName}}"
+          >by {{ book.author.firstName }} {{ book.author.lastName }}</a
+        >
         </div>
         <a routerLink="/categories/{{ book.category.id }}" class="card-title">{{
           book.category.name
@@ -160,10 +153,7 @@
         <div class="img-div">
           <img
             class="reviewer-img"
-            [src]="
-              'https://goodread-mean-iti-backendpart-3.onrender.com/images/users/' +
-              'authorNum1.jpg'
-            "
+            [src]="'https://goodread-mean-iti-backendpart-3.onrender.com/images/users/' + 'authorNum1.jpg'"
             alt="User Image"
           />
         </div>

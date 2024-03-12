@@ -1,19 +1,13 @@
-import {
-  Component,
-  DoCheck,
-  KeyValueDiffers,
-  KeyValueDiffer,
-} from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Book } from '../../../interfaces/book';
-import { BookService } from '../../../services/book.service';
+import { Component } from '@angular/core';
+import { BookService } from '../../../../services/book.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
-import { StorageService } from '../../../services/storage-service.service';
+import { UserNavBarComponent } from '../../../user-nav-bar/user-nav-bar.component';
+import { StorageService } from '../../../../services/storage-service.service';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-user-books',
@@ -25,6 +19,7 @@ import { StorageService } from '../../../services/storage-service.service';
     CommonModule,
     NgbDropdownModule,
     UserNavBarComponent,
+    TableModule,
   ],
   templateUrl: './user-books.component.html',
   styleUrl: './user-books.component.css',
@@ -37,35 +32,23 @@ export class UserBooksComponent {
   readonly = true;
 
   shelveOptions = ['read', 'reading', 'want'];
-  // selectedShelve: string[] = [];
-  selectedShelve: any = {};
+  selectedShelve: string | null = null;
   pageSize = 2;
   page = 1;
   booksLength!: number;
-  
-  constructor(private bookService: BookService ,
-    private storageService: StorageService
-) {}
-  token = this.storageService.getItem('token') || '';
 
+  constructor(
+    private bookService: BookService,
+    private storageService: StorageService
+  ) {}
+  token = this.storageService.getItem('token') || '';
 
   ngOnInit(): void {
     // ====================== Try New one ================
-
     this.bookService.getShelve().subscribe((shelve) => {
       this.shelve = shelve;
       this.getUsersBooks(shelve);
     });
-
-    // ====================== Old working one ================
-    // this.userBooks$ = this.bookService.getBooksFilterByShelf( this.page );
-
-    // console.log(this.collectionSize);
-
-    // this.bookService.getShelve().subscribe((shelve) => {
-    //   this.shelve = shelve;
-    //   this.getUsersBooks(shelve);
-    // });
   }
 
   // ================================ Get Books  filtered by shelve =============== \\
@@ -104,7 +87,8 @@ export class UserBooksComponent {
 
   onDropdownItemClicked(bookId: string, value: string) {
     // update the sheleve in db
-    console.log(`For Book: ${bookId} the mew Selected Shelve: ${value}`);
+    // console.log(`For Book: ${bookId} the mew Selected Shelve: ${value}`);
+    this.selectedShelve = value;
     this.token = this.storageService.getItem('token') || '';
     this.bookService.updateBookShelve(bookId, value, this.token).subscribe(
       (data) => {
@@ -116,5 +100,4 @@ export class UserBooksComponent {
       }
     );
   }
-
 }
