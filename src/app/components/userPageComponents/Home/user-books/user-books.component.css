@@ -15,6 +15,15 @@
 .ngbDropdownMenu {
   z-index: 2;
 }
+.shelve-btn {
+  border: 1px solid #000080;
+  color: #000080;
+}
+.shelve-btn:hover {
+  /* border: 1px solid #000080; */
+  background-color: #000080;
+  color: white;
+}
 :host ::ng-deep p-table thead tr {
   background-color: #f0f0f04a;
   color: #333;
