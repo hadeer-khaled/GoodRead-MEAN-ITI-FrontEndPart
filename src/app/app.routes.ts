@@ -11,7 +11,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { AuthorDetailsComponent } from './components/author-details/author-details.component';
 import { AuthorsPageComponent } from './pages/authors-page/authors-page.component';
 import { CategoriesComponent } from './components/userPageComponents/Categories/categories/categories.component';
-import { ShowCategoryBooksCardComponent } from './components/show-category-books-card/show-category-books-card.component';
+import { ShowCategoryBooksCardComponent } from './components/userPageComponents/Categories/show-category-books-card/show-category-books-card.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookComponent } from './components/userPageComponents/book/book.component';
 import { BookCardComponent } from './components/userPageComponents/book-card/book-card.component';

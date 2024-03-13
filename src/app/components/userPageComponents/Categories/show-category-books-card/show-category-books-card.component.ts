@@ -2,9 +2,9 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { CategoryService } from '../../services/category.service.js';
-import { UserNavBarComponent } from '../userPageComponents/user-nav-bar/user-nav-bar.component.js';
-import { StorageService } from '../../services/storage-service.service.js';
+import { CategoryService } from '../../../../services/category.service.js';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component.js';
+import { StorageService } from '../../../../services/storage-service.service.js';
 @Component({
   selector: 'app-show-category-books-card',
   standalone: true,
@@ -20,7 +20,7 @@ import { StorageService } from '../../services/storage-service.service.js';
 })
 export class ShowCategoryBooksCardComponent {
   @Input() id: string = '';
-  category: any = {};
+  categoryName!: string;
   books: any[] = [];
   token: string = '';
   pageSize = 4;
@@ -50,7 +50,7 @@ export class ShowCategoryBooksCardComponent {
           console.log('get data : ', data);
           console.log('data.categories', data.categories);
           console.log('data.categories.booksCount', data.categories.booksCount);
-          this.category = data.categories.categoryName;
+          this.categoryName = data.categories.categoryName;
           this.booksCount = data.categories.booksCount;
           this.books = data.categories.paginatedBooks;
           this.router.navigate([
