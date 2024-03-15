@@ -1,33 +1,54 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 ngb-rating {
   color: #ff9800 !important;
+  font-size: 1.4rem;
+}
+.img-div {
+  overflow: hidden;
 }
 img {
-  height: 60% !important;
-  width: 80%;
+  width: 250px !important;
 }
-button {
-  border: 1px solid var(--royal-green);
-  color: var(--royal-green);
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-button:hover {
-  background-color: var(--royal-green);
+a {
+  text-decoration: none !important;
 }
-button:hover a {
+.author-name a,
+.genre-div a {
+  color: #666;
+}
+.right-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+}
+.shelve-btn,
+.add-review-btn {
+  background-color: #143464;
   color: white;
-  font-weight: normal;
-  background-color: var(--royal-green);
 }
+.shelve-btn:focus,
+.add-review-btn:focus {
+  background-color: white;
+  border: 1px solid #143464;
+  color: #143464;
+}
+.user-name-div {
+  padding: 0.2rem 0.5rem !important;
+}
+::ng-deep p-fieldset .p-fieldset-content {
+  padding: 0.2rem 0.5rem !important;
+}
+
 .modal-header,
 .modal-body,
 .modal-footer {
   margin: 10px !important;
 }
-.book-details {
+/* .book-details {
   box-shadow: 1px 1px 4px 0px #9e9e9e;
   padding-left: 10px;
   padding-right: 10px;
@@ -54,7 +75,7 @@ button:hover a {
 
 .right {
   text-align: right;
-}
+} */
 
 .rating:not(:checked) > input {
   position: absolute;
@@ -89,7 +110,7 @@ button:hover a {
   color: #ffa723;
 }
 
-.comment-wrapper {
+/* .comment-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,7 +118,7 @@ button:hover a {
 }
 
 .course-details-card {
-  width: 140%; /* Ensure the review section takes full width */
+  width: 140%; 
   height: 100%;
 }
 * {
@@ -114,4 +135,4 @@ button:hover a {
   height: 60px !important;
   width: 60px !important;
   border-radius: 50% !important;
-}
+} */

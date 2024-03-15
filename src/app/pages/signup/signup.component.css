@@ -16,7 +16,7 @@ button {
 button:hover {
   background-color: #ff5a6e;
   color: white !important;
-  cursor: pointer !important;
+  cursor: pointer;
 }
 label {
   background-color: transparent !important;

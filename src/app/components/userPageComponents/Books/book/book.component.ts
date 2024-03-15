@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Book } from '../../../interfaces/book';
-import { BookService } from '../../../services/book.service';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
-import { StorageService } from '../../../services/storage-service.service';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
+import { BookService } from '../../../../services/book.service';
+import { StorageService } from '../../../../services/storage-service.service';
 @Component({
   selector: 'app-book',
   standalone: true,

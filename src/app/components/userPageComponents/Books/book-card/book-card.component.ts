@@ -4,14 +4,13 @@ import { NgModule } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { Book } from '../../../interfaces/book';
-import { BookService } from '../../../services/book.service';
 import { NgbDropdownModule, NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   ModalDismissReasons,
   NgbDatepickerModule,
   NgbModal,
 } from '@ng-bootstrap/ng-bootstrap';
+import { FieldsetModule } from 'primeng/fieldset';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -19,9 +18,14 @@ import {
   // FormsModule,
   Validators,
 } from '@angular/forms';
-import { UserNavBarComponent } from '../user-nav-bar/user-nav-bar.component.js';
-import { StorageService } from '../../../services/storage-service.service';
-
+import { PaginatorModule } from 'primeng/paginator';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
+import { BookService } from '../../../../services/book.service';
+import { StorageService } from '../../../../services/storage-service.service';
+import { Book } from '../../../../interfaces/book';
+import { AccordionModule } from 'primeng/accordion';
+import { AvatarModule } from 'primeng/avatar';
+import { TagModule } from 'primeng/tag';
 @Component({
   selector: 'app-book-card',
   standalone: true,
@@ -35,6 +39,11 @@ import { StorageService } from '../../../services/storage-service.service';
     ReactiveFormsModule,
     CommonModule,
     UserNavBarComponent,
+    FieldsetModule,
+    AccordionModule,
+    AvatarModule,
+    PaginatorModule,
+    TagModule,
   ],
   templateUrl: './book-card.component.html',
   styleUrl: './book-card.component.css',
@@ -46,6 +55,10 @@ export class BookCardComponent {
   averageRating?: number;
   readonly = true;
   reviews!: any;
+  totalRecords: number = 0;
+  first: number = 0; // Index of the first record to be displayed
+  rows: number = 5; // Number of rows to display per page
+  activeTabIndex!: number;
   private modalService = inject(NgbModal);
   closeResult = '';
   token: string = '';
@@ -78,6 +91,8 @@ export class BookCardComponent {
           (data) => {
             this.reviews = data;
             this.reviews = this.reviews.reviews;
+            console.log('Reviews', this.reviews);
+            this.totalRecords = this.reviews.length;
           },
           (error) => {
             console.error('Error fetching books:', error);
@@ -101,6 +116,7 @@ export class BookCardComponent {
       (data) => {
         this.reviews = data;
         this.reviews = this.reviews.reviews;
+        this.totalRecords = this.reviews.length;
       },
       (error) => {
         console.error('Error fetching books:', error);
@@ -172,23 +188,12 @@ export class BookCardComponent {
   open(content: TemplateRef<any>) {
     this.modalService
       .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
+      .result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      });
   }
-  private getDismissReason(reason: any): string {
-    switch (reason) {
-      case ModalDismissReasons.ESC:
-        return 'by pressing ESC';
-      case ModalDismissReasons.BACKDROP_CLICK:
-        return 'by clicking on a backdrop';
-      default:
-        return `with: ${reason}`;
-    }
+  onPageChange(event: any) {
+    this.first = event.first; // Update the index of the first record to be displayed
+    this.rows = event.rows; // Update the number of rows to display per page
   }
 }

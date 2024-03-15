@@ -13,8 +13,8 @@ import { AuthorsPageComponent } from './pages/authors-page/authors-page.componen
 import { CategoriesComponent } from './components/userPageComponents/Categories/categories/categories.component';
 import { ShowCategoryBooksCardComponent } from './components/userPageComponents/Categories/show-category-books-card/show-category-books-card.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { BookComponent } from './components/userPageComponents/book/book.component';
-import { BookCardComponent } from './components/userPageComponents/book-card/book-card.component';
+import { BookComponent } from './components/userPageComponents/Books/book/book.component';
+import { BookCardComponent } from './components/userPageComponents/Books/book-card/book-card.component';
 import { AddAdminComponent } from './components/add-admin/add-admin.component.js';
 import { UserLoginGuard } from './user-login.guard';
 import { AdminLoginGuard } from './login-guard.guard';
