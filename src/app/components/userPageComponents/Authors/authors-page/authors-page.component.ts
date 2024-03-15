@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Author } from '../../interfaces/author';
-import { AuthorService } from '../../services/author.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { UserNavBarComponent } from '../../components/userPageComponents/user-nav-bar/user-nav-bar.component.js';
+import { Author } from '../../../../interfaces/author';
+import { AuthorService } from '../../../../services/author.service';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
 
 @Component({
   selector: 'app-authors-page',

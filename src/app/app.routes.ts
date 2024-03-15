@@ -8,8 +8,6 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { UserLoginComponent } from './pages/user-login/user-login.component';
 import { UserPanelComponent } from './pages/user-panel/user-panel.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { AuthorDetailsComponent } from './components/author-details/author-details.component';
-import { AuthorsPageComponent } from './pages/authors-page/authors-page.component';
 import { CategoriesComponent } from './components/userPageComponents/Categories/categories/categories.component';
 import { ShowCategoryBooksCardComponent } from './components/userPageComponents/Categories/show-category-books-card/show-category-books-card.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -18,6 +16,8 @@ import { BookCardComponent } from './components/userPageComponents/Books/book-ca
 import { AddAdminComponent } from './components/add-admin/add-admin.component.js';
 import { UserLoginGuard } from './user-login.guard';
 import { AdminLoginGuard } from './login-guard.guard';
+import { AuthorDetailsComponent } from './components/userPageComponents/Authors/author-details/author-details.component';
+import { AuthorsPageComponent } from './components/userPageComponents/Authors/authors-page/authors-page.component';
 export const routes: Routes = [
   {
     path: '',

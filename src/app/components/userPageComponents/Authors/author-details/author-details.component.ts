@@ -1,15 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { Author } from './../../interfaces/author';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { AuthorService } from '../../services/author.service';
-import { UserNavBarComponent } from '../userPageComponents/user-nav-bar/user-nav-bar.component.js';
-import { BookService } from '../../services/book.service.js';
 import {
   NgbDropdownModule,
   NgbRating,
   NgbRatingModule,
 } from '@ng-bootstrap/ng-bootstrap';
-import { StorageService } from '../../services/storage-service.service';
+import { AuthorService } from '../../../../services/author.service';
+import { BookService } from '../../../../services/book.service';
+import { StorageService } from '../../../../services/storage-service.service';
+import { UserNavBarComponent } from '../../user-nav-bar/user-nav-bar.component';
 
 @Component({
   selector: 'app-author-details',
