@@ -9,15 +9,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../../../services/data.service';
-
-import { map } from 'rxjs/operators';
-import { Book } from '../../../interfaces/book';
+import { map } from 'rxjs';
 import { Author } from '../../../interfaces/author';
+import { Book } from '../../../interfaces/book';
 import { Category } from '../../../interfaces/category';
-import { BookService } from '../../../services/book.service';
 import { AuthorService } from '../../../services/author.service';
+import { BookService } from '../../../services/book.service';
 import { CategoryService } from '../../../services/category.service';
+import { DataService } from '../../../services/data.service';
 import { StorageService } from '../../../services/storage-service.service';
 
 @Component({
@@ -50,7 +49,6 @@ export class BooksTableComponent {
     private authorService: AuthorService,
     private categoryService: CategoryService,
     private storageService: StorageService
-
   ) {
     // this.token = localStorage.getItem('token') || '';
     this.token = this.storageService.getItem('token') || '';

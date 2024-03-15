@@ -2,7 +2,6 @@ import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { CategoryService } from '../../../services/category.service';
 import {
   ReactiveFormsModule,
   FormControl,
@@ -10,7 +9,7 @@ import {
   // FormsModule,
   Validators,
 } from '@angular/forms';
-import { Category } from '../../../interfaces/category';
+import { CategoryService } from '../../../services/category.service';
 import { StorageService } from '../../../services/storage-service.service';
 
 //import { DeleteConfirmComponent } from '../../delete-confirm/delete-confirm.component';
@@ -37,9 +36,8 @@ export class CategoriesTableComponent {
     private modalService: NgbModal,
     private categoryService: CategoryService,
     private storageService: StorageService
-
   ) {
-    this.token = this.storageService.getItem('token') || ''
+    this.token = this.storageService.getItem('token') || '';
     // this.token =
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRXhpc3QiOnsiX2lkIjoiNjVkNTNhM2E4Njk4MDgyZjcxNmMwZDE2IiwidXNlcm5hbWUiOiJub291ciIsImZpcnN0TmFtZSI6Im5vdXIiLCJsYXN0TmFtZSI6IlRhcmVrIiwiZW1haWwiOiJhZG1pbjFAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJ1cGRhdGVkQXQiOiIyMDI0LTAyLTIwVDIzOjQ4OjEwLjc4MFoiLCJfX3YiOjB9LCJpYXQiOjE3MDg1OTg2NTZ9.ImHWrsLWSeMohEiGD-pIBWsCGzge9KMB98JeFXH2JWQ';
     this.categoryForm = new FormGroup({
@@ -161,14 +159,10 @@ export class CategoriesTableComponent {
     };
     console.log(categoryData);
     console.log(this.id);
-    console.log(this.token)
+    console.log(this.token);
     if (categoryData && this.id) {
       this.categoryService
-        .updateCategory(
-          this.id,
-          categoryData,
-          this.token
-        )
+        .updateCategory(this.id, categoryData, this.token)
         .subscribe(
           (response) => {
             console.log('Category updated successfully:', response);
@@ -194,21 +188,16 @@ export class CategoriesTableComponent {
   deleteCategory() {
     // this.getCategoryId();
     const categoryId = this.id;
-    this.categoryService
-      .deleteCategory(
-        categoryId,
-        this.token
-      )
-      .subscribe(
-        (response) => {
-          console.log('Category deleted successfully:', response);
-          this.getAllCategories();
-        },
-        (error) => {
-          console.error('Error deleting category:', error);
-          alert(`${error.error.error}`);
-        }
-      );
+    this.categoryService.deleteCategory(categoryId, this.token).subscribe(
+      (response) => {
+        console.log('Category deleted successfully:', response);
+        this.getAllCategories();
+      },
+      (error) => {
+        console.error('Error deleting category:', error);
+        alert(`${error.error.error}`);
+      }
+    );
     this.modalService.dismissAll();
   }
 

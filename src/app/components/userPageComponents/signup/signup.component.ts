@@ -7,10 +7,10 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { PasswordRegx } from '../../passwordRegex';
+import { PasswordRegx } from '../../../passwordRegex';
 import { Router } from '@angular/router';
 import { match } from 'node:assert';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({

@@ -1,4 +1,3 @@
-import { Author } from '../../../interfaces/author';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -9,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Author } from '../../../interfaces/author';
 import { AuthorService } from '../../../services/author.service';
 import { StorageService } from '../../../services/storage-service.service';
 // import { DatePipe } from '@angular/common';
@@ -34,9 +34,12 @@ export class AuthorsTableComponent {
   token: string = '';
   discription: string = '';
   selectedImage!: File;
-  constructor(private router: Router, private authorService: AuthorService,
-    private storageService: StorageService) {
-    this.token =this.storageService.getItem('token') || ''
+  constructor(
+    private router: Router,
+    private authorService: AuthorService,
+    private storageService: StorageService
+  ) {
+    this.token = this.storageService.getItem('token') || '';
     this.authorForm = new FormGroup({
       newFirstName: new FormControl('', [
         Validators.required,

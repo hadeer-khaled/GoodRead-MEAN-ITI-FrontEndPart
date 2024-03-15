@@ -1,23 +1,23 @@
 import { Routes } from '@angular/router';
-import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
-import { CategoriesTableComponent } from './components/categoriesAdmin/categories-table/categories-table.component';
-import { AdminControlPageComponent } from './pages/admin-control-page/admin-control-page.component';
-import { BooksTableComponent } from './components/booksAdmin/books-table/books-table.component';
-import { AuthorsTableComponent } from './components/authorsAdmin/authors-table/authors-table.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
-import { UserLoginComponent } from './pages/user-login/user-login.component';
-import { UserPanelComponent } from './pages/user-panel/user-panel.component';
-import { SignupComponent } from './pages/signup/signup.component';
+import { AdminLoginComponent } from './components/adminPageComponents/admin-login/admin-login.component';
+import { CategoriesTableComponent } from './components/adminPageComponents/categoriesAdmin/categories-table.component';
+import { AdminControlPageComponent } from './components/adminPageComponents/admin-control-page/admin-control-page.component';
+import { AuthorsTableComponent } from './components/adminPageComponents/authorsAdmin/authors-table.component';
+import { MainPageComponent } from './components/mainPageComponents/main-page/main-page.component';
+import { UserLoginComponent } from './components/userPageComponents/user-login/user-login.component';
+import { UserPanelComponent } from './components/userPageComponents/user-panel/user-panel.component';
+import { SignupComponent } from './components/userPageComponents/signup/signup.component';
 import { CategoriesComponent } from './components/userPageComponents/Categories/categories/categories.component';
 import { ShowCategoryBooksCardComponent } from './components/userPageComponents/Categories/show-category-books-card/show-category-books-card.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { BookComponent } from './components/userPageComponents/Books/book/book.component';
 import { BookCardComponent } from './components/userPageComponents/Books/book-card/book-card.component';
-import { AddAdminComponent } from './components/add-admin/add-admin.component.js';
+import { AddAdminComponent } from './components/adminPageComponents/add-admin/add-admin.component.js';
 import { UserLoginGuard } from './user-login.guard';
 import { AdminLoginGuard } from './login-guard.guard';
 import { AuthorDetailsComponent } from './components/userPageComponents/Authors/author-details/author-details.component';
 import { AuthorsPageComponent } from './components/userPageComponents/Authors/authors-page/authors-page.component';
+import { BooksTableComponent } from './components/adminPageComponents/booksAdmin/books-table.component';
 export const routes: Routes = [
   {
     path: '',

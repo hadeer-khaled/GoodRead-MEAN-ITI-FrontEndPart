@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AdminService } from '../../services/admin.service.js';
+import { AdminService } from '../../../services/admin.service.js';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component.js';
-import { StorageService } from '../../services/storage-service.service.js';
+import { StorageService } from '../../../services/storage-service.service.js';
 
 @Component({
   selector: 'app-add-admin',
@@ -21,9 +21,11 @@ import { StorageService } from '../../services/storage-service.service.js';
 export class AddAdminComponent {
   token: string = '';
   addAdminForm: FormGroup;
-  constructor(private router: Router, private adminService: AdminService,
+  constructor(
+    private router: Router,
+    private adminService: AdminService,
     private storageService: StorageService
-    ) {
+  ) {
     this.addAdminForm = new FormGroup(
       {
         firstName: new FormControl('', [
